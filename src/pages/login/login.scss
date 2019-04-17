@@ -1,0 +1,18 @@
+page-login {
+    .textcenter{
+        text-align: center;
+    }
+    .backgound-image {
+        background-image: url('../../assets/imgs/background.jpg');
+        width: 100%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+    .listlogin{
+        padding-top: 100%;
+    }
+    .item.item-input {
+        background-color: transparent;
+    }
+}

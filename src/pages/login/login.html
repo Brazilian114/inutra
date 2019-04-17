@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Green Timberland
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="backgound-image">
+  <div class="listlogin">
+    <ion-list padding>
+      <ion-item>
+        <ion-input type="text" placeholder="ชื่่อผู้ใช้" text-center text-uppercase [(ngModel)]="oUsername"></ion-input>
+      </ion-item>   
+      <ion-item>
+        <ion-input type="password" placeholder="รหัสผ่าน" text-center text-uppercase [(ngModel)]="oPassword"></ion-input>
+      </ion-item> 
+      <ion-row>
+        <ion-col style="text-align:center">
+          <ion-col col-auto text-center>
+              <button ion-button (click)="doLogin(oUsername, oPassword)">เข้าสู่ระบบ</button>
+          </ion-col>
+          <ion-col col-auto text-left>
+              <button ion-button>
+                <ion-icon name="md-settings" (click)="doSetting()"></ion-icon>
+              </button>
+          </ion-col>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-label class="textcenter">Version 1.0.0</ion-label>
+</ion-footer>
