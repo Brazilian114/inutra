@@ -24,4 +24,7 @@ export class SaleOrderListPage {
       this.hideMe = false;
     }
   }
+  AddSaleOrder(){
+    this.navCtrl.push("AddSaleOrderPage");
+  }
 }

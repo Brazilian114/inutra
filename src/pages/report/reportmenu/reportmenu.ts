@@ -17,5 +17,13 @@ export class ReportMenuPage {
   constructor(public navCtrl: NavController, private utility: Utility) {
 
   }
-
+  goReportSaleOrder(){
+    this.navCtrl.push("RptSaleOrderPage");
+  }
+  goReportProduct(){
+    this.navCtrl.push("RptProductPage");
+  }
+  goReportStock(){
+    this.navCtrl.push("RptStockPage");
+  }
 }

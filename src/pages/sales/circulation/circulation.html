@@ -7,5 +7,63 @@
 </ion-header>
 
 <ion-content>
+  <ion-card>
+    <ion-card-header>
+      วันนี้
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <p>ยอดจองสินค้า</p>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          รูปถุงเงิน
+        </ion-col>
+        <ion-col>
+          +446,154
+        </ion-col>
+      </ion-row>   
+    </ion-card-content>
+  </ion-card>
+  <div padding>
+    <ion-segment [(ngModel)]="type">
+      <ion-segment-button value="week">
+        รายสัปดาห์
+      </ion-segment-button>
+      <ion-segment-button value="month">
+        รายเดือน
+      </ion-segment-button>
+      <ion-segment-button value="year">
+        รายปี
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+  <div [ngSwitch]="type">
+    <ion-list *ngSwitchCase="'week'">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img src="img/thumbnail-puppy-1.jpg">
+        </ion-thumbnail>
+        <h2>Ruby</h2>
+      </ion-item>
+    </ion-list>
   
+    <ion-list *ngSwitchCase="'month'">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img src="img/thumbnail-kitten-1.jpg">
+        </ion-thumbnail>
+        <h2>Luna</h2>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'year'">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img src="img/thumbnail-kitten-1.jpg">
+        </ion-thumbnail>
+        <h2>Luna</h2>
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

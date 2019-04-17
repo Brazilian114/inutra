@@ -8,17 +8,17 @@
 
 <ion-content>
   <ion-list inset>
-    <button ion-item>
+    <button ion-item (click)="goReportSaleOrder()">
       <ion-icon name="ios-basket" item-start></ion-icon>
         ใบสั่งขาย
       <ion-icon name="ios-arrow-forward-outline" item-end></ion-icon>
     </button> 
-    <button ion-item>
+    <button ion-item (click)="goReportStock()">
       <ion-icon name="ios-filing" item-start></ion-icon>
         สินค้าคงคลัง
       <ion-icon name="ios-arrow-forward-outline" item-end></ion-icon>
     </button> 
-    <button ion-item>
+    <button ion-item (click)="goReportProduct()">
       <ion-icon name="md-clipboard" item-start></ion-icon>
         รายงานสินค้า
       <ion-icon name="ios-arrow-forward-outline" item-end></ion-icon>

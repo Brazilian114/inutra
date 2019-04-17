@@ -6,6 +6,26 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  
+<ion-content padding>
+  <div class="div-border" [hidden]='hideMe'>
+    <ion-grid padding>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>วันที่เริ่มต้น</ion-label>
+            <ion-datetime [(ngModel)]="oDateStart" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>วันที่สิ้นสุด</ion-label>
+            <ion-datetime [(ngModel)]="oDateEnd" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col col-1>
+          <button ion-button block><ion-icon name="md-search"></ion-icon></button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>
