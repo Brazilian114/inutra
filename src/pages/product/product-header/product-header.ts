@@ -13,7 +13,7 @@ import { Utility } from '../../../helper/utility';
   templateUrl: 'product-header.html'
 })
 export class ProductHeaderPage {
-  hideMe:any = false;
+  hideMe:any = true;
   constructor(public navCtrl: NavController, private utility: Utility) {
 
   }
