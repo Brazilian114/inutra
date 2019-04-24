@@ -41,7 +41,9 @@ $colors: (
   dark:       #222
 );
 
-
+ion-content{
+  border: 1px solid #ff7b00;
+}
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

@@ -17,5 +17,7 @@ export class RptSaleOrderPage {
   constructor(public navCtrl: NavController, private utility: Utility) {
 
   }
-
+  doDetails(){
+    this.navCtrl.push("RptSaleOrderDetailsPage");
+  }
 }

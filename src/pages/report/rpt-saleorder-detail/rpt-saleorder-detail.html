@@ -1,0 +1,138 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      รายละเอียดใบสั่งขาย
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <b class="font-orange">TEST</b>
+      <p>23/04/2019</p>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col col-2>
+          <p>ลูกค้า</p>
+        </ion-col>
+        <ion-col>
+          <p>423-023 นายปราย สมิงศ์รามสอง</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-2>
+          <p>ชื่อขนส่ง</p>
+        </ion-col>
+        <ion-col>
+          <p>เฟริส์เอ็กซเพรส</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-2>
+          <p>ที่อยู่</p>
+        </ion-col>
+        <ion-col>
+          <p>นายปราย สมิงศ์รามสอง ราม2</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-2>
+          <p>บันทึก</p>
+        </ion-col>
+        <ion-col>
+          <p>no-vat ส่งด่วน(โอนเงินก่อนส่ง)</p>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <ion-card class="card-headlist">
+    <ion-row>
+      <ion-col col-1 class="font-white">
+        <ion-icon name="ios-list" (click)="doShowHide()"></ion-icon>
+      </ion-col>
+      <ion-col class="font-white">         
+        รายการสินค้า
+      </ion-col>
+      <ion-col col-1 class="font-white">
+        <ion-icon name="md-create"></ion-icon>
+      </ion-col>
+      <ion-col col-1 class="font-white">
+        <ion-icon name="md-trash"></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <ion-card class="card-list" [hidden]='hideMe'>
+    <ion-row>
+      <ion-col class="font-white">
+        ลำดับ
+      </ion-col>
+      <ion-col class="font-white">
+        สินค้า
+      </ion-col>
+      <ion-col class="font-white">
+        จำนวน
+      </ion-col>
+      <ion-col class="font-white">
+        หน่วย
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="font-white">
+        1
+      </ion-col>
+      <ion-col class="font-white">
+        M2/50N
+      </ion-col>
+      <ion-col class="font-white">
+        10
+      </ion-col>
+      <ion-col class="font-white">
+        โหล
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <ion-card>
+    <ion-row>
+      <ion-col>
+        <b>ภาษีมูลค่าเพิ่ม</b>
+      </ion-col>
+      <ion-col col-2>
+        <b>7%</b>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <ion-card>
+    <ion-row>
+      <ion-col>
+        <b>ส่วนลด</b>
+      </ion-col>
+      <ion-col col-2>
+        <b>0</b>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+  <ion-row>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <b class="font-orange">2,850</b>
+        </ion-card-header>
+        <ion-card-content>
+          ยอดรวม
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col>
+      <ion-card>
+        <ion-card-header>
+          <b class="font-orange">2,850</b>
+        </ion-card-header>
+        <ion-card-content>
+          ราคาสุทธิ
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
