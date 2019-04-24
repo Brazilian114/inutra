@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, ModalController, ViewController } from 'ionic-angular';
 
 @IonicPage(
   {name:'CustomerDetailsPage',
@@ -12,8 +12,10 @@ import { IonicPage, NavController } from 'ionic-angular';
 })
 export class CustomerDetailsPage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController) {
 
   }
-
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }

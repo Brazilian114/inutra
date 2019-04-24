@@ -24,7 +24,6 @@ export class ProductHeaderPage {
       this.hideMe = false;
     }
   }
-
   doDetails(){
     this.utility.presentLoading();
     this.navCtrl.push("ProductDetailsPage")

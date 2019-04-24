@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, ModalController } from 'ionic-angular';
 
 import { Utility } from '../../../helper/utility';
 
@@ -14,7 +14,7 @@ import { Utility } from '../../../helper/utility';
 })
 export class CustomerHeaderPage {
   hideMe:any = false;
-  constructor(public navCtrl: NavController, private utility: Utility) {
+  constructor(public navCtrl: NavController, private modalCtrl: ModalController, private utility: Utility) {
 
   }
   doShowHide(){
@@ -27,7 +27,8 @@ export class CustomerHeaderPage {
 
   doDetails(){
     this.utility.presentLoading();
-    this.navCtrl.push("CustomerDetailsPage")
+    let modal = this.modalCtrl.create("CustomerDetailsPage")
+    modal.present();
     this.utility.finishLoding();
   }
 }

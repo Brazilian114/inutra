@@ -1,26 +1,55 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      รายละเอียดลูกค้า
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content>
-  <ion-card>
-    <ion-card-header>
-      Product
-    </ion-card-header>
-    <ion-card-content>
-      สินค้า
-    </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-card-header>
-      Sale Order
-    </ion-card-header>
-    <ion-card-content>
-      ใบสั่งขาย
-    </ion-card-content>
-  </ion-card>
+<ion-content class="mymodal">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <b><p>TEST</p></b>
+      </ion-col>
+      <ion-col col-1>
+        <p (click)="dismiss()"><ion-icon name="close" class="font-icon"></ion-icon></p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <b>000-002</b>
+    </ion-row>
+    <ion-row>
+      <ion-col col-1>
+        <p><ion-icon name="person"></ion-icon></p>
+      </ion-col>
+      <ion-col>
+        <p>Test</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-1>
+        <p><ion-icon name="call"></ion-icon></p>
+      </ion-col>
+      <ion-col>
+        <p>02-27776697</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-1>
+        <p><ion-icon name="print"></ion-icon></p>
+      </ion-col>
+      <ion-col>
+        <p></p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-1>
+        <p><ion-icon name="pin"></ion-icon></p>
+      </ion-col>
+      <ion-col>
+        <p>170/3 test</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-1>
+        <p><ion-icon name="pricetag"></ion-icon></p>
+      </ion-col>
+      <ion-col>
+        <p>0 วัน 50,000 บาท</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid> 
 </ion-content>
