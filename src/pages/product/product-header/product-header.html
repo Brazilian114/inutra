@@ -12,10 +12,10 @@
       <ion-row>
         <ion-col>
           <ion-item>
-            <ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา"></ion-input>
+            <ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา" (keyup.enter)="getProductByKeyword(oSearch)"></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col>
+        <!-- <ion-col>
           <ion-item>
             <ion-select [(ngModel)]="oSelectSearch" interface="action-sheet">
                 <ion-option value="All">ทั้งหมด</ion-option>
@@ -24,9 +24,9 @@
                 <ion-option value="Description">รายละเอียด</ion-option>
             </ion-select>
           </ion-item>
-        </ion-col>
+        </ion-col> -->
         <ion-col col-1>
-          <button ion-button block><ion-icon name="md-search"></ion-icon></button>
+          <button ion-button block (click)="getProductByKeyword(oSearch)"><ion-icon name="md-search"></ion-icon></button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -38,17 +38,16 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid>
-    <ion-list>
-      <button ion-item (click)="doDetails()">
-        Item 1
-      </button>  
-      <button ion-item>
-        Item 2
-      </button>  
-      <button ion-item>
-        Item 3
-      </button>  
-    </ion-list>
-  </ion-grid>
+  <ion-card (click)="doDetails(item)" *ngFor="let item of data_product">
+    <ion-card-header>
+        <b>{{item.item_no}}</b>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <p>{{item.description}}</p>              
+        </ion-col>
+      </ion-row>      
+    </ion-card-content> 
+  </ion-card>         
 </ion-content>
