@@ -9,8 +9,8 @@
 <ion-content>
   <ion-card>
     <ion-card-header>
-      <b class="font-orange"></b>
-      <p>23/04/2019</p>
+      <b class="font-orange">{{oOrder_no}}</b>
+      <p>{{oDueDate?.substring(0,10)}}</p>
     </ion-card-header>
     <ion-card-content>
       <ion-row>
@@ -18,7 +18,7 @@
           <p>ลูกค้า</p>
         </ion-col>
         <ion-col>
-          <p>423-023 นายปราย สมิงศ์รามสอง</p>
+          <p>({{oCustomer}}) {{oCustomer_name}}</p>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -34,7 +34,7 @@
           <p>ที่อยู่</p>
         </ion-col>
         <ion-col>
-          <p>นายปราย สมิงศ์รามสอง ราม2</p>
+          <p>{{oAddress}}</p>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -42,7 +42,7 @@
           <p>บันทึก</p>
         </ion-col>
         <ion-col>
-          <p>no-vat ส่งด่วน(โอนเงินก่อนส่ง)</p>
+          <p>{{oDiscountType}} {{oDiscountRate}}</p>
         </ion-col>
       </ion-row>
     </ion-card-content>
@@ -78,18 +78,18 @@
         หน่วย
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngFor="let item of data_saleorderdetail; let i = index">
       <ion-col class="font-white">
-        1
+        {{item.line_no}}  
       </ion-col>
       <ion-col class="font-white">
-        M2/50N
+        {{item.item_no}}
       </ion-col>
       <ion-col class="font-white">
-        10
+        {{item.so_qty}}
       </ion-col>
       <ion-col class="font-white">
-        โหล
+        {{item.so_uom}}
       </ion-col>
     </ion-row>
   </ion-card>
@@ -99,7 +99,7 @@
         <b>ภาษีมูลค่าเพิ่ม</b>
       </ion-col>
       <ion-col col-2>
-        <b>7%</b>
+        <b>{{oVat}}%</b>
       </ion-col>
     </ion-row>
   </ion-card>
@@ -109,7 +109,7 @@
         <b>ส่วนลด</b>
       </ion-col>
       <ion-col col-2>
-        <b>0</b>
+        <b>{{oDiscountRate}}</b>
       </ion-col>
     </ion-row>
   </ion-card>
@@ -117,7 +117,7 @@
     <ion-col>
       <ion-card>
         <ion-card-header>
-          <b class="font-orange">2,850</b>
+          <b class="font-orange">{{oAmount}}</b>
         </ion-card-header>
         <ion-card-content>
           ยอดรวม
@@ -127,7 +127,7 @@
     <ion-col>
       <ion-card>
         <ion-card-header>
-          <b class="font-orange">2,850</b>
+          <b class="font-orange">{{oNetAmount}}</b>
         </ion-card-header>
         <ion-card-content>
           ราคาสุทธิ

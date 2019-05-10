@@ -27,7 +27,9 @@ export class SaleOrderListPage {
   oKeyword:string = "";
 
   constructor(public navCtrl: NavController, private utility: Utility, private storage: Storage, private saleorderServ: SaleOrderService) {
-   this.doGetStorage();
+   
+    this.doGetStorage();
+    
   }  
   ionViewWillEnter(){
     this.doGetSalesOrders(this.oKeyword);
