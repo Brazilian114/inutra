@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { Utility } from '../../../helper/utility';
 
@@ -14,8 +15,17 @@ import { Utility } from '../../../helper/utility';
 })
 export class SaleOrderDetailsPage {
   hideMe:any = true;
-  constructor(public navCtrl: NavController, private utility: Utility) {
+  data_item:any;
+  
+  oOrder_no:string = "";
+  oCustomer:string = "";
+  oCustomer_name:string = "";
+  oAddress: string = "";
 
+  constructor(public navCtrl: NavController, private utility: Utility, public navParams: NavParams) {
+    this.data_item = navParams.get('item');
+    console.log(this.data_item);
+    
   }
   doShowHide(){
     if(this.hideMe == false){

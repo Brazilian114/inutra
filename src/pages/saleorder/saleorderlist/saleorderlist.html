@@ -49,26 +49,26 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div>
-    <ion-card (click)="gotoDetail()">
-      <ion-card-content>
-        <ion-row>
-          <ion-col>
-            <ion-row>
-              <b>ใบสั่งขาย : TEST</b>
-            </ion-row>
-            <ion-row>
-              <p>ลูกค้า : test</p>
-              <p>วันที่ : 23/04/2019</p>
-            </ion-row>      
-          </ion-col>
-          <ion-col col-3>
-            <button ion-button>TEST</button>
-          </ion-col>
-        </ion-row>
-      </ion-card-content> 
-    </ion-card>     
-  </div>
+  <ion-card (click)="gotoDetail(item)" *ngFor="let item of data_saleorder">
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <ion-row>
+            <b>ใบสั่งขาย : {{item.order_no}}</b>
+          </ion-row>
+          <ion-row>
+            <p>ลูกค้า : {{item.customer_name}}</p>
+          </ion-row> 
+          <ion-row>
+            <p>วันที่ : {{item.due_date?.substring(0,9)}}</p>
+          </ion-row>     
+        </ion-col>
+        <ion-col col-5 style="text-align: center">
+          <button ion-button>{{item.status}}</button>
+        </ion-col>
+      </ion-row>
+    </ion-card-content> 
+  </ion-card>     
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="AddSaleOrder()"><ion-icon name="md-add"></ion-icon></button>
   </ion-fab>

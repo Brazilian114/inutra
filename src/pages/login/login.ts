@@ -49,8 +49,10 @@ export class LoginPage {
                 this.utility.Alert('Error', 'กรุณากรอกชื่อผู้ใช้หรือรหัสผ่านอีกครั้ง');
               }else{
                 this.storage.ready().then(() => {
-                        this.storage.set('_user', oUsername)
-                      })
+                        this.storage.set('_user', this.data_logins.username)
+                        this.storage.set('_userGroup', this.data_logins.user_group)
+                        this.storage.set('_userId', this.data_logins.user_id)
+                })
                 this.utility.finishLoding();
                 this.navCtrl.setRoot("HomePage");
               }
