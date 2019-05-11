@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      เพิ่มสินค้า
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <div class="div-border" [hidden]='hideMe'>
+      <ion-grid padding>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา" (keyup.enter)="getProductByKeyword(oSearch)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <!-- <ion-col>
+            <ion-item>
+              <ion-select [(ngModel)]="oSelectSearch" interface="action-sheet">
+                  <ion-option value="All">ทั้งหมด</ion-option>
+                  <ion-option value="ItemNo">รหัสลูกค้า</ion-option>
+                  <ion-option value="Name">ชื่อลูกค้า</ion-option>
+                  <ion-option value="Description">รายละเอียด</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col> -->
+          <ion-col col-1>
+            <button ion-button block (click)="getProductByKeyword(oSearch)"><ion-icon name="md-search"></ion-icon></button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <ion-grid>
+      
+    </ion-grid>
+</ion-content>

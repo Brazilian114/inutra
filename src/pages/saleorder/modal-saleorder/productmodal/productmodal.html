@@ -1,0 +1,23 @@
+<ion-content class="mymodal">
+  <ion-navbar color="primary">
+    <ion-searchbar
+      [(ngModel)]="myInput"
+      [showCancelButton]="shouldShowCancel"
+      (ionInput)="onInput($event)"
+      clearInput>
+    </ion-searchbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <div *ngFor = "let item of items">
+    <ion-card (click)="doSelectCustomer(item.customer, item.customer_name)">
+      <ion-card-content>
+        <b>{{item.customer_name}}</b>
+        <p>{{item.customer}}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

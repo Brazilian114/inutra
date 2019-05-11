@@ -55,4 +55,46 @@ export class SaleOrderService {
         }
       );
   }
+
+  //Add Sale Order
+  GetCustomerParam(oClient) {
+    let parameters='oClient='+oClient;
+    return this.http.get(this.hostWebService +"/Get_Customer_Param?"+parameters)
+      .toPromise()
+      .then(response =>
+        {
+            let a;
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
+            a = result;
+        });
+            try {
+                // return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+                return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
+            }
+            catch (e) {
+              return [];
+            }
+        }
+      );
+  }
+  GetProductParam(oReference) {
+    let parameters='oReference='+oReference;
+    return this.http.get(this.hostWebService +"/Get_Product_Param?"+parameters)
+      .toPromise()
+      .then(response =>
+        {
+            let a;
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
+            a = result;
+        });
+            try {
+                // return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+                return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
+            }
+            catch (e) {
+              return [];
+            }
+        }
+      );
+  }
 }
