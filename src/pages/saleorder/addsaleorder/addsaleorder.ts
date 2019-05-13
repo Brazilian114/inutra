@@ -24,9 +24,17 @@ export class AddSaleOrderPage {
   oPayTerm:string = "";
   oSale:string = "";
   oDateSale:any = new Date().toISOString();
-  oVat:string = "";
-  oDiscount:string = "";
-  oCheckDiscount:any;
+
+  oVat1:string = "";
+  oDiscount1:string = "";
+  oCheckDiscount1:any = false;
+  oVat2:string = "";
+  oDiscount2:string = "";
+  oCheckDiscount2:any = false;
+  oVat3:string = "";
+  oDiscount3:string = "";
+  oCheckDiscount3:any = false;
+
   oRemark:string = "";
 
   data_customerparam:any;
@@ -81,5 +89,32 @@ export class AddSaleOrderPage {
       }
     });
     this.utility.finishLoding();
+  }
+  doChangeTypeVat1(oVat1){
+    this.oVat1 = oVat1;
+  }
+  doChangeTypeVat2(oVat2){
+    this.oVat2 = oVat2;
+  }
+  doChangeTypeVat3(oVat3){
+    this.oVat3 = oVat3;
+  }
+  doChangeTextDiscount1(oDiscount1){
+    this.oDiscount1 = oDiscount1;
+  }
+  doChangeTextDiscount2(oDiscount2){
+    this.oDiscount2 = oDiscount2;
+  }
+  doChangeTextDiscount3(oDiscount3){
+    this.oDiscount3 = oDiscount3;
+  }
+  doChangeDiscount1(oCheckDiscount1){
+    this.oCheckDiscount1 = oCheckDiscount1;
+  }
+  doChangeDiscount2(oCheckDiscount2){
+    this.oCheckDiscount2 = oCheckDiscount2;
+  }
+  doChangeDiscount3(oCheckDiscount3){
+    this.oCheckDiscount3 = oCheckDiscount3;
   }
 }
