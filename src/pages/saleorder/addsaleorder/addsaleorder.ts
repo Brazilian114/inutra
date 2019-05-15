@@ -90,6 +90,9 @@ export class AddSaleOrderPage {
     });
     this.utility.finishLoding();
   }
+  SaveSaleOrder(){
+    
+  }
   doChangeTypeVat1(oVat1){
     this.oVat1 = oVat1;
   }

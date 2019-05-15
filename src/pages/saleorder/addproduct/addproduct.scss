@@ -6,4 +6,10 @@ page-addproduct {
     ion-select{
         max-width: 100% !important;
     }
+    .card-content-md {
+        padding: 13px 16px;
+        font-size: 1.4rem;
+        line-height: 1.5;
+        height: 20vh;
+    }
 }
