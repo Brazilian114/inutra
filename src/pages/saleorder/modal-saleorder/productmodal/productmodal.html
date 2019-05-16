@@ -1,23 +1,85 @@
 <ion-content class="mymodal">
   <ion-navbar color="primary">
-    <ion-searchbar
-      [(ngModel)]="myInput"
-      [showCancelButton]="shouldShowCancel"
-      (ionInput)="onInput($event)"
-      clearInput>
-    </ion-searchbar>
     <ion-buttons end>
       <button ion-button icon-only (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
-  <div *ngFor = "let item of items">
-    <ion-card (click)="doSelectCustomer(item.customer, item.customer_name)">
-      <ion-card-content>
-        <b>{{item.customer_name}}</b>
-        <p>{{item.customer}}</p>
-      </ion-card-content>
-    </ion-card>
-  </div>
+  <ion-grid>
+    <ion-row>
+      <h3>{{oItem_no}}</h3>
+    </ion-row>
+    <ion-row>
+      <p>{{oDescription}}</p>
+    </ion-row>
+    <ion-row>
+      <p>Available</p>
+    </ion-row>
+    <ion-row>
+      <p>Free</p>
+    </ion-row>
+    <br/>
+    <ion-row>
+      <ion-col col-3>
+        เขตลูกค้า
+      </ion-col>
+      <ion-col>
+        <ion-select [(ngModel)]="oType" interface="action-sheet">
+          <ion-option>test</ion-option>
+          <!-- <ion-option *ngFor = "let item of data_productparampayterm" value="{{item.param_code}}">{{item.param_desc}}</ion-option> -->
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input type="number" [(ngModel)]="oQty" placeholder="จำนวน"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-select [(ngModel)]="oUOM" interface="action-sheet">
+          <ion-option>UOM</ion-option>
+          <!-- <ion-option *ngFor = "let item of data_productparampayterm" value="{{item.param_code}}">{{item.param_desc}}</ion-option> -->
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-select [(ngModel)]="oUOM" interface="action-sheet">
+          <ion-option>UOM</ion-option>
+          <!-- <ion-option *ngFor = "let item of data_productparampayterm" value="{{item.param_code}}">{{item.param_desc}}</ion-option> -->
+        </ion-select>
+      </ion-col>
+      <ion-col>
+        <ion-input type="number" [(ngModel)]="oPrice" placeholder="ราคา"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input type="number" [(ngModel)]="oDiscount" placeholder="ส่วนลด"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-checkbox [(ngModel)]="oCheckDiscount" style="padding-top: 10%"></ion-checkbox> % 
+      </ion-col>
+      <ion-col>
+        <ion-select [(ngModel)]="oUOM" interface="action-sheet">
+          <ion-option>UOM</ion-option>
+          <!-- <ion-option *ngFor = "let item of data_productparampayterm" value="{{item.param_code}}">{{item.param_desc}}</ion-option> -->
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-input type="text" [(ngModel)]="oRemark" placeholder="บันทึก"></ion-input>
+    </ion-row>
+    <ion-row>
+      <ion-col col-8>
+        <button ion-button clear (click)="doClear()">ละทิ้ง</button>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button clear (click)="dismiss()">ยกเลิก</button>
+      </ion-col>
+      <ion-col col-2>
+        <button ion-button clear>ตกลง</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

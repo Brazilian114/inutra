@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, ViewController, ModalController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { Utility } from '../../../helper/utility';
@@ -18,11 +18,14 @@ import { SaleOrderService } from '../../../services/saleorderservice';
 export class AddProductPage {
 
   oClient:string = "001";
-
+  oCustomer:string = "";
   data_product:any;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, private utility: Utility, private saleorderServ: SaleOrderService) {
-
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public modalCtrl: ModalController
+    , private utility: Utility, private saleorderServ: SaleOrderService, public navParams: NavParams) {
+      this.oCustomer = navParams.get('oCustomer');
+      console.log(this.oCustomer);
+      
   }
   ionViewWillEnter(){
     this.doGetProduct();
@@ -34,8 +37,19 @@ export class AddProductPage {
       
     })
   }
-  doProductModal(){
-    
+  doProductModal(item){
+    this.utility.presentLoading();
+    let modal = this.modalCtrl.create("ProductModalPage",{ item: item, oCustomer: this.oCustomer })
+    modal.present();
+    modal.onDidDismiss(data =>{
+      console.log(data);
+      if(data != undefined){
+
+      }else{
+
+      }
+    });
+    this.utility.finishLoding();
   }
   dismiss() {
     this.viewCtrl.dismiss();

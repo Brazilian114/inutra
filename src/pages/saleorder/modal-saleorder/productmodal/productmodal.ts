@@ -15,40 +15,62 @@ import { SaleOrderService } from '../../../../services/saleorderservice';
   providers: [SaleOrderService]
 })
 export class ProductModalPage {
+
   oClient:string = "001";
-  items: any;
+  oItem_no:string = "";
+  oDescription:string = "";
+  oCustomer:string = "";
+
+  item: any;
   data_customerparam:any;
+  data_productuom:any;
+  data_productdefault:any;
+  data_productcolor:any;
+  data_lastsale:any;
+
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams
     , private storage: Storage, private saleorderServ: SaleOrderService) {
+      this.item = navParams.get('item');
+      this.oCustomer = navParams.get('oCustomer');
 
+      this.oItem_no = this.item.item_no;
+      this.oDescription = this.item.description;
   }
   ionViewWillEnter(){
-    this.doGetCustomerParam();
+    this.doGetProductUom();
+    this.doGetProductDefault();
+    this.doGetProductColor();
+    this.doGetLastSale();
   }
-  doGetCustomerParam(){
-    this.utility.presentLoading();
-    this.saleorderServ.GetCustomerParam(this.oClient).then((res)=>{
-      this.data_customerparam = res;
-      console.log(this.data_customerparam);
-      this.initializeItems();
-      this.utility.finishLoding();  
+  doGetProductUom(){
+    this.saleorderServ.GetProductUom(this.oClient, this.item.item_no).then((res)=>{
+      this.data_productuom = res;
+      console.log(this.data_productuom); 
     })
-  }  
-  initializeItems() { 
-    this.items = this.data_customerparam;
   }
-  onInput(ev: any){
-    this.initializeItems();
-    let val = ev.target.value;
-    if(val && val.trim() != ''){
-      this.items = this.items.filter((item)=>{
-        return (item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
+  doGetProductDefault(){
+    this.saleorderServ.GetProductDefault(this.oClient, this.item.item_no).then((res)=>{
+      this.data_productdefault = res;
+      console.log(this.data_productdefault);
+      
+    })
   }
-  doSelectCustomer(customer, customer_name){
-    let data = { 'customer': customer, 'customer_name': customer_name };
-    this.viewCtrl.dismiss(data);
+  doGetProductColor(){
+    this.saleorderServ.GetProductColor(this.oClient, this.item.item_no).then((res)=>{
+      this.data_productcolor = res;
+      console.log(this.data_productcolor);
+      
+    })
+  }
+  doGetLastSale(){
+    this.saleorderServ.GetLastSale(this.oClient, this.item.item_no, this.oCustomer).then((res)=>{
+      this.data_lastsale = res;
+      console.log(this.data_lastsale);
+      
+    })
+  }
+  doClear(){
+
   }
   dismiss() {
     this.viewCtrl.dismiss();

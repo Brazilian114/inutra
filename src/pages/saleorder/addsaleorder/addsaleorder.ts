@@ -78,7 +78,7 @@ export class AddSaleOrderPage {
   }
   doProductModal(){
     this.utility.presentLoading();
-    let modal = this.modalCtrl.create("AddProductPage")
+    let modal = this.modalCtrl.create("AddProductPage", { oCustomer: this.oCustomer })
     modal.present();
     modal.onDidDismiss(data =>{
       console.log(data);
