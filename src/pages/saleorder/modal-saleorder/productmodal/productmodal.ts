@@ -17,9 +17,21 @@ import { SaleOrderService } from '../../../../services/saleorderservice';
 export class ProductModalPage {
 
   oClient:string = "001";
+  oUsername:string = "";
   oItem_no:string = "";
   oDescription:string = "";
   oCustomer:string = "";
+
+  oParamCode:any;
+  oUOM:any;
+  oZone:any;
+  oUnit:any;
+
+  oAvailable:any;
+  oFree:any;
+  oUomQty:string = "";
+  oPerCount:any;
+  oUomSale:string = "";
 
   item: any;
   data_customerparam:any;
@@ -27,9 +39,15 @@ export class ProductModalPage {
   data_productdefault:any;
   data_productcolor:any;
   data_lastsale:any;
+  data_productparam:any;
+  data_zone:any;
+  data_productstock:any;
 
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams
     , private storage: Storage, private saleorderServ: SaleOrderService) {
+      this.storage.get('_userId').then((res) => {
+        this.oUsername = res;   
+      });
       this.item = navParams.get('item');
       this.oCustomer = navParams.get('oCustomer');
 
@@ -41,11 +59,17 @@ export class ProductModalPage {
     this.doGetProductDefault();
     this.doGetProductColor();
     this.doGetLastSale();
+    this.doGetProductParam();
+    this.doGetZone();
+  }
+  ionViewDidEnter(){
+    this.doGetProductStock(this.data_zone["0"].Zone, this.data_productuom["0"].item_packing);
   }
   doGetProductUom(){
     this.saleorderServ.GetProductUom(this.oClient, this.item.item_no).then((res)=>{
       this.data_productuom = res;
       console.log(this.data_productuom); 
+      this.oUOM = this.data_productuom["0"].item_packing["0"];
     })
   }
   doGetProductDefault(){
@@ -65,8 +89,51 @@ export class ProductModalPage {
   doGetLastSale(){
     this.saleorderServ.GetLastSale(this.oClient, this.item.item_no, this.oCustomer).then((res)=>{
       this.data_lastsale = res;
-      console.log(this.data_lastsale);
+      console.log("Last Sale",this.data_lastsale);
+      if(this.data_lastsale.length <= 0){
+
+      }else{
+        // this.oPerCount = this.data_lastsale["0"].ราคาขายต่อหน่วย;
+        this.oUomSale = this.data_lastsale["0"].หน่วยขาย;
+
+        var percount = +this.data_lastsale["0"].ราคาขายต่อหน่วย;
+        this.oPerCount = percount.toFixed();
+      }
+    })
+  }
+  doGetProductParam(){
+    this.saleorderServ.GetProductParam("PRODUCT_RATE").then((res)=>{
+      this.data_productparam = res;
+      console.log(this.data_productparam);
+      this.oParamCode = this.data_productparam["4"].param_code["0"];
       
+    })
+  }
+  doGetZone(){
+    this.saleorderServ.GetZone(this.oUsername, "").then((res)=>{
+      this.data_zone = res;
+      console.log(this.data_zone);
+      this.oZone = this.data_zone["0"].Zone["0"];
+      
+    })
+  }
+  doGetProductStock(oZone, oItemPacking){
+    this.saleorderServ.GetProductStock(this.oClient, this.oItem_no, "", "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
+      this.data_productstock = res;
+      console.log(this.data_productstock);
+      if(this.data_productstock <= 0){
+
+      }else{
+        // this.oAvailable = this.data_productstock["0"].qty_avail;
+        // this.oFree = this.data_productstock["0"].qty_free;
+        this.oUomQty = this.data_productstock["0"].uom;
+
+        var available = +this.data_productstock["0"].qty_avail;
+        var free = +this.data_productstock["0"].qty_free;        
+
+        this.oAvailable = available.toFixed();
+        this.oFree = free.toFixed();
+      }      
     })
   }
   doClear(){

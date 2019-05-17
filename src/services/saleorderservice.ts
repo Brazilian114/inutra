@@ -270,4 +270,27 @@ export class SaleOrderService {
         }
       );
   } 
+  GetProductStock(oClient, oItemNo, oGrade, oLotNo, oBatchNo, oItemSize, oItemColor, oItemClass, oWarehouse, oZone, oItemPacking, oExpiryDate
+    , oProdDate, oLocation, oPalletNo, oOiNo) {
+    let parameters='oClient='+oClient+'&oItemNo='+oItemNo+'&oGrade='+oGrade+'&oLotNo='+oLotNo+'&oBatchNo='+oBatchNo+'&oItemSize='+oItemSize+'&oItemColor='+oItemColor
+    +'&oItemClass='+oItemClass+'&oWarehouse='+oWarehouse+'&oZone='+oZone+'&oItemPacking='+oItemPacking+'&oExpiryDate='+oExpiryDate+'&oProdDate='+oProdDate
+    +'&oLocation='+oLocation+'&oPalletNo='+oPalletNo+'&oOiNo='+oOiNo;
+    return this.http.get(this.hostWebService +"/Get_Product_Stock?"+parameters)
+      .toPromise()
+      .then(response =>
+        {
+            let a;
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
+            a = result;
+        });
+            try {
+                // return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+                return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
+            }
+            catch (e) {
+              return [];
+            }
+        }
+      );
+  } 
 }

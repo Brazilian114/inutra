@@ -14,10 +14,14 @@
       <p>{{oDescription}}</p>
     </ion-row>
     <ion-row>
-      <p>Available</p>
+      <p>Available {{oAvailable}} {{oUomQty}}</p>
     </ion-row>
     <ion-row>
-      <p>Free</p>
+      <p>Free {{oFree}} {{oUomQty}}</p>
+    </ion-row>
+    <br/>
+    <ion-row>
+      <p>Last Sale: {{oPerCount}} {{oUomSale}}</p>
     </ion-row>
     <br/>
     <ion-row>
@@ -25,9 +29,9 @@
         เขตลูกค้า
       </ion-col>
       <ion-col>
-        <ion-select [(ngModel)]="oType" interface="action-sheet">
-          <ion-option>test</ion-option>
-          <!-- <ion-option *ngFor = "let item of data_productparampayterm" value="{{item.param_code}}">{{item.param_desc}}</ion-option> -->
+        <ion-select [(ngModel)]="oZone" interface="action-sheet">
+          <!-- <ion-option>test</ion-option> -->
+          <ion-option *ngFor = "let item of data_zone" value="{{item.Zone}}">{{item.Description}}</ion-option>
         </ion-select>
       </ion-col>
     </ion-row>
@@ -37,16 +41,16 @@
       </ion-col>
       <ion-col>
         <ion-select [(ngModel)]="oUOM" interface="action-sheet">
-          <ion-option>UOM</ion-option>
-          <!-- <ion-option *ngFor = "let item of data_productparampayterm" value="{{item.param_code}}">{{item.param_desc}}</ion-option> -->
+          <!-- <ion-option>UOM</ion-option> -->
+          <ion-option *ngFor = "let item of data_productuom" value="{{item.item_packing}}">{{item.item_packing}}</ion-option>
         </ion-select>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-select [(ngModel)]="oUOM" interface="action-sheet">
-          <ion-option>UOM</ion-option>
-          <!-- <ion-option *ngFor = "let item of data_productparampayterm" value="{{item.param_code}}">{{item.param_desc}}</ion-option> -->
+        <ion-select [(ngModel)]="oParamCode" interface="action-sheet">
+          <!-- <ion-option>UOM</ion-option> -->
+          <ion-option *ngFor = "let item of data_productparam" value="{{item.param_code}}">{{item.param_code}}</ion-option>
         </ion-select>
       </ion-col>
       <ion-col>
@@ -61,8 +65,9 @@
         <ion-checkbox [(ngModel)]="oCheckDiscount" style="padding-top: 10%"></ion-checkbox> % 
       </ion-col>
       <ion-col>
-        <ion-select [(ngModel)]="oUOM" interface="action-sheet">
-          <ion-option>UOM</ion-option>
+        <ion-select [(ngModel)]="oUnit" interface="action-sheet">
+          <ion-option value="1" selected="true" >ต่อบรรทัด</ion-option>
+          <ion-option value="2">ต่อหน่วย</ion-option>
           <!-- <ion-option *ngFor = "let item of data_productparampayterm" value="{{item.param_code}}">{{item.param_desc}}</ion-option> -->
         </ion-select>
       </ion-col>
