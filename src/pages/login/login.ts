@@ -12,8 +12,7 @@ import { LoginService } from '../../services/loginservice';
 
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
-  providers: [LoginService]
+  templateUrl: 'login.html'
 })
 export class LoginPage {
 

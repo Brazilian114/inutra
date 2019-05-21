@@ -12,8 +12,7 @@ import { ProductService } from '../../../services/productservice';
 
 @Component({
   selector: 'page-product-details',
-  templateUrl: 'product-details.html',
-  providers: [ProductService]
+  templateUrl: 'product-details.html'
 })
 export class ProductDetailsPage {
   data_item:any;

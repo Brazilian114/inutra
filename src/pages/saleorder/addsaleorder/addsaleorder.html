@@ -16,7 +16,7 @@
     <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input type="text" [(ngModel)]="oCustomer_name" placeholder="ลูกค้า"></ion-input>
+          <ion-input type="text" [(ngModel)]="oCustomer_name" placeholder="ลูกค้า" readonly></ion-input>
         </ion-item>
       </ion-col>
       <ion-col col-2>
@@ -69,7 +69,7 @@
         <ion-item>
           <ion-select [(ngModel)]="oVat1" interface="action-sheet" (ionChange)="doChangeTypeVat1(oVat1)">
             <ion-option value="NO VAT">NO VAT</ion-option>
-            <ion-option value="VAT 7%">VAT 7%</ion-option>
+            <ion-option value="VAT 7%" selected="true">VAT 7%</ion-option>
             <ion-option value="อื่นๆ">อื่นๆ</ion-option>
           </ion-select>
         </ion-item>
@@ -88,7 +88,7 @@
         <ion-item>
           <ion-select [(ngModel)]="oVat2" interface="action-sheet" (ionChange)="doChangeTypeVat2(oVat2)">
             <ion-option value="NO VAT">NO VAT</ion-option>
-            <ion-option value="VAT 7%">VAT 7%</ion-option>
+            <ion-option value="VAT 7%" selected="true">VAT 7%</ion-option>
             <ion-option value="อื่นๆ">อื่นๆ</ion-option>
           </ion-select>
         </ion-item>
@@ -107,7 +107,7 @@
         <ion-item>
           <ion-select [(ngModel)]="oVat3" interface="action-sheet" (ionChange)="doChangeTypeVat3(oVat3)">
             <ion-option value="NO VAT">NO VAT</ion-option>
-            <ion-option value="VAT 7%">VAT 7%</ion-option>
+            <ion-option value="VAT 7%" selected="true">VAT 7%</ion-option>
             <ion-option value="อื่นๆ">อื่นๆ</ion-option>
           </ion-select>
         </ion-item>

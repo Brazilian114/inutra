@@ -41,6 +41,8 @@ export class AddSaleOrderPage {
   data_productparampayterm:any;
   data_productparamsale:any;
 
+  arrayItem:any = [];
+
   constructor(public navCtrl: NavController, private utility: Utility, public navParams: NavParams
     , private storage: Storage, private saleorderServ: SaleOrderService, private modalCtrl: ModalController) {
 
@@ -77,18 +79,23 @@ export class AddSaleOrderPage {
     })
   }
   doProductModal(){
-    this.utility.presentLoading();
-    let modal = this.modalCtrl.create("AddProductPage", { oCustomer: this.oCustomer })
-    modal.present();
-    modal.onDidDismiss(data =>{
-      console.log(data);
-      if(data != undefined){
-
-      }else{
-
-      }
-    });
-    this.utility.finishLoding();
+    if(this.oCustomer == "" || this.oCustomer == undefined){
+      this.utility.Alert("Warning","กรุณาเลือก Customer ก่อน");
+    }else{
+      this.utility.presentLoading();
+      let modal = this.modalCtrl.create("AddProductPage", { oCustomer: this.oCustomer, arrayItem: this.arrayItem })
+      modal.present();
+      modal.onDidDismiss(data =>{
+        console.log(data);
+        if(data != undefined){
+          this.arrayItem = data;
+          console.log("addsessionAddsale", this.arrayItem);
+        }else{
+  
+        }
+      });
+      this.utility.finishLoding();
+    }
   }
   SaveSaleOrder(){
     

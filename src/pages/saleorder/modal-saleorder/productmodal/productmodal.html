@@ -83,7 +83,7 @@
         <button ion-button clear (click)="dismiss()">ยกเลิก</button>
       </ion-col>
       <ion-col col-2>
-        <button ion-button clear>ตกลง</button>
+        <button ion-button clear (click)="doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oCheckDiscount, oRemark)">ตกลง</button>
       </ion-col>
     </ion-row>
   </ion-grid>

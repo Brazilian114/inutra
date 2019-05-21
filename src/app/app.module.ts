@@ -10,6 +10,10 @@ import { GreenTimberlandZenStock } from './app.component';
 
 import { Utility } from '../helper/utility';
 
+import { SaleOrderService } from '../services/saleorderservice';
+import { ProductService } from '../services/productservice';
+import { LoginService } from '../services/loginservice';
+
 @NgModule({
   declarations: [
     GreenTimberlandZenStock
@@ -42,7 +46,10 @@ import { Utility } from '../helper/utility';
     StatusBar,
     SplashScreen,
     Utility,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    // {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SaleOrderService,
+    ProductService,
+    LoginService
   ]
 })
 export class AppModule {}
