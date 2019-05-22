@@ -17,7 +17,7 @@ import { ProductService } from '../../../services/productservice';
 export class ProductHeaderPage {
   hideMe:any = true;
   data_product:any;
-  oClient:string = "001";
+  oClient:string = "7LINE";
 
   constructor(public navCtrl: NavController, private utility: Utility, private storage: Storage, private productServ: ProductService) {
     

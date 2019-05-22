@@ -3,7 +3,9 @@ import { IonicPage, NavController, ViewController, ModalController, NavParams, L
 import { Storage } from '@ionic/storage';
 
 import { Utility } from '../../../helper/utility';
+
 import { SaleOrderService } from '../../../services/saleorderservice';
+import { ProductService } from '../../../services/productservice';
 
 @IonicPage(
   {name:'AddProductPage',
@@ -16,7 +18,7 @@ import { SaleOrderService } from '../../../services/saleorderservice';
 })
 export class AddProductPage {
 
-  oClient:string = "001";
+  oClient:string = "7LINE";
   oCustomer:string = "";
   isChecked:any = [];
 
@@ -25,7 +27,7 @@ export class AddProductPage {
   data_product:any;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public modalCtrl: ModalController
-    , private utility: Utility, private saleorderServ: SaleOrderService, public navParams: NavParams) {
+    , private utility: Utility, private saleorderServ: SaleOrderService, private productServ: ProductService, public navParams: NavParams) {
       this.oCustomer = navParams.get('oCustomer');
       console.log(this.oCustomer);
       this.arrayItem = navParams.get('arrayItem');
@@ -70,6 +72,14 @@ export class AddProductPage {
         
       }
     }  
+  }
+  getProductByKeyword(oKeyword){
+    this.utility.presentLoading();
+    this.productServ.GetProductByKeyword(this.oClient, oKeyword).then((res)=>{
+      this.data_product = res;
+      console.log(this.data_product); 
+      this.utility.finishLoding();    
+    })
   }
   SaveSaleOrder(){
     this.viewCtrl.dismiss(this.arrayItem);

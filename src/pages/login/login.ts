@@ -51,12 +51,12 @@ export class LoginPage {
                         this.storage.set('_user', this.data_logins.username)
                         this.storage.set('_userGroup', this.data_logins.user_group)
                         this.storage.set('_userId', this.data_logins.user_id)
-                })
-                this.utility.finishLoding();
+                })                
                 this.navCtrl.setRoot("HomePage");
               }
             });
           }
+          this.utility.finishLoding();
         }else{
           this.utility.Alert('Error', 'You Not Set Web Service');
         }

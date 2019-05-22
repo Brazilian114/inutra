@@ -12,7 +12,7 @@ export class SaleOrderService {
 
     this.storage.get('_url').then((res)=>{
       this.url = res;
-      this.hostWebService = "http://"+this.url+"/RF-Service_TeckThai/RFService.asmx";     
+      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland/RFService.asmx";     
     })
   }
 
@@ -148,7 +148,35 @@ export class SaleOrderService {
         }
       );
   } 
-  
+  AddOrdersDetails(oClient, oMaker, oOrderNo
+    , oOrderDate, oLineNo, oItemNo, oItemDescription
+    , oUom, oQty, oUnitPrice, oAmount, oNetAmount, oRemarks
+    , oDiscountType, oDiscountByLine, oDiscountUnit
+    , oRealDiscount, oItemColor, oServicePrice, oStatus, oZone, oRate) {
+    let parameters='oClient='+oClient+'&oMaker='+oMaker+'&oOrderNo='+oOrderNo+'&oOrderDate='+oOrderDate
+    +'&oLineNo='+oLineNo+'&oItemNo='+oItemNo+'&oItemDescription='+oItemDescription+'&oUom='+oUom
+    +'&oQty='+oQty+'&oUnitPrice='+oUnitPrice+'&oAmount='+oAmount+'&oNetAmount='+oNetAmount
+    +'&oRemarks='+oRemarks+'&oDiscountType='+oDiscountType+'&oDiscountByLine='+oDiscountByLine+'&oDiscountUnit='+oDiscountUnit
+    +'&oRealDiscount='+oRealDiscount+'&oItemColor='+oItemColor+'&oServicePrice='+oServicePrice
+    +'&oStatus='+oStatus+'&oZone='+oZone+'&oRate='+oRate;
+    return this.http.get(this.hostWebService +"/Add_Orders_Details?"+parameters)
+      .toPromise()
+      .then(response =>
+        {
+            let a;
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
+            a = result;
+        });
+            try {
+                // return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+                return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
+            }
+            catch (e) {
+              return [];
+            }
+        }
+      );
+  } 
   //Add Product
   GetProduct(oClient) {
     let parameters='oClient='+oClient;

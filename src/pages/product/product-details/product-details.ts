@@ -26,7 +26,7 @@ export class ProductDetailsPage {
   oItem_Qty:string = "";
   oItem_Uom:string = "";
 
-  oClient:string = "001";
+  oClient:string = "7LINE";
   oItemNo:string = ""; 
   oGrade:string = ""; 
   oLotNo:string = ""; 

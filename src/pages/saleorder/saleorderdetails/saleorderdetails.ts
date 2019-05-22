@@ -20,7 +20,7 @@ export class SaleOrderDetailsPage {
   data_item:any;
   data_saleorderdetail:any;
 
-  oClient:string = "001";
+  oClient:string = "7LINE";
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";

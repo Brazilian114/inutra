@@ -54,7 +54,11 @@
         </ion-select>
       </ion-col>
       <ion-col>
-        <ion-input type="number" [(ngModel)]="oPrice" placeholder="ราคา"></ion-input>
+        <!-- <ion-input type="number" [(ngModel)]="oPrice" placeholder="ราคา"></ion-input> -->
+        <ion-select [(ngModel)]="oPrice" interface="action-sheet">
+            <!-- <ion-option>UOM</ion-option> -->
+            <ion-option *ngFor = "let item of data_productstock" value="{{item.unit_price}}">{{item.unit_price}}</ion-option>
+          </ion-select>
       </ion-col>
     </ion-row>
     <ion-row>

@@ -4,7 +4,7 @@
       เพิ่มใบสั่งขาย
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="SaveSaleOrder()">
+      <button ion-button icon-only (click)="SaveSaleOrder(oCustomer_name, oDate, oVat1, oDiscount1, oDateSale, oRemark, oType, oPayTerm, oSale)">
         <ion-icon name="md-checkmark-circle-outline"></ion-icon>
       </button>
     </ion-buttons>
@@ -29,7 +29,7 @@
       <ion-col>
         <ion-item>
           <ion-select [(ngModel)]="oType" interface="action-sheet">
-            <ion-option value="ADHOC">ADHOC</ion-option>
+            <ion-option value="ADHOC" [selected]="true">ADHOC</ion-option>
             <ion-option value="RESERVE">RESERVE</ion-option>
             <ion-option value="QUOTATION">QUOTATION</ion-option>
           </ion-select>
@@ -68,10 +68,8 @@
       <ion-col>
         <ion-item>
           <ion-select [(ngModel)]="oVat1" interface="action-sheet" (ionChange)="doChangeTypeVat1(oVat1)">
-            <ion-option value="NON"></ion-option>
-            <ion-option value="NO VAT">NO VAT</ion-option>
-            <ion-option value="VAT 7%" selected="true">VAT 7%</ion-option>
-            <ion-option value="อื่นๆ">อื่นๆ</ion-option>
+            <ion-option value="0">NO VAT</ion-option>
+            <ion-option value="7" selected="true">VAT 7%</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
@@ -84,7 +82,7 @@
         <ion-checkbox [(ngModel)]="oCheckDiscount1" style="padding-top: 40%" (ionChange)="doChangeDiscount1(oCheckDiscount1)"></ion-checkbox> %    
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row hidden>
       <ion-col>
         <ion-item>
           <ion-select [(ngModel)]="oVat2" interface="action-sheet" (ionChange)="doChangeTypeVat2(oVat2)">
@@ -104,7 +102,7 @@
         <ion-checkbox [(ngModel)]="oCheckDiscount2" style="padding-top: 40%" (ionChange)="doChangeDiscount2(oCheckDiscount2)"></ion-checkbox> %    
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row hidden>
       <ion-col>
         <ion-item>
           <ion-select [(ngModel)]="oVat3" interface="action-sheet" (ionChange)="doChangeTypeVat3(oVat3)">

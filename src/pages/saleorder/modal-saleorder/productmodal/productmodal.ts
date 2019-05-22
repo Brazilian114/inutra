@@ -15,7 +15,7 @@ import { SaleOrderService } from '../../../../services/saleorderservice';
 })
 export class ProductModalPage {
 
-  oClient:string = "001";
+  oClient:string = "7LINE";
   oUsername:string = "";
   oItem_no:string = "";
   oDescription:string = "";
@@ -46,6 +46,7 @@ export class ProductModalPage {
   data_productparam:any;
   data_zone:any;
   data_productstock:any;
+  data_price:any;
 
   data_return:any = [];
   arrayItem:any = [];
@@ -154,7 +155,9 @@ export class ProductModalPage {
 
         this.oAvailable = available.toFixed();
         this.oFree = free.toFixed();
-        this.oPrice = price.toFixed();
+
+        this.oPrice = this.data_productstock["0"].unit_price["0"];
+        // this.oPrice = price.toFixed();      
       }      
     })
   }

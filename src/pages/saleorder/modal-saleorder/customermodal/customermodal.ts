@@ -15,7 +15,7 @@ import { SaleOrderService } from '../../../../services/saleorderservice';
   providers: [SaleOrderService]
 })
 export class CustomerModalPage {
-  oClient:string = "001";
+  oClient:string = "7LINE";
   items: any;
   data_customerparam:any;
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams

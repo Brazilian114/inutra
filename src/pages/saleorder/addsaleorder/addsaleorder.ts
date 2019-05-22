@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { Utility } from '../../../helper/utility';
@@ -17,24 +17,39 @@ import { SaleOrderService } from '../../../services/saleorderservice';
 export class AddSaleOrderPage {
   hideMe:any = true;
 
-  oClient:string = "001";
+  oUsername:string = "";
+  oUserId:string = "";
+  oUserGroup:string = "";
+
+  oClient:string = "7LINE";
   oCustomer:string = "";
   oCustomer_name:string = "";
-  oType:string = "";
+  oType:string = "ADHOC";
   oDate:any = new Date().toISOString();
   oPayTerm:string = "";
   oSale:string = "";
   oDateSale:any = new Date().toISOString();
 
+  discount:any = 0.0;
+  total_price:any = 0.0;
+  pricePlusTax:any = 0.0;
+  real_discount:any = 0.0;
+  tax:any = 1.0;
+
   oVat1:string = "";
   oDiscount1:string = "";
   oCheckDiscount1:any = false;
+  oDiscountType1:string = "";
+
   oVat2:string = "";
   oDiscount2:string = "";
   oCheckDiscount2:any = false;
+  oDiscountType2:string = "";
+
   oVat3:string = "";
   oDiscount3:string = "";
   oCheckDiscount3:any = false;
+  oDiscountType3:string = "";
 
   oRemark:string = "";
 
@@ -42,11 +57,15 @@ export class AddSaleOrderPage {
   data_productparampayterm:any;
   data_productparamsale:any;
 
+  data_customerdelivery:any;
+  data_addsaleorder:any;
+  data_addsaledetail:any;
+
   arrayItem:any = [];
 
-  constructor(public navCtrl: NavController, private utility: Utility, public navParams: NavParams
-    , private storage: Storage, private saleorderServ: SaleOrderService, private modalCtrl: ModalController) {
-
+  constructor(public navCtrl: NavController, private utility: Utility, public navParams: NavParams, public alertCtrl: AlertController
+    , private storage: Storage, private saleorderServ: SaleOrderService, private modalCtrl: ModalController, public viewCtrl: ViewController) {
+      this.doGetStorage();
   }
   ionViewWillEnter(){
     this.utility.presentLoading();
@@ -79,13 +98,13 @@ export class AddSaleOrderPage {
   doProductParamPayTerm(){
     this.saleorderServ.GetProductParam("PAY-TERM").then((res)=>{
       this.data_productparampayterm = res;
-      console.log(this.data_productparampayterm);      
+      console.log(this.data_productparampayterm);
     })
   }
   doProductParamSale(){
     this.saleorderServ.GetProductParam("SALES CODE").then((res)=>{
       this.data_productparamsale = res;
-      console.log(this.data_productparamsale);      
+      console.log(this.data_productparamsale);
     })
   }
   doProductModal(){
@@ -100,14 +119,83 @@ export class AddSaleOrderPage {
           this.arrayItem = data;
           console.log("addsessionAddsale", this.arrayItem);
         }else{
-  
+
         }
       });
       this.utility.finishLoding();
     }
   }
-  SaveSaleOrder(){
+  SaveSaleOrder(oCustomer_name, oDate, oVat1, oDiscount1, oDateSale, oRemark, oType, oPayTerm, oSale){
+    if(this.oCustomer == "" || this.oCustomer == undefined){
+      this.utility.Alert("Warning","กรุณาเลือก Customer ก่อน");
+    }else if(oCustomer_name == "" || oCustomer_name == undefined){
+      this.utility.Alert("Warning","กรุณาเลือก Customer ก่อน");
+    }else if(oType == "" || oType == undefined){
+      this.utility.Alert("Warning","กรุณาเลือก Type");
+    }else if(oPayTerm == "" || oPayTerm == undefined){
+      this.utility.Alert("Warning","กรุณาเลือกการชำระเงิน");
+    }else if(oSale == "" || oSale == undefined){
+      this.utility.Alert("Warning","กรุณาเลือก Sale");
+    }else{
+      if(this.arrayItem.length <= 0){
+        this.utility.Alert("Warning","กรุณาเลือกสินค้าก่อน");
+      }else{
+        this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{
+          this.data_customerdelivery = res;
+          console.log(this.data_customerdelivery.length);
     
+          if(this.data_customerdelivery.length <= 0){
+            this.utility.Alert("Wraning", "ไม่พบ Customer Code");
+          }else{
+            var discount_price = this.total_price - this.real_discount;
+            var Order_date = oDate.toString();
+            var DueDate = oDateSale.toString();
+    
+            this.saleorderServ.AddSalesOrders(this.oClient, this.oUserId, "01", "", "", this.oCustomer, oCustomer_name, Order_date, oVat1
+            , this.oDiscountType1, this.discount, this.total_price, discount_price, this.pricePlusTax, "", DueDate, "N", oRemark
+            , "", "", "", this.data_customerdelivery["0"].delivery, this.data_customerdelivery["0"].deliver_to, "", "", "", "", "", ""
+            , oType, DueDate, oPayTerm, oSale, oSale).then((res)=>{
+              this.data_addsaleorder = res;
+              console.log(this.data_addsaleorder);
+              
+              if(this.data_addsaleorder["0"].sqlstatus != "0"){
+                this.utility.Alert("Wraning", this.data_addsaleorder["0"].sqlmsg);
+              }else{
+                for(let i=0; i < this.arrayItem.length; i++){
+                  this.saleorderServ.AddOrdersDetails(this.oClient, this.oUserId, this.data_addsaleorder["0"].order_no, "", i, this.arrayItem[i]["0"]
+                  , this.arrayItem[i]["0"], this.arrayItem[i]["3"], this.arrayItem[i]["2"], this.arrayItem[i]["5"], this.arrayItem[i]["5"], "0", this.arrayItem[i]["8"]
+                  , "net", "N", "0", "0", "", "0", "", this.arrayItem[i]["1"], "").then((res)=>{
+                    this.data_addsaledetail = res;
+                    console.log(this.data_addsaledetail);
+                    if(this.data_addsaledetail["0"].sqlstatus != "0"){
+                      this.utility.Alert(this.data_addsaledetail["0"].sqlmsg, this.data_addsaledetail["0"].sqlmsg2);
+                    }else{
+                      let alert = this.alertCtrl.create({
+                        title: this.data_addsaledetail["0"].sqlmsg,
+                        subTitle: this.data_addsaledetail["0"].sqlmsg2,
+                        buttons: [ {
+                            text: 'ตกลง',
+                            handler: data => {
+                              this.dismiss();
+                            }
+                          }]
+                      });
+                      alert.present();
+                    }
+                  })
+                }
+              }
+            })
+          }
+        })
+      }
+    }
+  }
+  doGetCustomerDelivery(){
+    this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{
+      this.data_customerdelivery = res;
+      console.log(this.data_customerdelivery);
+    })
   }
   doChangeTypeVat1(oVat1){
     this.oVat1 = oVat1;
@@ -129,11 +217,40 @@ export class AddSaleOrderPage {
   }
   doChangeDiscount1(oCheckDiscount1){
     this.oCheckDiscount1 = oCheckDiscount1;
+    if(oCheckDiscount1 == true){
+      this.oDiscountType1 = "percent"
+    }else{
+      this.oDiscountType1 = "net"
+    }
   }
   doChangeDiscount2(oCheckDiscount2){
     this.oCheckDiscount2 = oCheckDiscount2;
+    if(oCheckDiscount2 == true){
+      this.oDiscountType2 = "percent"
+    }else{
+      this.oDiscountType2 = "net"
+    }
   }
   doChangeDiscount3(oCheckDiscount3){
     this.oCheckDiscount3 = oCheckDiscount3;
+    if(oCheckDiscount3 == true){
+      this.oDiscountType3 = "percent"
+    }else{
+      this.oDiscountType3 = "net"
+    }
+  }
+  doGetStorage(){
+    this.storage.get('_user').then((res)=>{
+      this.oUsername = res;
+    })  
+    this.storage.get('_userId').then((res)=>{
+      this.oUserId = res;
+    })  
+    this.storage.get('_userGroup').then((res)=>{
+      this.oUserGroup = res;
+    })  
+  }
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }

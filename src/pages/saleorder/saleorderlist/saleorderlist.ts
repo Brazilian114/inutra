@@ -16,11 +16,11 @@ import { SaleOrderService } from '../../../services/saleorderservice';
   providers: [SaleOrderService]
 })
 export class SaleOrderListPage {
-  hideMe:any = false;
+  hideMe:any = true;
 
   data_saleorder:any;
 
-  oClient:string = "001";
+  oClient:string = "7LINE";
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";

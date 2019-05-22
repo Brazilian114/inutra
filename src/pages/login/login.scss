@@ -10,9 +10,17 @@ page-login {
         background-position: center center;
       }
     .listlogin{
-        padding-top: 100%;
+        padding-top: 40%;
     }
     .item.item-input {
         background-color: transparent;
+    }
+
+    img {
+        max-width: 100%;
+        // border: 0;
+        // margin-left: 10%;
+        // margin-right: 10%;
+        margin-top: 10%;
     }
 }
