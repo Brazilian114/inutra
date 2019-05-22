@@ -146,14 +146,14 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-label>ส่วนลด1 {{oVat1}}</ion-label>
+        <ion-label>ส่วนลด {{oVat1}}</ion-label>
       </ion-col>
       <ion-col>
         <ion-label *ngIf="oCheckDiscount1 == false" text-right>{{oDiscount1}}B</ion-label>
         <ion-label *ngIf="oCheckDiscount1 == true" text-right>{{oDiscount1}}%</ion-label>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row hidden>
       <ion-col>
         <ion-label>ส่วนลด2 {{oVat2}}</ion-label>
       </ion-col>
@@ -162,7 +162,7 @@
         <ion-label *ngIf="oCheckDiscount2 == true" text-right>{{oDiscount2}}%</ion-label>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row hidden>
       <ion-col>
         <ion-label>ส่วนลด3 {{oVat3}}</ion-label>
       </ion-col>
