@@ -25,12 +25,17 @@ export class ProductModalPage {
   oUOM:any;
   oZone:any;
   oUnit:any;
+  oCheckDiscount:boolean = false;
 
   oAvailable:any;
   oFree:any;
   oUomQty:string = "";
   oPerCount:any;
   oUomSale:string = "";
+  oQty:string = "";
+  oPrice:string = "";
+  oDiscount:string = "";
+  oRemark:string = "";
 
   item: any;
   data_customerparam:any;
@@ -52,13 +57,8 @@ export class ProductModalPage {
       this.item = navParams.get('item');
       this.oCustomer = navParams.get('oCustomer');
 
-      
-      
-
       this.oItem_no = this.item.item_no;
-      this.oDescription = this.item.description;
-
-      
+      this.oDescription = this.item.description;    
   }
   ionViewWillEnter(){
     this.doGetProductUom();
@@ -150,9 +150,11 @@ export class ProductModalPage {
 
         var available = +this.data_productstock["0"].qty_avail;
         var free = +this.data_productstock["0"].qty_free;        
+        var price = +this.data_productstock["0"].unit_price;
 
         this.oAvailable = available.toFixed();
         this.oFree = free.toFixed();
+        this.oPrice = price.toFixed();
       }      
     })
   }

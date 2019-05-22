@@ -35,8 +35,7 @@ export class Utility {
   }
   presentLoading(){
     this.loader = this.loadingCtrl.create({
-      content:"Loading...",
-      duration:2000
+      content:"Loading..."
   });
     this.loader.present().then(() => {});
   };

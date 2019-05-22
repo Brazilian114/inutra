@@ -15,6 +15,7 @@ import { SaleOrderService } from '../../../services/saleorderservice';
   providers: [SaleOrderService]
 })
 export class AddSaleOrderPage {
+  hideMe:any = true;
 
   oClient:string = "001";
   oCustomer:string = "";
@@ -48,8 +49,10 @@ export class AddSaleOrderPage {
 
   }
   ionViewWillEnter(){
+    this.utility.presentLoading();
     this.doProductParamPayTerm();
     this.doProductParamSale();
+    this.utility.finishLoding();
   }
   doCustomerModal(){
     this.utility.presentLoading();
@@ -65,6 +68,13 @@ export class AddSaleOrderPage {
       }
     });
     this.utility.finishLoding();
+  }
+  doShowHide(){
+    if(this.hideMe == false){
+      this.hideMe = true;
+    }else{
+      this.hideMe = false;
+    }
   }
   doProductParamPayTerm(){
     this.saleorderServ.GetProductParam("PAY-TERM").then((res)=>{
@@ -86,7 +96,6 @@ export class AddSaleOrderPage {
       let modal = this.modalCtrl.create("AddProductPage", { oCustomer: this.oCustomer, arrayItem: this.arrayItem })
       modal.present();
       modal.onDidDismiss(data =>{
-        console.log(data);
         if(data != undefined){
           this.arrayItem = data;
           console.log("addsessionAddsale", this.arrayItem);

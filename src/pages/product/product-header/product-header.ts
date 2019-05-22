@@ -38,9 +38,11 @@ export class ProductHeaderPage {
     this.utility.finishLoding();
   }
   getProductTop30(){
+    this.utility.presentLoading();
     this.productServ.GetProductTop30(this.oClient).then((res)=>{
       this.data_product = res;
-      console.log(this.data_product);     
+      console.log(this.data_product);
+      this.utility.finishLoding();     
     })
   }
   getProductByKeyword(oKeyword){

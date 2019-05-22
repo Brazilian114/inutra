@@ -68,6 +68,7 @@
       <ion-col>
         <ion-item>
           <ion-select [(ngModel)]="oVat1" interface="action-sheet" (ionChange)="doChangeTypeVat1(oVat1)">
+            <ion-option value="NON"></ion-option>
             <ion-option value="NO VAT">NO VAT</ion-option>
             <ion-option value="VAT 7%" selected="true">VAT 7%</ion-option>
             <ion-option value="อื่นๆ">อื่นๆ</ion-option>
@@ -87,6 +88,7 @@
       <ion-col>
         <ion-item>
           <ion-select [(ngModel)]="oVat2" interface="action-sheet" (ionChange)="doChangeTypeVat2(oVat2)">
+            <ion-option value="NON"></ion-option>
             <ion-option value="NO VAT">NO VAT</ion-option>
             <ion-option value="VAT 7%" selected="true">VAT 7%</ion-option>
             <ion-option value="อื่นๆ">อื่นๆ</ion-option>
@@ -106,6 +108,7 @@
       <ion-col>
         <ion-item>
           <ion-select [(ngModel)]="oVat3" interface="action-sheet" (ionChange)="doChangeTypeVat3(oVat3)">
+            <ion-option value="NON"></ion-option>
             <ion-option value="NO VAT">NO VAT</ion-option>
             <ion-option value="VAT 7%" selected="true">VAT 7%</ion-option>
             <ion-option value="อื่นๆ">อื่นๆ</ion-option>
@@ -133,6 +136,16 @@
         <ion-label>เพิ่มสินค้า</ion-label>
       </ion-col>
     </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-card *ngFor="let item of arrayItem; let i = index">
+      <ion-row>
+        <p>{{i+1}}. {{item[0]}} {{item[2]}} {{item[3]}} at {{item[5]}}B/each</p>
+        <!-- <p></p> -->
+      </ion-row>
+    </ion-card>
+  </ion-grid>
+  <ion-grid>
     <ion-row>
       <ion-col>
         <ion-label>ส่วนลด1 {{oVat1}}</ion-label>

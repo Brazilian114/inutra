@@ -39,10 +39,11 @@ export class AddProductPage {
     
   }
   doGetProduct(){
+    this.utility.presentLoading();
     this.saleorderServ.GetProduct(this.oClient).then((res)=>{
       this.data_product = res;
       console.log(this.data_product);
-      
+      this.utility.finishLoding();
     })
   }
   doProductModal(item, isChecked){
@@ -59,17 +60,21 @@ export class AddProductPage {
           console.log("addsession", this.arrayItem);
           
         }else{
-  
+          
         }
       });
       this.utility.finishLoding();
     }else{
-      
-    }
-
-   
+      for(let i = 0; i <= this.arrayItem.length; i++){
+        console.log(this.arrayItem[i][0]);
+        
+      }
+    }  
+  }
+  SaveSaleOrder(){
+    this.viewCtrl.dismiss(this.arrayItem);
   }
   dismiss() {
-    this.viewCtrl.dismiss(this.arrayItem);
+    this.viewCtrl.dismiss();
   }
 }
