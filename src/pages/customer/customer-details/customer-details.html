@@ -2,21 +2,21 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <b><p>TEST</p></b>
+        <b><p>{{oCustomer_name}}</p></b>
       </ion-col>
       <ion-col col-1>
         <p (click)="dismiss()"><ion-icon name="close" class="font-icon"></ion-icon></p>
       </ion-col>
     </ion-row>
     <ion-row>
-      <b>000-002</b>
+      <b>{{oCustomer}}</b>
     </ion-row>
     <ion-row>
       <ion-col col-1>
         <p><ion-icon name="person"></ion-icon></p>
       </ion-col>
       <ion-col>
-        <p>Test</p>
+        <p>{{oClient}}</p>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -24,7 +24,7 @@
         <p><ion-icon name="call"></ion-icon></p>
       </ion-col>
       <ion-col>
-        <p>02-27776697</p>
+        <p>{{oPhone}}</p>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -32,7 +32,7 @@
         <p><ion-icon name="print"></ion-icon></p>
       </ion-col>
       <ion-col>
-        <p></p>
+        <p>{{oFax}}</p>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -40,7 +40,7 @@
         <p><ion-icon name="pin"></ion-icon></p>
       </ion-col>
       <ion-col>
-        <p>170/3 test</p>
+        <p>{{oStreet}} {{oBuilding}}</p>
       </ion-col>
     </ion-row>
     <ion-row>

@@ -24,15 +24,14 @@ export class SaleOrderListPage {
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
-  oKeyword:string = "";
-
+  oSearch:string = "";
   constructor(public navCtrl: NavController, private utility: Utility, private storage: Storage, private saleorderServ: SaleOrderService) {
    
     this.doGetStorage();
     
   }  
   ionViewWillEnter(){
-    this.doGetSalesOrders(this.oKeyword);
+    this.doGetSalesOrders(this.oSearch);
   }
   doShowHide(){
     if(this.hideMe == false){
@@ -47,9 +46,20 @@ export class SaleOrderListPage {
   AddSaleOrder(){
     this.navCtrl.push("AddSaleOrderPage");
   }
-  doGetSalesOrders(oKeyword){
+  doGetSalesOrders(oSearch){
     this.utility.presentLoading();
-    this.saleorderServ.GetSalesOrders(this.oClient, this.oUserId, oKeyword, this.oUserGroup).then((res)=>{
+    this.saleorderServ.GetSalesOrders(this.oClient, this.oUserId, oSearch, this.oUserGroup).then((res)=>{
+      this.data_saleorder = res;
+      console.log(this.data_saleorder);
+      this.utility.finishLoding();
+    })
+  }
+  doSearch(oSearch){
+    this.doGetSalesOrders(oSearch);
+  }
+  SelectFilter(oSelectFilter){
+    this.utility.presentLoading();
+    this.saleorderServ.GetSalesOrdersKeyword(this.oClient, oSelectFilter).then((res)=>{
       this.data_saleorder = res;
       console.log(this.data_saleorder);
       this.utility.finishLoding();

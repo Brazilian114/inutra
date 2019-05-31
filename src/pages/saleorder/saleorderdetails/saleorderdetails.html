@@ -10,7 +10,7 @@
   <ion-card>
     <ion-card-header>
       <b class="font-orange">{{oOrder_no}}</b>
-      <p>{{oDueDate?.substring(0,10)}}</p>
+      <p>{{oDueDate}}</p>
     </ion-card-header>
     <ion-card-content>
       <ion-row>
@@ -80,16 +80,16 @@
     </ion-row>
     <ion-row *ngFor="let item of data_saleorderdetail; let i = index">
       <ion-col class="font-white">
-        {{item.line_no}}  
+        {{i+1}}  
       </ion-col>
       <ion-col class="font-white">
         {{item.item_no}}
       </ion-col>
       <ion-col class="font-white">
-        {{item.so_qty}}
+        {{item.qty_so}}
       </ion-col>
       <ion-col class="font-white">
-        {{item.so_uom}}
+        {{item.uom}}
       </ion-col>
     </ion-row>
   </ion-card>

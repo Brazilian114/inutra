@@ -54,8 +54,17 @@ export class SaleOrderDetailsPage {
     this.oAddress = this.data_item.dlvr_street + " " + this.data_item.dlvr_bldg;
     this.oDiscountRate = this.data_item.discount_rate;
     this.oDiscountType = this.data_item.discount_type;
-    this.oAmount = this.data_item.amount;
-    this.oNetAmount = this.data_item.net_amount;
+ 
+    if(this.data_item.amount == undefined)
+      this.oAmount = "0";
+    else
+      this.oAmount = this.data_item.amount;
+
+    if(this.data_item.net_amount == undefined)  
+      this.oNetAmount = "0";
+    else
+      this.oNetAmount = this.data_item.net_amount;
+
     this.oVat = this.data_item.vat;
   }
   ionViewWillEnter(){
@@ -71,6 +80,8 @@ export class SaleOrderDetailsPage {
   doGetOrdersDetails(oOrder_no){
     this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup, oOrder_no).then((res)=>{
       this.data_saleorderdetail = res;  
+      console.log(this.data_saleorderdetail);
+      
     })
   }
   doGetStorage(){

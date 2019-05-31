@@ -56,8 +56,8 @@ export class ProductDetailsPage {
     this.productServ.GetProductUom(this.oClient, this.data_item.item_no).then((res)=>{
       this.data_productuom = res;
       console.log(this.data_productuom);   
-      this.oItem_Qty = this.data_productuom.item_qty;
-      this.oItem_Uom = this.data_productuom.item_uom;
+      this.oItem_Qty = this.data_productuom["0"].item_qty;
+      this.oItem_Uom = this.data_productuom["0"].item_uom;
     })
   }
   doGetProductStock(){
@@ -68,7 +68,7 @@ export class ProductDetailsPage {
       this.data_productstock = res;   
       console.log(this.data_productstock); 
       this.oQty_Avail = this.data_productstock.qty_avail;
-      this.oUom = this.data_productstock.uom;
+      this.oUom = this.data_productstock.item_packing;
       this.oPrice = this.data_productstock.unit_price;
     })
   }

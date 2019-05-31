@@ -15,7 +15,7 @@
             <ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา"></ion-input>
           </ion-item>
         </ion-col>
-        <ion-col>
+        <!-- <ion-col>
           <ion-item>
             <ion-select [(ngModel)]="oSelectSearch" interface="action-sheet">
               <ion-option value="0">ทั้งหมด</ion-option>
@@ -25,9 +25,9 @@
               <ion-option value="4">ชื่อลูกค้าภาษาไทย</ion-option>
             </ion-select>
           </ion-item>
-        </ion-col>
+        </ion-col> -->
         <ion-col col-1>
-          <button ion-button block><ion-icon name="md-search"></ion-icon></button>
+          <button ion-button block><ion-icon name="md-search" (click)="doSearch(oSearch)"></ion-icon></button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -39,11 +39,10 @@
       </ion-col>
       <ion-col col-6>
         <ion-item>
-          <ion-select [(ngModel)]="oSelectFilter" interface="action-sheet">
-            <ion-option value="All">ทั้งหมด</ion-option>
-            <ion-option value="ItemNo">รหัสลูกค้า</ion-option>
-            <ion-option value="Name">ชื่อลูกค้า</ion-option>
-            <ion-option value="Description">รายละเอียด</ion-option>
+          <ion-select [(ngModel)]="oSelectFilter" interface="action-sheet" (ionChange)="SelectFilter(oSelectFilter)">
+            <ion-option value="ALL">ทั้งหมด</ion-option>
+            <ion-option value="CUSTOMERCODE">รหัสลูกค้า</ion-option>
+            <ion-option value="CUSTOMERNAME">ชื่อลูกค้า</ion-option>
           </ion-select>
         </ion-item>
       </ion-col>
@@ -60,7 +59,7 @@
             <p>ลูกค้า : {{item.customer_name}}</p>
           </ion-row> 
           <ion-row>
-            <p>วันที่ : {{item.due_date?.substring(0,10)}}</p>
+            <p>วันที่ : {{item.due_date}}</p>
           </ion-row>     
         </ion-col>
         <ion-col col-5 style="text-align: center">

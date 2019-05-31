@@ -23,11 +23,12 @@ export class ProductService {
      .then(response =>
         {
            let a;
-           xml2js.parseString(response.text(),{explicitArray:false},function (err,result) {
+           xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
            a = result;
         });
            try {
-              return a.DataTable["diffgr:diffgram"].NewDataSet.Table;
+              //return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+              return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
            }
            catch (e) {
              return [];
@@ -42,11 +43,12 @@ export class ProductService {
       .then(response =>
         {
             let a;
-            xml2js.parseString(response.text(),{explicitArray:false},function (err,result) {
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
             a = result;
         });
             try {
-                return a.DataTable["diffgr:diffgram"].NewDataSet.Table;
+                //return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+                return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
             }
             catch (e) {
               return [];
@@ -61,11 +63,12 @@ export class ProductService {
       .then(response =>
         {
             let a;
-            xml2js.parseString(response.text(),{explicitArray:false},function (err,result) {
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
             a = result;
         });
             try {
-                return a.DataTable["diffgr:diffgram"].NewDataSet.Table;
+                //return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+                return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
             }
             catch (e) {
               return [];
@@ -84,11 +87,12 @@ export class ProductService {
       .then(response =>
         {
             let a;
-            xml2js.parseString(response.text(),{explicitArray:false},function (err,result) {
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
             a = result;
         });
             try {
-                return a.DataTable["diffgr:diffgram"].NewDataSet.Table;
+                //return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+                return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
             }
             catch (e) {
               return [];

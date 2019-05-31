@@ -23,11 +23,12 @@ export class SaleOrderService {
       .then(response =>
         {
             let a;
-            xml2js.parseString(response.text(),{explicitArray:false},function (err,result) {
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
             a = result;
         });
             try {
-                return a.DataTable["diffgr:diffgram"].NewDataSet.Table;
+              // return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+              return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
             }
             catch (e) {
               return [];
@@ -319,5 +320,25 @@ export class SaleOrderService {
             }
         }
       );
-  } 
+  }
+  GetSalesOrdersKeyword(oClient, oKeyword) {
+    let parameters='oClient='+oClient+'&oKeyword='+oKeyword;
+    return this.http.get(this.hostWebService +"/Get_Sales_Orders_Keyword?"+parameters)
+      .toPromise()
+      .then(response =>
+        {
+            let a;
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
+            a = result;
+        });
+            try {
+                // return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+                return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
+            }
+            catch (e) {
+              return [];
+            }
+        }
+      );
+  }  
 }

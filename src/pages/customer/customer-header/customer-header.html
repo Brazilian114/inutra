@@ -39,16 +39,20 @@
     </ion-row>
   </ion-grid>
   <ion-grid>
-    <ion-list>
-      <button ion-item (click)="doDetails()">
-        Item 1
-      </button>  
-      <button ion-item>
-        Item 2
-      </button>  
-      <button ion-item>
-        Item 3
-      </button>  
-    </ion-list>
+    <ion-card (click)="doDetails(item)" *ngFor="let item of data_customer">
+      <ion-card-header>
+          <b>{{item.customer_name}}</b>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <ion-col>
+            <p>Customer Code: {{item.customer}}</p>              
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <p>{{item.building}} {{item.street}}</p>
+        </ion-row>      
+      </ion-card-content> 
+    </ion-card>    
   </ion-grid>
 </ion-content>

@@ -13,6 +13,7 @@ import { Utility } from '../helper/utility';
 import { SaleOrderService } from '../services/saleorderservice';
 import { ProductService } from '../services/productservice';
 import { LoginService } from '../services/loginservice';
+import { CustomerService } from '../services/customerservice';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { LoginService } from '../services/loginservice';
     // {provide: ErrorHandler, useClass: IonicErrorHandler},
     SaleOrderService,
     ProductService,
-    LoginService
+    LoginService,
+    CustomerService
   ]
 })
 export class AppModule {}
