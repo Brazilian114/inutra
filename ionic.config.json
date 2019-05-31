@@ -1,5 +1,7 @@
 {
   "name": "greenZenstock",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

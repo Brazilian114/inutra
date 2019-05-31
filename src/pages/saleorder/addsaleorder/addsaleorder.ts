@@ -147,14 +147,15 @@ export class AddSaleOrderPage {
           if(this.data_customerdelivery.length <= 0){
             this.utility.Alert("Wraning", "ไม่พบ Customer Code");
           }else{
-            var discount_price = this.total_price - this.real_discount;
+
             var Order_date = oDate.toString();
             var DueDate = oDateSale.toString();
     
-            this.saleorderServ.AddSalesOrders(this.oClient, this.oUserId, "01", "", "", this.oCustomer, oCustomer_name, Order_date, oVat1
-            , this.oDiscountType1, this.discount, this.total_price, discount_price, this.pricePlusTax, "", DueDate, "N", oRemark
-            , "", "", "", this.data_customerdelivery["0"].delivery, this.data_customerdelivery["0"].deliver_to, "", "", "", "", "", ""
-            , oType, DueDate, oPayTerm, oSale, oSale).then((res)=>{
+            this.saleorderServ.AddSalesOrders(this.oClient, "01", "", "", oType, this.oCustomer, oCustomer_name, Order_date, "", "", "", ""
+              , "", "", "", "", "", "", "", Order_date, "", oRemark, "", ""
+              , "", DueDate, "", "", "", "", "", "", ""
+              , "", "", DueDate, this.oUsername, oPayTerm, oSale, oSale, "", "", "", "", Order_date
+              , "", DueDate).then((res)=>{
               this.data_addsaleorder = res;
               console.log(this.data_addsaleorder);
               
@@ -162,9 +163,9 @@ export class AddSaleOrderPage {
                 this.utility.Alert("Wraning", this.data_addsaleorder["0"].sqlmsg);
               }else{
                 for(let i=0; i < this.arrayItem.length; i++){
-                  this.saleorderServ.AddOrdersDetails(this.oClient, this.oUserId, this.data_addsaleorder["0"].order_no, "", i, this.arrayItem[i]["0"]
-                  , this.arrayItem[i]["0"], this.arrayItem[i]["3"], this.arrayItem[i]["2"], this.arrayItem[i]["5"], this.arrayItem[i]["5"], "0", this.arrayItem[i]["8"]
-                  , "net", "N", "0", "0", "", "0", "", this.arrayItem[i]["1"], "").then((res)=>{
+                  this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.data_addsaleorder["0"].order_no, "", "", this.arrayItem[i]["0"]
+                  , "", this.arrayItem[i]["3"], this.arrayItem[i]["2"], "", "", "", this.arrayItem[i]["7"], this.arrayItem[i]["8"], "", "", "", "", "", ""
+                  , this.arrayItem[i]["1"], "", this.oCustomer, "", "").then((res)=>{
                     this.data_addsaledetail = res;
                     console.log(this.data_addsaledetail);
                     if(this.data_addsaledetail["0"].sqlstatus != "0"){

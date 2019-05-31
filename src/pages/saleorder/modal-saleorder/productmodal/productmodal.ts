@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, ModalController, ViewController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
@@ -14,6 +14,7 @@ import { SaleOrderService } from '../../../../services/saleorderservice';
   templateUrl: 'productmodal.html'
 })
 export class ProductModalPage {
+  @ViewChild('focusQty') InputQty;
 
   oClient:string = "7LINE";
   oUsername:string = "";
@@ -60,6 +61,9 @@ export class ProductModalPage {
 
       this.oItem_no = this.item.item_no;
       this.oDescription = this.item.description;    
+      setTimeout(()=>{        
+        this.InputQty.setFocus();
+      },1000);
   }
   ionViewWillEnter(){
     this.doGetProductUom();
@@ -72,19 +76,23 @@ export class ProductModalPage {
   ionViewDidEnter(){
     this.doGetProductStock(this.data_zone["0"].Zone, this.data_productuom["0"].item_packing);
   }
-  doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oCheckDiscount, oRemark){
-    this.data_return.push(oItem_no["0"]);
-    this.data_return.push(oZone);
-    this.data_return.push(oQty);
-    this.data_return.push(oUOM);
-    this.data_return.push(oParamCode);
-    this.data_return.push(oPrice);
-    this.data_return.push(oDiscount);
-    this.data_return.push(oCheckDiscount);
-    this.data_return.push(oRemark);
-
-    console.log(this.data_return);
-    this.viewCtrl.dismiss(this.data_return);
+  doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oRemark, oUnit){
+    if(oUnit == undefined || oUnit == "0"){
+      this.utility.Alert("Warning","กรุณาเลือกประเภทสินค้าในการจัดส่ง");
+    }else{
+      this.data_return.push(oItem_no["0"]);
+      this.data_return.push(oZone);
+      this.data_return.push(oQty);
+      this.data_return.push(oUOM);
+      this.data_return.push(oParamCode);
+      this.data_return.push(oPrice);
+      this.data_return.push(oDiscount);
+      this.data_return.push(oRemark);
+      this.data_return.push(oUnit);
+  
+      console.log(this.data_return);
+      this.viewCtrl.dismiss(this.data_return);
+    }
   }
   doGetProductUom(){
     this.saleorderServ.GetProductUom(this.oClient, this.item.item_no).then((res)=>{

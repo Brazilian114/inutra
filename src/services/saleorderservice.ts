@@ -12,7 +12,7 @@ export class SaleOrderService {
 
     this.storage.get('_url').then((res)=>{
       this.url = res;
-      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland/RFService.asmx";     
+      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
     })
   }
 
@@ -117,20 +117,22 @@ export class SaleOrderService {
         }
       );
   } 
-  AddSalesOrders(oClient, oMaker, oBook, oBranch, oOrderNo, oCustomer, oCustomerName, oOrderDate, oVat, oDiscountType
-    , oDiscountRate, oTotalPrice, oDiscountedPrice, oNetPrice, oPoNo, oEtd, oIncludeVat, oRemarks, oTelephone, oFax, oContact
-    , oDeliveryCode, oDeliveryTo, oDeliveryStreet, oDeliveryBuilding, oDeliveryTown, oDeliveryState, oDeliveryCountry
-    , oDeliveryPostCode, oOrderType, oDueDate, oPaymentTerm, oSalesName, oSalesCode) {
-    let parameters='oClient='+oClient+'&oMaker='+oMaker+'&oBook='+oBook+'&oBranch='+oBranch
-    +'&oOrderNo='+oOrderNo+'&oCustomer='+oCustomer+'&oCustomerName='+oCustomerName+'&oOrderDate='+oOrderDate
-    +'&oVat='+oVat+'&oDiscountType='+oDiscountType+'&oDiscountRate='+oDiscountRate+'&oTotalPrice='+oTotalPrice
-    +'&oDiscountedPrice='+oDiscountedPrice+'&oNetPrice='+oNetPrice+'&oPoNo='+oPoNo+'&oEtd='+oEtd
-    +'&oIncludeVat='+oIncludeVat+'&oRemarks='+oRemarks+'&oTelephone='+oTelephone+'&oFax='+oFax+'&oContact='+oContact
-    +'&oDeliveryCode='+oDeliveryCode+'&oDeliveryTo='+oDeliveryTo+'&oDeliveryStreet='+oDeliveryStreet
-    +'&oDeliveryBuilding='+oDeliveryBuilding+'&oDeliveryTown='+oDeliveryTown+'&oDeliveryState='+oDeliveryState
-    +'&oDeliveryCountry='+oDeliveryCountry+'&oDeliveryPostCode='+oDeliveryPostCode+'&oOrderType='+oOrderType
-    +'&oDueDate='+oDueDate+'&oPaymentTerm='+oPaymentTerm+'&oSalesName='+oSalesName+'&oSalesCode='+oSalesCode;
-    return this.http.get(this.hostWebService +"/Add_Sales_Orders?"+parameters)
+  AddSalesOrders(oClient, oBook, oBranch, oOrderNo, oOrderType, oCustomer, oCustomerName, oOrderDate, oVat, oDiscountType, oDiscountRate, oDiscountType2
+    , oDiscountRate2, oDiscountType3, oDiscountRate3, oTotalPrice, oDiscountedPrice, oNetPrice, oPoNo, oEtd, oIncludeVat, oRemarks, oTelephone, oFax
+    , oContact, oDeliveryDate, oDeliveryCode, oDeliveryTo, oDeliveryStreet, oDeliveryBuilding, oDeliveryStreets3, oDeliveryTown, oDeliveryState
+    , oDeliveryCountry, oDeliveryPostCode, oDueDate, oMaker, oPaymentTerm, oSalesCode, oSalesName, oBackorder, oReference, oOnpallet, oDO, oStandCost
+    , oDepartment, oLoadDate) {
+    let parameters='oClient='+oClient+'&oBook='+oBook+'&oBranch='+oBranch+'&oOrderNo='+oOrderNo
+    +'&oOrderType='+oOrderType+'&oCustomer='+oCustomer+'&oCustomerName='+oCustomerName+'&oOrderDate='+oOrderDate
+    +'&oVat='+oVat+'&oDiscountType='+oDiscountType+'&oDiscountRate='+oDiscountRate+'&oDiscountType2='+oDiscountType2
+    +'&oDiscountRate2='+oDiscountRate2+'&oDiscountType3='+oDiscountType3+'&oDiscountRate3='+oDiscountRate3+'&oTotalPrice='+oTotalPrice
+    +'&oDiscountedPrice='+oDiscountedPrice+'&oNetPrice='+oNetPrice+'&oPoNo='+oPoNo+'&oEtd='+oEtd+'&oIncludeVat='+oIncludeVat
+    +'&oRemarks='+oRemarks+'&oTelephone='+oTelephone+'&oFax='+oFax+'&oContact='+oContact+'&oDeliveryDate='+oDeliveryDate+'&oDeliveryCode='+oDeliveryCode
+    +'&oDeliveryTo='+oDeliveryTo+'&oDeliveryStreet='+oDeliveryStreet+'&oDeliveryBuilding='+oDeliveryBuilding+'&oDeliveryStreets3='+oDeliveryStreets3
+    +'&oDeliveryTown='+oDeliveryTown+'&oDeliveryState='+oDeliveryState+'&oDeliveryCountry='+oDeliveryCountry+'&oDeliveryPostCode='+oDeliveryPostCode
+    +'&oDueDate='+oDueDate+'&oMaker='+oMaker+'&oPaymentTerm='+oPaymentTerm+'&oSalesCode='+oSalesCode+'&oSalesName='+oSalesName+'&oBackorder='+oBackorder
+    +'&oReference='+oReference+'&oOnpallet='+oOnpallet+'&oDO='+oDO+'&oStandCost='+oStandCost+'&oDepartment='+oDepartment+'&oLoadDate='+oLoadDate;
+    return this.http.get(this.hostWebService +"/Add_SO_master?"+parameters)
       .toPromise()
       .then(response =>
         {
@@ -148,18 +150,15 @@ export class SaleOrderService {
         }
       );
   } 
-  AddOrdersDetails(oClient, oMaker, oOrderNo
-    , oOrderDate, oLineNo, oItemNo, oItemDescription
-    , oUom, oQty, oUnitPrice, oAmount, oNetAmount, oRemarks
-    , oDiscountType, oDiscountByLine, oDiscountUnit
-    , oRealDiscount, oItemColor, oServicePrice, oStatus, oZone, oRate) {
+  AddOrdersDetails(oClient, oMaker, oOrderNo, oOrderDate, oLineNo, oItemNo, oItemDescription, oUom, oQty, oUnitPrice, oAmount, oNetAmount, oRemarks
+    , oDiscountType, oDiscountByLine, oDiscountUnit, oRealDiscount, oItemColor, oServicePrice, oStatus, oZone, oRate, oCustomer, oDiscount, oGrade) {
     let parameters='oClient='+oClient+'&oMaker='+oMaker+'&oOrderNo='+oOrderNo+'&oOrderDate='+oOrderDate
     +'&oLineNo='+oLineNo+'&oItemNo='+oItemNo+'&oItemDescription='+oItemDescription+'&oUom='+oUom
     +'&oQty='+oQty+'&oUnitPrice='+oUnitPrice+'&oAmount='+oAmount+'&oNetAmount='+oNetAmount
     +'&oRemarks='+oRemarks+'&oDiscountType='+oDiscountType+'&oDiscountByLine='+oDiscountByLine+'&oDiscountUnit='+oDiscountUnit
     +'&oRealDiscount='+oRealDiscount+'&oItemColor='+oItemColor+'&oServicePrice='+oServicePrice
-    +'&oStatus='+oStatus+'&oZone='+oZone+'&oRate='+oRate;
-    return this.http.get(this.hostWebService +"/Add_Orders_Details?"+parameters)
+    +'&oStatus='+oStatus+'&oZone='+oZone+'&oRate='+oRate+'&oCustomer='+oCustomer+'&oDiscount='+oDiscount+'&oGrade='+oGrade;
+    return this.http.get(this.hostWebService +"/Add_SO_Details?"+parameters)
       .toPromise()
       .then(response =>
         {

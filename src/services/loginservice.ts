@@ -12,7 +12,7 @@ export class LoginService {
 
     this.storage.get('_url').then((res)=>{
       this.url = res;
-      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland/RFService.asmx";
+      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";
     })
   }
 
