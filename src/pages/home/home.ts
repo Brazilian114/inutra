@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
-
+import { Storage } from '@ionic/storage';
 import { Utility } from '../../helper/utility';
 
 @IonicPage(
@@ -14,7 +14,7 @@ import { Utility } from '../../helper/utility';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, private utility: Utility) {
+  constructor(public navCtrl: NavController, private utility: Utility, private storage: Storage) {
 
   }
   doProductHeaderPage(){
@@ -43,6 +43,9 @@ export class HomePage {
     this.utility.finishLoding();
   }
   doLogout(){
+    this.storage.remove("_user");
+    this.storage.remove("_userId");
+    this.storage.remove("_userGroup");
     this.navCtrl.setRoot("LoginPage");
   }
 }
