@@ -5,19 +5,30 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content class="backgound-image"> 
   <div>
     <ion-row>
       <ion-col>
-        <img src="../../assets/imgs/pic 7line_logo.png">
+          <div class="main">
+              <h1>
+            <span style="color: rgb(180, 0, 0)">7</span>
+            <span style="color: #dd921c">-</span>
+            <span style="color: #44bfa8">L</span>
+            <span style="color: #44bfa8">I</span>
+            <span style="color: #44bfa8">N</span>
+            <span style="color: #44bfa8">E</span>
+          </h1></div>
       </ion-col>
+      <!-- <ion-col>
+        <img src="../../assets/imgs/pic 7line_logo.png">
+      </ion-col> -->
       <!-- <ion-col>
         <img src="../../assets/imgs/Logo Green Timberland.png">
       </ion-col> -->
     </ion-row>
   </div>
-  <div class="listlogin">
-    <ion-list padding>
+  <div class="listdivlogin">
+    <ion-list padding class="listlogin">
       <ion-item>
         <ion-input type="text" placeholder="ชื่่อผู้ใช้" text-center text-uppercase [(ngModel)]="oUsername"></ion-input>
       </ion-item>   
@@ -27,10 +38,10 @@
       <ion-row>
         <ion-col style="text-align:center">
           <ion-col col-auto text-center>
-              <button ion-button (click)="doLogin(oUsername, oPassword)">เข้าสู่ระบบ</button>
+              <button ion-button (click)="doLogin(oUsername, oPassword)" style="background-color:#12b497">เข้าสู่ระบบ</button>
           </ion-col>
           <ion-col col-auto text-left>
-              <button ion-button>
+              <button ion-button style="background-color:#12b497">
                 <ion-icon name="md-settings" (click)="doSetting()"></ion-icon>
               </button>
           </ion-col>

@@ -1,3 +1,14 @@
 page-home {
-
+    .backgound-image {
+        // background-image: url('../../assets/imgs/background-2.jpg');
+        background-color: rgb(220, 255, 241);
+        background-image: linear-gradient(rgb(255, 255, 255), rgb(199, 199, 199));
+        width: 100%;
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+      }
+      ion-card{
+        border-radius: 10px 10px 0px 0px;
+      }
 }

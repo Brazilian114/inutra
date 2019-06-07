@@ -3,14 +3,22 @@ page-login {
         text-align: center;
     }
     .backgound-image {
-        background-image: url('../../assets/imgs/background.jpg');
+        // background-image: url('../../assets/imgs/background-3.jpg');
+        background-color: rgb(220, 255, 241);
+        background-image: linear-gradient(rgb(255, 255, 255), rgb(199, 199, 199));
         width: 100%;
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-position: center center;
       }
+      //rgb(199, 199, 199)
     .listlogin{
         padding-top: 40%;
+        background-color:#44bfa8;
+        margin: 5%;
+    }
+    .listdivlogin{
+        padding-top: 80%;
     }
     .item.item-input {
         background-color: transparent;
@@ -18,9 +26,20 @@ page-login {
 
     img {
         max-width: 100%;
-        // border: 0;
-        // margin-left: 10%;
-        // margin-right: 10%;
-        margin-top: 10%;
+    }
+
+    .main{
+        position: absolute;
+        top: 40%;
+        left:27%;
+        padding-top: 30%;
+    }
+    h1{
+        font-size: 50px;
+    }
+    ion-input{
+        background-color: #F3F3F3;
+        border: 1px solid #cecece;
+        border-radius: 5px 5px 5px 5px;
     }
 }
