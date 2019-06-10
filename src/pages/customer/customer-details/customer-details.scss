@@ -5,7 +5,7 @@ page-customer-details {
         max-width: 320px;
         border-radius: 10px;
         width: 90vw;
-        height: 40vh !important;
+        height: 50vh !important;
         top: 0;
         bottom: 0;
         left: 0;
@@ -24,5 +24,16 @@ page-customer-details {
         margin-block-end: 0em;
         margin-inline-start: 0px;
         margin-inline-end: 0px;
+    }
+    .grid {
+        padding: 5px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        flex-direction: column;
+        font-size: 20px;
     }
 }

@@ -89,7 +89,8 @@ export class ProductModalPage {
       this.data_return.push(oDiscount);
       this.data_return.push(oRemark);
       this.data_return.push(oUnit);
-  
+      this.data_return.push(this.oDescription.toString());
+
       console.log(this.data_return);
       this.viewCtrl.dismiss(this.data_return);
     }

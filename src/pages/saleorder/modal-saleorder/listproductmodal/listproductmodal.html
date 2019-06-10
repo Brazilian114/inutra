@@ -1,0 +1,21 @@
+<ion-content class="mymodal">
+  <ion-navbar color="primary">
+    <ion-row>
+      <h3>รายการสินค้า</h3>
+    </ion-row>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="dismiss()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <div *ngFor = "let item of arrayItem">
+    <ion-card>
+      <ion-card-content>
+        <b>{{item['9']}}</b> <p>({{item['0']}})</p>
+        <p>จำนวน {{item['2']}} {{item['3']}}</p>
+        <p>ประเภท {{item['8']}}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

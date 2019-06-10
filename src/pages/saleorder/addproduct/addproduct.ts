@@ -48,11 +48,7 @@ export class AddProductPage {
       this.utility.finishLoding();
     })
   }
-  doProductModal(item, isChecked){
-    console.log(isChecked);
-    console.log(this.isChecked);
-
-    if(isChecked == true){
+  doProductModal(item){
       this.utility.presentLoading();
       let modal = this.modalCtrl.create("ProductModalPage",{ item: item, oCustomer: this.oCustomer, arrayItem: this.arrayItem })
       modal.present();
@@ -60,18 +56,16 @@ export class AddProductPage {
         if(data != undefined){
           this.arrayItem.push(data);
           console.log("addsession", this.arrayItem);
-          
+          // for(let i = 0; i <= this.arrayItem.length; i++){
+          //   console.log(this.arrayItem[i][0]);
+          // }
         }else{
           
         }
       });
       this.utility.finishLoding();
-    }else{
-      for(let i = 0; i <= this.arrayItem.length; i++){
-        console.log(this.arrayItem[i][0]);
-        
-      }
-    }  
+   
+      
   }
   getProductByKeyword(oKeyword){
     this.utility.presentLoading();
@@ -86,5 +80,22 @@ export class AddProductPage {
   }
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+  doListProductModal(){
+    this.utility.presentLoading();
+    let modal = this.modalCtrl.create("ListProductModalPage",{ arrayItem: this.arrayItem })
+    modal.present();
+    modal.onDidDismiss(data =>{
+      if(data != undefined){
+        // this.arrayItem.push(data);
+        // console.log("addsession", this.arrayItem);
+        // for(let i = 0; i <= this.arrayItem.length; i++){
+        //   console.log(this.arrayItem[i][0]);
+        // }
+      }else{
+        
+      }
+    });
+    this.utility.finishLoding();
   }
 }

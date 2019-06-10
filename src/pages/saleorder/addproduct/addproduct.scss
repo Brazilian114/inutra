@@ -12,4 +12,13 @@ page-addproduct {
         line-height: 1.5;
         height: 20vh;
     }
+    ion-input{
+        background-color: #F3F3F3;
+        border: 1px solid #cecece;
+        border-radius: 5px 5px 5px 5px;
+    }
+    .button-circle{
+        display:block;
+        border-radius: 50%;
+    }
 }

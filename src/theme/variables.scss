@@ -41,10 +41,15 @@ $colors: (
   dark:       #222
 );
 
-// ion-content{
-//   background-color: rgba(235, 235, 235, 0.932);
-// }
-
+.backgound-image {
+  // background-image: url('../../assets/imgs/background-2.jpg');
+  background-color: rgb(220, 255, 241);
+  background-image: linear-gradient(rgb(255, 255, 255), rgb(199, 199, 199));
+  width: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here

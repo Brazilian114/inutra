@@ -11,13 +11,11 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="backgound-image">
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-item>
           <ion-input type="text" [(ngModel)]="oCustomer_name" placeholder="ลูกค้า" readonly></ion-input>
-        </ion-item>
       </ion-col>
       <ion-col col-2>
         <button ion-button clear (click)="doCustomerModal()">
@@ -73,16 +71,14 @@
           </ion-select>
         </ion-item>
       </ion-col>
-      <ion-col>
-        <ion-item>
+      <!-- <ion-col>
           <ion-input type="text" [(ngModel)]="oDiscount1" placeholder="ส่วนลด" (ionChange)="doChangeTextDiscount1(oDiscount1)"></ion-input>
-        </ion-item>
       </ion-col>
       <ion-col col-2>
         <ion-checkbox [(ngModel)]="oCheckDiscount1" style="padding-top: 40%" (ionChange)="doChangeDiscount1(oCheckDiscount1)"></ion-checkbox> %    
-      </ion-col>
+      </ion-col> -->
     </ion-row>
-    <ion-row hidden>
+    <!-- <ion-row hidden>
       <ion-col>
         <ion-item>
           <ion-select [(ngModel)]="oVat2" interface="action-sheet" (ionChange)="doChangeTypeVat2(oVat2)">
@@ -101,8 +97,8 @@
       <ion-col col-2>
         <ion-checkbox [(ngModel)]="oCheckDiscount2" style="padding-top: 40%" (ionChange)="doChangeDiscount2(oCheckDiscount2)"></ion-checkbox> %    
       </ion-col>
-    </ion-row>
-    <ion-row hidden>
+    </ion-row> -->
+    <!-- <ion-row hidden>
       <ion-col>
         <ion-item>
           <ion-select [(ngModel)]="oVat3" interface="action-sheet" (ionChange)="doChangeTypeVat3(oVat3)">
@@ -121,7 +117,7 @@
       <ion-col col-2>
         <ion-checkbox [(ngModel)]="oCheckDiscount3" style="padding-top: 40%" (ionChange)="doChangeDiscount3(oCheckDiscount3)"></ion-checkbox> %    
       </ion-col>
-    </ion-row>
+    </ion-row> -->
   </ion-grid>
   <ion-grid>
     <ion-row>
@@ -138,13 +134,13 @@
   <ion-grid>
     <ion-card *ngFor="let item of arrayItem; let i = index">
       <ion-row>
-        <p>{{i+1}}. {{item[0]}} {{item[2]}} {{item[3]}} at {{item[5]}}B/each</p>
+        <p>{{i+1}}. {{item[0]}} {{item[2]}} {{item[3]}}</p>
         <!-- <p></p> -->
       </ion-row>
     </ion-card>
   </ion-grid>
   <ion-grid>
-    <ion-row>
+    <!-- <ion-row>
       <ion-col>
         <ion-label>ส่วนลด {{oVat1}}</ion-label>
       </ion-col>
@@ -152,8 +148,8 @@
         <ion-label *ngIf="oCheckDiscount1 == false" text-right>{{oDiscount1}}B</ion-label>
         <ion-label *ngIf="oCheckDiscount1 == true" text-right>{{oDiscount1}}%</ion-label>
       </ion-col>
-    </ion-row>
-    <ion-row hidden>
+    </ion-row> -->
+    <!-- <ion-row hidden>
       <ion-col>
         <ion-label>ส่วนลด2 {{oVat2}}</ion-label>
       </ion-col>
@@ -161,8 +157,8 @@
         <ion-label *ngIf="oCheckDiscount2 == false" text-right>{{oDiscount2}}B</ion-label>
         <ion-label *ngIf="oCheckDiscount2 == true" text-right>{{oDiscount2}}%</ion-label>
       </ion-col>
-    </ion-row>
-    <ion-row hidden>
+    </ion-row> -->
+    <!-- <ion-row hidden>
       <ion-col>
         <ion-label>ส่วนลด3 {{oVat3}}</ion-label>
       </ion-col>
@@ -170,7 +166,7 @@
         <ion-label *ngIf="oCheckDiscount3 == false" text-right>{{oDiscount3}}B</ion-label>
         <ion-label *ngIf="oCheckDiscount3 == true" text-right>{{oDiscount3}}%</ion-label>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
     <ion-row>
       <ion-col>
         <ion-label>ภาษีมูลค่าเพิ่ม</ion-label>
@@ -188,9 +184,7 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-item>
-        <ion-input type="text" [(ngModel)]="oRemark" placeholder="บันทึก"></ion-input>
-      </ion-item>
+      <ion-input type="text" [(ngModel)]="oRemark" placeholder="บันทึก"></ion-input>
     </ion-row>
   </ion-grid>
 </ion-content>

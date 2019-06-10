@@ -6,26 +6,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="backgound-image">
   <div class="div-border" [hidden]='hideMe'>
     <ion-grid padding>
       <ion-row>
         <ion-col>
-          <ion-item>
-            <ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา"></ion-input>
-          </ion-item>
+          <ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา"></ion-input>
         </ion-col>
-        <!-- <ion-col>
-          <ion-item>
-            <ion-select [(ngModel)]="oSelectSearch" interface="action-sheet">
-              <ion-option value="0">ทั้งหมด</ion-option>
-              <ion-option value="1">เลขออเดอร์</ion-option>
-              <ion-option value="2">วันที่</ion-option>
-              <ion-option value="3">รหัสลูกค้า</ion-option>
-              <ion-option value="4">ชื่อลูกค้าภาษาไทย</ion-option>
-            </ion-select>
-          </ion-item>
-        </ion-col> -->
         <ion-col col-1>
           <button ion-button block><ion-icon name="md-search" (click)="doSearch(oSearch)"></ion-icon></button>
         </ion-col>

@@ -6,7 +6,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="backgound-image">
   <div>
     <!-- <img src="../../../assets/imgs/logo.png" class="img-size"/> -->
     <img *ngIf="data_item" src="{{'data:image/png;base64,'+data_item.image}}" onerror="this.src='../../../assets/imgs/logo.png'">
@@ -16,7 +16,7 @@
       <b class="font-big">{{data_item.item_no}}</b>
     </ion-row>
     <ion-row>
-      {{data_item.description}}
+      <p class="font-medium">{{data_item.description}}</p>
     </ion-row>
     <div class="line"></div>
     <ion-row padding>
