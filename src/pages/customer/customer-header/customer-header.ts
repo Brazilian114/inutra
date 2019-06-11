@@ -20,7 +20,7 @@ export class CustomerHeaderPage {
 
   data_customer:any;
 
-  hideMe:any = false;
+  hideMe:any = true;
 
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, private utility: Utility, private customerServ: CustomerService) {
 

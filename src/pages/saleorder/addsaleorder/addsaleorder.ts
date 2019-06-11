@@ -98,12 +98,14 @@ export class AddSaleOrderPage {
   doProductParamPayTerm(){
     this.saleorderServ.GetProductParam("PAY-TERM").then((res)=>{
       this.data_productparampayterm = res;
+      this.oPayTerm = this.data_productparampayterm["0"].param_code;
       console.log(this.data_productparampayterm);
     })
   }
   doProductParamSale(){
     this.saleorderServ.GetProductParam("SALES CODE").then((res)=>{
       this.data_productparamsale = res;
+      this.oSale = this.data_productparamsale["0"].param_code;
       console.log(this.data_productparamsale);
     })
   }
@@ -151,7 +153,7 @@ export class AddSaleOrderPage {
             var Order_date = oDate.toString();
             var DueDate = oDateSale.toString();
     
-            this.saleorderServ.AddSalesOrders(this.oClient, "01", "", "", oType, this.oCustomer, oCustomer_name, Order_date, "", "", "", ""
+            this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", "", oType, this.oCustomer, oCustomer_name, Order_date, "", "", "", ""
               , "", "", "", "", "", "", "", Order_date, "", oRemark, "", ""
               , "", DueDate, "", "", "", "", "", "", ""
               , "", "", DueDate, this.oUsername, oPayTerm, oSale, oSale, "", "", "", "", Order_date
@@ -163,28 +165,19 @@ export class AddSaleOrderPage {
                 this.utility.Alert("Wraning", this.data_addsaleorder["0"].sqlmsg);
               }else{
                 for(let i=0; i < this.arrayItem.length; i++){
-                  this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.data_addsaleorder["0"].order_no, "", "", this.arrayItem[i]["0"]
-                  , "", this.arrayItem[i]["3"], this.arrayItem[i]["2"], "", "", "", this.arrayItem[i]["7"], this.arrayItem[i]["8"], "", "", "", "", "", ""
-                  , this.arrayItem[i]["1"], "", this.oCustomer, "", "").then((res)=>{
-                    this.data_addsaledetail = res;
-                    console.log(this.data_addsaledetail);
-                    if(this.data_addsaledetail["0"].sqlstatus != "0"){
-                      this.utility.Alert(this.data_addsaledetail["0"].sqlmsg, this.data_addsaledetail["0"].sqlmsg2);
-                    }else{
-                      let alert = this.alertCtrl.create({
-                        title: this.data_addsaledetail["0"].sqlmsg,
-                        subTitle: this.data_addsaledetail["0"].sqlmsg2,
-                        buttons: [ {
-                            text: 'ตกลง',
-                            handler: data => {
-                              this.dismiss();
-                            }
-                          }]
-                      });
-                      alert.present();
-                    }
-                  })
+                  this.doAddOrdersDetailsAsync(i) 
                 }
+                let alert = this.alertCtrl.create({
+                  title: this.data_addsaleorder["0"].order_no,
+                  subTitle: this.data_addsaleorder["0"].sqlmsg,
+                  buttons: [ {
+                      text: 'ตกลง',
+                      handler: data => {
+                        this.dismiss();
+                      }
+                    }]
+                });
+                alert.present();
               }
             })
           }
@@ -254,4 +247,42 @@ export class AddSaleOrderPage {
   dismiss() {
     this.viewCtrl.dismiss();
   }
+
+
+  doAddOrdersDetailsAsync(value) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.data_addsaleorder["0"].order_no, "", 0, this.arrayItem[value]["0"]
+        , "", this.arrayItem[value]["3"], this.arrayItem[value]["2"], "", "", "", this.arrayItem[value]["7"], this.arrayItem[value]["8"], "", "", "", "", "", ""
+        , this.arrayItem[value]["1"], "", this.oCustomer, "", "").then((res)=>{
+          this.data_addsaledetail = res;
+          console.log(this.data_addsaledetail);
+          if(this.data_addsaledetail["0"].sqlstatus != "0"){
+            this.utility.Alert(this.data_addsaledetail["0"].sqlmsg, this.data_addsaledetail["0"].sqlmsg2);
+          }else{
+
+          }
+        })
+        resolve(value);
+      }, Math.floor(Math.random() * 1000));
+    });
+  }
+  
+  // test() {
+  //   let i;
+  //   let promises = [];
+    
+  //   for (i = 0; i < 5; ++i) {
+  //     promises.push(this.doSomethingAsync(i));
+  //   }
+    
+  //   Promise.all(promises)
+  //       .then((results) => {
+  //         console.log("All done", results);
+  //       })
+  //       .catch((e) => {
+  //           // Handle errors here
+  //       });
+  // }
+
 }
