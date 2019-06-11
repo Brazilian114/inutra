@@ -86,8 +86,8 @@ export class EditProductModalPage {
       this.utility.Alert("Warning","กรุณาเลือกประเภทสินค้าในการจัดส่ง");
     }else{
       this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.oOrder_no, "", this.item.line_no, oItem_no
-      , "", oUOM, oQty, "", "", "", oRemark, oUnit, "", "", "", "", "", ""
-      , oZone, "", this.oCustomer, "", "").then((res)=>{
+      , "", oUOM, oQty, "", "", "", oRemark, "", "", "", "", "", "", ""
+      , oZone, "", this.oCustomer, "", "", oUnit).then((res)=>{
         this.data_addsaledetail = res;
         console.log(this.data_addsaledetail);
         if(this.data_addsaledetail["0"].sqlstatus != "0"){

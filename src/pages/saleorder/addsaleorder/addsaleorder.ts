@@ -253,8 +253,8 @@ export class AddSaleOrderPage {
     return new Promise((resolve) => {
       setTimeout(() => {
         this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.data_addsaleorder["0"].order_no, "", 0, this.arrayItem[value]["0"]
-        , "", this.arrayItem[value]["3"], this.arrayItem[value]["2"], "", "", "", this.arrayItem[value]["7"], this.arrayItem[value]["8"], "", "", "", "", "", ""
-        , this.arrayItem[value]["1"], "", this.oCustomer, "", "").then((res)=>{
+        , "", this.arrayItem[value]["3"], this.arrayItem[value]["2"], "", "", "", this.arrayItem[value]["7"], "", "", "", "", "", "", ""
+        , this.arrayItem[value]["1"], "", this.oCustomer, "", "", this.arrayItem[value]["8"]).then((res)=>{
           this.data_addsaledetail = res;
           console.log(this.data_addsaledetail);
           if(this.data_addsaledetail["0"].sqlstatus != "0"){
