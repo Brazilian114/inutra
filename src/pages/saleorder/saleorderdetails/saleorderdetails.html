@@ -78,9 +78,9 @@
         หน่วย
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let item of data_saleorderdetail; let i = index">
+    <ion-row *ngFor="let item of data_saleorderdetail; let i = index" (click)="doEditProduct(item)">
       <ion-col class="font-white">
-        {{i+1}}  
+        {{item.line_no}}  
       </ion-col>
       <ion-col class="font-white">
         {{item.item_no}}

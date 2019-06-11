@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { Utility } from '../../../helper/utility';
@@ -40,7 +40,8 @@ export class SaleOrderDetailsPage {
 
 
 
-  constructor(public navCtrl: NavController, private utility: Utility, public navParams: NavParams, private storage: Storage, private saleorderServ: SaleOrderService) {
+  constructor(public navCtrl: NavController, private utility: Utility, public navParams: NavParams, private storage: Storage
+    , private saleorderServ: SaleOrderService, public modalCtrl: ModalController) {
    
     this.doGetStorage();
 
@@ -83,6 +84,20 @@ export class SaleOrderDetailsPage {
       console.log(this.data_saleorderdetail);
       
     })
+  }
+  doEditProduct(item){
+    this.utility.presentLoading();
+      let modal = this.modalCtrl.create("EditProductModalPage",{ item: item, oCustomer: this.oCustomer, oOrder_no: this.oOrder_no })
+      modal.present();
+      modal.onDidDismiss(data =>{
+        if(data != undefined){
+
+        }else{
+          
+        }
+      });
+      this.utility.finishLoding();
+      
   }
   doGetStorage(){
     this.storage.get('_user').then((res)=>{
