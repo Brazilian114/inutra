@@ -13,7 +13,7 @@
         <ion-col>
           <ion-item>
             <ion-label stacked>วันที่เริ่มต้น</ion-label>
-            <ion-datetime [(ngModel)]="oDateStart" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
+            <ion-datetime [(ngModel)]="oStartDate" display-format="MM/YYYY" picker-format="MMMM YYYY" (ionChange)="changeDate(oStartDate,oEndDate)"></ion-datetime>
           </ion-item>
         </ion-col>
         <ion-col col-auto>
@@ -22,31 +22,40 @@
         <ion-col>
           <ion-item>
             <ion-label stacked>วันที่สิ้นสุด</ion-label>
-            <ion-datetime [(ngModel)]="oDateEnd" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
+            <ion-datetime [(ngModel)]="oEndDate" display-format="MM/YYYY" picker-format="MMMM YYYY" (ionChange)="changeDate(oStartDate,oEndDate)"></ion-datetime>
           </ion-item>
         </ion-col>
         <ion-col col-1>
-          <button ion-button block><ion-icon name="md-search"></ion-icon></button>
+          <button ion-button block><ion-icon name="md-search" (click)="doGetSalesOrdersByDateRange(oStartDate, oEndDate)"></ion-icon></button>
         </ion-col>
       </ion-row>
     </ion-grid>
   </div>
+  <br/>
   <ion-grid>
     <ion-row>
-      วันที่ : 24/04/2019 
+      วันที่ : {{oDateView}} 
     </ion-row>
   </ion-grid>
   <ion-grid>
-    <ion-list>
-      <button ion-item (click)="doDetails()">
-        Item 1
-      </button>  
-      <button ion-item>
-        Item 2
-      </button>  
-      <button ion-item>
-        Item 3
-      </button>  
+    <ion-list *ngFor="let item of data_getsaleorder_bydate; let i = index">
+      <button ion-item (click)="doDetails(item)">
+        <ion-item style="border-bottom: 0.5px solid;">
+          <ion-row>
+            <ion-col col-1>
+              {{i+1}}.
+            </ion-col>
+            <ion-col>
+              {{item.order_no}}
+            </ion-col>          
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              {{item.customer_name}}
+            </ion-col>
+          </ion-row>
+        </ion-item>       
+      </button>
     </ion-list>
   </ion-grid>
 </ion-content>

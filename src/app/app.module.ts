@@ -14,6 +14,8 @@ import { SaleOrderService } from '../services/saleorderservice';
 import { ProductService } from '../services/productservice';
 import { LoginService } from '../services/loginservice';
 import { CustomerService } from '../services/customerservice';
+import { SaleService } from '../services/salseservice';
+import { ReportService } from '../services/reportservice';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { CustomerService } from '../services/customerservice';
     SaleOrderService,
     ProductService,
     LoginService,
-    CustomerService
+    CustomerService,
+    SaleService,
+    ReportService
   ]
 })
 export class AppModule {}

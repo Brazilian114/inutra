@@ -18,8 +18,8 @@ export class LoginPage {
 
   url:string = '';
   data_logins:any;
-  oUsername:string = '';
-  oPassword:string = '';
+  oUsername:string = 'SIMILAN';
+  oPassword:string = 'ROGER3000';
 
   constructor(public navCtrl: NavController, private utility: Utility, private storage: Storage, private loginServ: LoginService) {
 
