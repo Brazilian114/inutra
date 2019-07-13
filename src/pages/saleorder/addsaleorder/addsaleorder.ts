@@ -29,6 +29,7 @@ export class AddSaleOrderPage {
   oPayTerm:string = "";
   oSale:string = "";
   oDateSale:any = new Date().toISOString();
+  oTotalPrice: any = 0.00;
 
   discount:any = 0.0;
   total_price:any = 0.0;
@@ -120,6 +121,18 @@ export class AddSaleOrderPage {
         if(data != undefined){
           this.arrayItem = data;
           console.log("addsessionAddsale", this.arrayItem);
+
+          for(let i=0; i<this.arrayItem.length; i++){
+            var uom = +this.arrayItem[i]["2"];
+            var price = parseFloat(this.arrayItem[i]["5"]);
+            console.log(price);
+            var total = price * uom;
+            console.log(total);
+            
+            this.oTotalPrice = +this.oTotalPrice + total;
+            console.log(this.oTotalPrice);
+            
+          }
         }else{
 
         }
@@ -144,11 +157,11 @@ export class AddSaleOrderPage {
       }else{
         this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{
           this.data_customerdelivery = res;
-          console.log(this.data_customerdelivery.length);
+          console.log(this.data_customerdelivery);
     
-          if(this.data_customerdelivery.length <= 0){
-            this.utility.Alert("Wraning", "ไม่พบ Customer Code");
-          }else{
+          // if(this.data_customerdelivery.length <= 0){
+          //   this.utility.Alert("Wraning", "ไม่พบ Customer Code");
+          // }else{
 
             var Order_date = oDate.toString();
             var DueDate = oDateSale.toString();
@@ -180,7 +193,7 @@ export class AddSaleOrderPage {
                 alert.present();
               }
             })
-          }
+          // }
         })
       }
     }

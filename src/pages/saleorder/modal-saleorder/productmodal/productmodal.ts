@@ -77,8 +77,11 @@ export class ProductModalPage {
     this.doGetProductStock(this.data_zone["0"].Zone, this.data_productuom["0"].item_packing);
   }
   doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oRemark, oUnit){
+
     if(oUnit == undefined || oUnit == "0"){
       this.utility.Alert("Warning","กรุณาเลือกประเภทสินค้าในการจัดส่ง");
+    }else if(oQty == undefined || oQty == ""){
+      this.utility.Alert("Warning","กรุณาเพิ่มจำนวนสินค้าในการจัดส่ง");
     }else{
       this.data_return.push(oItem_no["0"]);
       this.data_return.push(oZone);
