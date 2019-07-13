@@ -25,16 +25,33 @@ export class RptSaleOrderPage {
   oDateView:String = '';
 
   data_getsaleorder_bydate:any;
+  data_saleorderdetail:any;
 
+  items: any;
   constructor(public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private storage: Storage) {
     this.doGetStorage();
     this.oDateView = this.oStartDate + ' - ' + this.oEndDate;
   }
+  initializeItems() {
+    this.items = this.data_getsaleorder_bydate;
+  }
+  onInput(ev: any){
+    this.initializeItems();
+   let val = ev.target.value;
+    if(val && val.trim() != ''){
+      this.items = this.items.filter((item)=>{
+        return (item.order_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
+
   doGetSalesOrdersByDateRange(oStartDate, oEndDate){
     this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oUserId, oStartDate, oEndDate, this.oUserGroup).then((res)=>{
       this.data_getsaleorder_bydate = res;
+      this.initializeItems();
     })
   }
+
   doDetails(item){
     this.navCtrl.push("RptSaleOrderDetailsPage", { item: item });
   }

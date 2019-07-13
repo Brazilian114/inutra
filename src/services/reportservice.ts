@@ -37,5 +37,5 @@ GetSalesOrdersByDateRange(oClient, oUserId, oStartDate, oEndDate, oUserGroup) {
           }
       }
     );
-} 
+  } 
 }
