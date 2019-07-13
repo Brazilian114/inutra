@@ -3,6 +3,12 @@
     <ion-title>
       ลูกค้า
     </ion-title>
+    <!-- <ion-searchbar
+      [(ngModel)]="myInput"
+      [showCancelButton]="shouldShowCancel"
+      (ionInput)="onInput($event)"
+      clearInput>
+    </ion-searchbar> -->
   </ion-navbar>
 </ion-header>
 
@@ -11,9 +17,9 @@
     <ion-grid padding>
       <ion-row>
         <ion-col>
-          <ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา"></ion-input>
+          <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
         </ion-col>
-        <ion-col>
+        <!-- <ion-col>
           <ion-item>
             <ion-select [(ngModel)]="oSelectSearch" interface="action-sheet">
                 <ion-option value="All">ทั้งหมด</ion-option>
@@ -22,10 +28,10 @@
                 <ion-option value="Description">รายละเอียด</ion-option>
             </ion-select>
           </ion-item>
-        </ion-col>
-        <ion-col col-1>
+        </ion-col> -->
+        <!-- <ion-col col-1>
           <button ion-button block><ion-icon name="md-search"></ion-icon></button>
-        </ion-col>
+        </ion-col> -->
       </ion-row>
     </ion-grid>
   </div>
@@ -37,7 +43,7 @@
     </ion-row>
   </ion-grid>
   <ion-grid>
-    <ion-card (click)="doDetails(item)" *ngFor="let item of data_customer">
+    <ion-card (click)="doDetails(item)" *ngFor="let item of items">
       <ion-card-header>
           <b>{{item.customer_name}}</b>
       </ion-card-header>

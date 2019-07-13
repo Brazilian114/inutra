@@ -91,13 +91,13 @@ export class SaleOrderDetailsPage {
       modal.present();
       modal.onDidDismiss(data =>{
         if(data != undefined){
-
-        }else{
-          
+          this.doGetOrdersDetails(this.oOrder_no);
+        }else{        
+          this.doGetOrdersDetails(this.oOrder_no);
         }
       });
       this.utility.finishLoding();
-      
+
   }
   doGetStorage(){
     this.storage.get('_user').then((res)=>{

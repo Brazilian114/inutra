@@ -21,12 +21,25 @@ export class CustomerHeaderPage {
   data_customer:any;
 
   hideMe:any = true;
-
+  items: any;
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, private utility: Utility, private customerServ: CustomerService) {
 
   } 
   ionViewWillEnter(){
     this.doGetCustomerDetails(this.oSearch);
+  }
+  initializeItems() {
+    this.items = this.data_customer;
+  }
+  onInput(ev: any){
+    this.initializeItems();
+     console.log(this.items);
+   let val = ev.target.value;
+    if(val && val.trim() != ''){
+      this.items = this.items.filter((item)=>{
+        return (item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
   }
   doShowHide(){
     if(this.hideMe == false){
@@ -39,6 +52,7 @@ export class CustomerHeaderPage {
     this.customerServ.GetCustomerDetails(this.oClient, oSearch).then((res)=>{
       this.data_customer = res;
       console.log(this.data_customer);    
+      this.initializeItems();
     })
   }
   doDetails(item){ 
