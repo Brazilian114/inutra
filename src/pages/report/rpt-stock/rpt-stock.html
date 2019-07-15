@@ -6,44 +6,70 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <div class="div-border" [hidden]='hideMe'>
+<ion-content padding class="backgound-image">
+  <div class="div-border">
     <ion-grid padding>
-      <ion-row>
+      <!-- <ion-row>
         <ion-col>
           <ion-item>
-            <ion-label>วันที่เริ่มต้น</ion-label>
-            <ion-datetime [(ngModel)]="oDateStart" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
+            <ion-label stacked>วันที่เริ่มต้น</ion-label>
+            <ion-datetime [(ngModel)]="oStartDate" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
           </ion-item>
+        </ion-col>
+        <ion-col col-auto>
+          <ion-label>ถึง</ion-label>
         </ion-col>
         <ion-col>
           <ion-item>
-            <ion-label>วันที่สิ้นสุด</ion-label>
-            <ion-datetime [(ngModel)]="oDateEnd" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
+            <ion-label stacked>วันที่สิ้นสุด</ion-label>
+            <ion-datetime [(ngModel)]="oEndDate" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
           </ion-item>
         </ion-col>
         <ion-col col-1>
-          <button ion-button block><ion-icon name="md-search"></ion-icon></button>
+          <button ion-button block><ion-icon name="md-search" (click)="doGetSalesOrdersByDateRange(oStartDate, oEndDate)"></ion-icon></button>
         </ion-col>
+      </ion-row> -->
+      <ion-row>
+        <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
       </ion-row>
     </ion-grid>
   </div>
-  <ion-grid>
+  <br/>
+  <!-- <ion-grid>
+
     <ion-row>
-      วันที่ : 24/04/2019 
+      วันที่ : {{oDateView}} 
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
   <ion-grid>
-    <ion-list>
-      <button ion-item (click)="doDetails()">
-        Item 1
-      </button>  
-      <button ion-item>
-        Item 2
-      </button>  
-      <button ion-item>
-        Item 3
-      </button>  
+    <ion-list *ngFor="let item of items; let i = index">
+      <ion-card ion-item>
+        <!-- <ion-item style="border-bottom: 0.5px solid;"> -->
+          <ion-row>
+            <ion-col col-1>
+              {{i+1}}.
+            </ion-col>
+            <ion-col>
+              {{item.item_no}}
+            </ion-col>          
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              {{item.description}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              {{item.qty_avail}} {{item.uom}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              {{item.unit_cost}} บาท
+            </ion-col>
+          </ion-row>
+        <!-- </ion-item>        -->
+      </ion-card>
     </ion-list>
   </ion-grid>
 </ion-content>

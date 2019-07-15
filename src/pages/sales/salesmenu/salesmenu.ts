@@ -22,6 +22,7 @@ export class SaleMenuPage {
   oUserId:string = "";
   oStartDate: String = new Date().toISOString().substring(0, 10);
   oEndDate: String = new Date().toISOString().substring(0, 10);
+  oAmount: String = "";
 
   dataInvoiceGraph:any;
 
@@ -40,7 +41,8 @@ export class SaleMenuPage {
   doGetInvoiceGraph(oStartDate, oEndDate){
     this.saleServ.GetInvoiceGraph(this.oClient, this.oUserId, this.oUserGroup, oStartDate, oEndDate).then((res)=>{
       this.dataInvoiceGraph = res; 
-      console.log(this.dataInvoiceGraph);    
+      console.log(this.dataInvoiceGraph);   
+      this.oAmount = this.dataInvoiceGraph["0"].amount;
     })
   }
   doGetStorage(){

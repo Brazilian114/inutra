@@ -38,4 +38,25 @@ GetSalesOrdersByDateRange(oClient, oUserId, oStartDate, oEndDate, oUserGroup) {
       }
     );
   } 
+  Rpt_inventory_movement(oClient, oWarehouse, oZone, oItem_fr, oItem_to, oDescription, oLoc_fr, oLoc_to, oGroup, oGrade, oOrder_by) {
+    let parameters='oClient='+oClient+'&oWarehouse='+oWarehouse+'&oZone='+oZone+'&oItem_fr='+oItem_fr+'&oItem_to='+oItem_to
+    +'&oDescription='+oDescription+'&oLoc_fr='+oLoc_fr+'&oLoc_to='+oLoc_to+'&oGroup='+oGroup+'&oGrade='+oGrade+'&oOrder_by='+oOrder_by;
+    return this.http.get(this.hostWebService +"/Rpt_inventory_movement?"+parameters)
+      .toPromise()
+      .then(response =>
+        {
+            let a;
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
+            a = result;
+        });
+            try {
+                // return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+                return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
+            }
+            catch (e) {
+              return [];
+            }
+        }
+      );
+    } 
 }
