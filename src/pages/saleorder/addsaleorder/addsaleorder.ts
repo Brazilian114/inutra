@@ -260,7 +260,7 @@ export class AddSaleOrderPage {
               console.log(this.data_addsaleorder);
               
               if(this.data_addsaleorder["0"].sqlstatus != "0"){
-                this.utility.Alert("Wraning", this.data_addsaleorder["0"].sqlmsg);
+                this.utility.Alert("Waning", this.data_addsaleorder["0"].sqlmsg);
               }else{
                 for(let i=0; i < this.arrayItem.length; i++){
                   this.doAddOrdersDetailsAsync(i) 
