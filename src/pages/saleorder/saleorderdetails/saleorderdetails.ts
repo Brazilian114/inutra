@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { Component, ViewChild  } from '@angular/core';
+import { NavController, LoadingController, ToastController, ModalController, Platform, Content, IonicPage ,ViewController,NavParams} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-
+import { AlertController } from 'ionic-angular';
 import { Utility } from '../../../helper/utility';
 import { SaleOrderService } from '../../../services/saleorderservice';
 
@@ -16,16 +16,28 @@ import { SaleOrderService } from '../../../services/saleorderservice';
   providers: [SaleOrderService]
 })
 export class SaleOrderDetailsPage {
+  @ViewChild('focusQty') InputQty;
   hideMe:any = true;
   data_item:any;
   data_saleorderdetail:any;
+
 
   oClient:string = "7LINE";
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
+  data_customerdelivery:any;
+  arrayItem:any = [];
+ 
+  oType:string = "ADHOC";
+  oDate:any = new Date().toISOString();
+  oPayTerm:string = "";
+  oSale:string = "";
+  oDateSale:any = new Date().toISOString();
+  oTotalPrice: any = 0.00;
 
   //Header
+  oLineNo:string = "";
   oOrder_no:string = "";
   oCustomer:string = "";
   oCustomer_name:string = "";
@@ -38,16 +50,20 @@ export class SaleOrderDetailsPage {
   oVat:string = "";
   //Details
 
+  data_addsaleorder:any;
+  data_addsaledetail:any;
+  data_deletedetail:any;
 
 
-  constructor(public navCtrl: NavController, private utility: Utility, public navParams: NavParams, private storage: Storage
+  constructor(private toastCtrl: ToastController,public viewCtrl: ViewController,public alertCtrl: AlertController,public navCtrl: NavController, private utility: Utility, public navParams: NavParams, private storage: Storage
     , private saleorderServ: SaleOrderService, public modalCtrl: ModalController) {
    
     this.doGetStorage();
 
     this.data_item = navParams.get('item');
-    console.log(this.data_item);
     
+    console.log(this.data_item);
+    this.oLineNo = this.data_item.oLineNo;
     this.oOrder_no = this.data_item.order_no;
     this.oDueDate = this.data_item.due_date;
     this.oCustomer = this.data_item.customer;
@@ -55,6 +71,7 @@ export class SaleOrderDetailsPage {
     this.oAddress = this.data_item.dlvr_street + " " + this.data_item.dlvr_bldg;
     this.oDiscountRate = this.data_item.discount_rate;
     this.oDiscountType = this.data_item.discount_type;
+ console.log(this.oLineNo);
  
     if(this.data_item.amount == undefined)
       this.oAmount = "0";
@@ -68,8 +85,13 @@ export class SaleOrderDetailsPage {
 
     this.oVat = this.data_item.vat;
   }
+  ionViewWillLeave() {
+    this.storage.remove('_oLine');
+  
+  }
   ionViewWillEnter(){
     this.doGetOrdersDetails(this.oOrder_no);
+  
   }
   doShowHide(){
     if(this.hideMe == false){
@@ -110,4 +132,64 @@ export class SaleOrderDetailsPage {
       this.oUserGroup = res;
     })  
   }
-}
+ 
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+  presentToast(key, showCloseButton, position: string) {
+    const toast = this.toastCtrl.create({
+      message: key,
+      showCloseButton: showCloseButton,
+      closeButtonText: 'Ok',
+      duration: 2000,
+      position : position
+    });
+    toast.present();
+  }
+  
+  doConfirm(item){
+    console.log(item);
+    
+    const confirm = this.alertCtrl.create({
+      title: 'ลบรายการสินค้า?',
+      message: 'คุณต้องการที่จะลบรายการสินค้า?',
+      buttons: [
+        {
+          text: 'ยกเลิก',
+          handler: () => {
+            this.navCtrl.push(SaleOrderDetailsPage);
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'ตกลง',
+          handler: () => {
+      this.storage.get('_oLine').then((res)=>{
+      this.oLineNo = res;
+           
+      this.saleorderServ.DeleteSoDetail(this.oClient,item.order_no,item.line_no).then((res)=>{
+        let data_r_delete = res;
+          console.log(data_r_delete);
+          this.presentToast("ลบรายการแล้ว", false, 'bottom');
+      this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup, this.oOrder_no).then((res)=>{
+            this.data_saleorderdetail = res;  
+            console.log(this.data_saleorderdetail);
+            
+          })
+         
+         //this.data_addsaledetail = this.data_item;
+        })
+      })   
+          }
+         
+        }
+      ]
+    });
+    confirm.present();
+    
+    }
+  
+  
+
+  }

@@ -9,7 +9,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { GreenTimberlandZenStock } from './app.component';
 
 import { Utility } from '../helper/utility';
-
+import { HttpClientModule } from '@angular/common/http'
 import { SaleOrderService } from '../services/saleorderservice';
 import { ProductService } from '../services/productservice';
 import { LoginService } from '../services/loginservice';
@@ -39,7 +39,8 @@ import { ReportService } from '../services/reportservice';
         }
       }),
     IonicStorageModule.forRoot(),
-    HttpModule
+    HttpModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -38,9 +38,9 @@ GetSalesOrdersByDateRange(oClient, oUserId, oStartDate, oEndDate, oUserGroup) {
       }
     );
   } 
-  Rpt_inventory_movement(oClient, oWarehouse, oZone, oItem_fr, oItem_to, oDescription, oLoc_fr, oLoc_to, oGroup, oGrade, oOrder_by) {
+  Rpt_inventory_movement(oClient, oWarehouse, oZone, oItem_fr, oItem_to, oDescription, oLoc_fr, oLoc_to, oGroup, oGrade, oOrder_by, oCategory) {
     let parameters='oClient='+oClient+'&oWarehouse='+oWarehouse+'&oZone='+oZone+'&oItem_fr='+oItem_fr+'&oItem_to='+oItem_to
-    +'&oDescription='+oDescription+'&oLoc_fr='+oLoc_fr+'&oLoc_to='+oLoc_to+'&oGroup='+oGroup+'&oGrade='+oGrade+'&oOrder_by='+oOrder_by;
+    +'&oDescription='+oDescription+'&oLoc_fr='+oLoc_fr+'&oLoc_to='+oLoc_to+'&oGroup='+oGroup+'&oGrade='+oGrade+'&oOrder_by='+oOrder_by+'&oCategory='+oCategory;
     return this.http.get(this.hostWebService +"/Rpt_inventory_movement?"+parameters)
       .toPromise()
       .then(response =>

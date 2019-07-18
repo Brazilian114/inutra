@@ -45,6 +45,7 @@ export class ProductDetailsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private utility: Utility, private storage: Storage, private productServ: ProductService) {
     this.data_item = navParams.get('item');
+    console.log(this.data_item);
     
   }
   ionViewWillEnter(){

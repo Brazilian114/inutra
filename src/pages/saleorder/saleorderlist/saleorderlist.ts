@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
+import {Http, Headers, Response} from '@angular/http';
 import { Utility } from '../../../helper/utility';
 import { SaleOrderService } from '../../../services/saleorderservice';
 
@@ -25,7 +26,7 @@ export class SaleOrderListPage {
   oUserGroup:string = "";
   oUserId:string = "";
   oSearch:string = "";
-  constructor(public navCtrl: NavController, private utility: Utility, private storage: Storage, private saleorderServ: SaleOrderService) {
+  constructor(private http: Http,public navCtrl: NavController, private utility: Utility, private storage: Storage, private saleorderServ: SaleOrderService) {
    
     this.doGetStorage();
     
@@ -40,6 +41,8 @@ export class SaleOrderListPage {
       this.hideMe = false;
     }
   }
+
+
   gotoDetail(item){
     this.navCtrl.push("SaleOrderDetailsPage", { item: item });
   }
@@ -76,4 +79,6 @@ export class SaleOrderListPage {
       this.oUserGroup = res;
     })  
   }
+
+ 
 }

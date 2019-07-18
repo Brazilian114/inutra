@@ -140,64 +140,9 @@ export class AddSaleOrderPage {
       this.utility.finishLoding();
     }
   }
-  SaveSaleOrder(oCustomer_name, oDate, oVat1, oDiscount1, oDateSale, oRemark, oType, oPayTerm, oSale){
-    if(this.oCustomer == "" || this.oCustomer == undefined){
-      this.utility.Alert("Warning","กรุณาเลือก Customer ก่อน");
-    }else if(oCustomer_name == "" || oCustomer_name == undefined){
-      this.utility.Alert("Warning","กรุณาเลือก Customer ก่อน");
-    }else if(oType == "" || oType == undefined){
-      this.utility.Alert("Warning","กรุณาเลือก Type");
-    }else if(oPayTerm == "" || oPayTerm == undefined){
-      this.utility.Alert("Warning","กรุณาเลือกการชำระเงิน");
-    }else if(oSale == "" || oSale == undefined){
-      this.utility.Alert("Warning","กรุณาเลือก Sale");
-    }else{
-      if(this.arrayItem.length <= 0){
-        this.utility.Alert("Warning","กรุณาเลือกสินค้าก่อน");
-      }else{
-        this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{
-          this.data_customerdelivery = res;
-          console.log(this.data_customerdelivery);
+  
     
-          // if(this.data_customerdelivery.length <= 0){
-          //   this.utility.Alert("Wraning", "ไม่พบ Customer Code");
-          // }else{
-
-            var Order_date = oDate.toString();
-            var DueDate = oDateSale.toString();
-    
-            this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", "", oType, this.oCustomer, oCustomer_name, Order_date, "", "", "", ""
-              , "", "", "", "", "", "", "", Order_date, "", oRemark, "", ""
-              , "", DueDate, "", "", "", "", "", "", ""
-              , "", "", DueDate, this.oUsername, oPayTerm, oSale, oSale, "", "", "", "", Order_date
-              , "", DueDate).then((res)=>{
-              this.data_addsaleorder = res;
-              console.log(this.data_addsaleorder);
-              
-              if(this.data_addsaleorder["0"].sqlstatus != "0"){
-                this.utility.Alert("Wraning", this.data_addsaleorder["0"].sqlmsg);
-              }else{
-                for(let i=0; i < this.arrayItem.length; i++){
-                  this.doAddOrdersDetailsAsync(i) 
-                }
-                let alert = this.alertCtrl.create({
-                  title: this.data_addsaleorder["0"].order_no,
-                  subTitle: this.data_addsaleorder["0"].sqlmsg,
-                  buttons: [ {
-                      text: 'ตกลง',
-                      handler: data => {
-                        this.dismiss();
-                      }
-                    }]
-                });
-                alert.present();
-              }
-            })
-          // }
-        })
-      }
-    }
-  }
+  
   doGetCustomerDelivery(){
     this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{
       this.data_customerdelivery = res;
@@ -280,7 +225,64 @@ export class AddSaleOrderPage {
       }, Math.floor(Math.random() * 1000));
     });
   }
-  
+  SaveSaleOrder(oCustomer_name, oDate, oVat1, oDiscount1, oDateSale, oRemark, oType, oPayTerm, oSale){
+    if(this.oCustomer == "" || this.oCustomer == undefined){
+      this.utility.Alert("Warning","กรุณาเลือก Customer ก่อน");
+    }else if(oCustomer_name == "" || oCustomer_name == undefined){
+      this.utility.Alert("Warning","กรุณาเลือก Customer ก่อน");
+    }else if(oType == "" || oType == undefined){
+      this.utility.Alert("Warning","กรุณาเลือก Type");
+    }else if(oPayTerm == "" || oPayTerm == undefined){
+      this.utility.Alert("Warning","กรุณาเลือกการชำระเงิน");
+    }else if(oSale == "" || oSale == undefined){
+      this.utility.Alert("Warning","กรุณาเลือก Sale");
+    }else{
+      if(this.arrayItem.length <= 0){
+        this.utility.Alert("Warning","กรุณาเลือกสินค้าก่อน");
+      }else{
+        this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{
+          this.data_customerdelivery = res;
+          console.log(this.data_customerdelivery);
+    
+          // if(this.data_customerdelivery.length <= 0){
+          //   this.utility.Alert("Wraning", "ไม่พบ Customer Code");
+          // }else{
+
+            var Order_date = oDate.toString();
+            var DueDate = oDateSale.toString();
+    
+            this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", "", oType, this.oCustomer, oCustomer_name, Order_date, "", "", "", ""
+              , "", "", "", "", "", "", "", Order_date, "", oRemark, "", ""
+              , "", DueDate, "", "", "", "", "", "", ""
+              , "", "", DueDate, this.oUsername, oPayTerm, oSale, oSale, "", "", "", "", Order_date
+              , "", DueDate).then((res)=>{
+              this.data_addsaleorder = res;
+              console.log(this.data_addsaleorder);
+              
+              if(this.data_addsaleorder["0"].sqlstatus != "0"){
+                this.utility.Alert("Wraning", this.data_addsaleorder["0"].sqlmsg);
+              }else{
+                for(let i=0; i < this.arrayItem.length; i++){
+                  this.doAddOrdersDetailsAsync(i) 
+                }
+                let alert = this.alertCtrl.create({
+                  title: this.data_addsaleorder["0"].order_no,
+                  subTitle: this.data_addsaleorder["0"].sqlmsg,
+                  buttons: [ {
+                      text: 'ตกลง',
+                      handler: data => {
+                        this.dismiss();
+                      }
+                    }]
+                });
+                alert.present();
+              }
+            })
+          // }
+        })
+      }
+    }
+  }
   // test() {
   //   let i;
   //   let promises = [];
@@ -297,5 +299,5 @@ export class AddSaleOrderPage {
   //           // Handle errors here
   //       });
   // }
-
 }
+

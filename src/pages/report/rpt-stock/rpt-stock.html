@@ -42,7 +42,7 @@
     </ion-row>
   </ion-grid> -->
   <ion-grid>
-    <ion-list *ngFor="let item of items; let i = index">
+    <ion-list  (click)="doDetails(item)" *ngFor="let item of items; let i = index">
       <ion-card ion-item>
         <!-- <ion-item style="border-bottom: 0.5px solid;"> -->
           <ion-row>

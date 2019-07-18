@@ -58,6 +58,7 @@ export class CustomerHeaderPage {
   doDetails(item){ 
     this.utility.presentLoading();
     let modal = this.modalCtrl.create("CustomerDetailsPage",{ item: item })
+    
     modal.present();
     this.utility.finishLoding();
   }

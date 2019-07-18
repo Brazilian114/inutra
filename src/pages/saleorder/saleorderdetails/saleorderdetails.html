@@ -55,12 +55,7 @@
       <ion-col class="font-white">         
         รายการสินค้า
       </ion-col>
-      <ion-col col-1 class="font-white">
-        <ion-icon name="md-create"></ion-icon>
-      </ion-col>
-      <ion-col col-1 class="font-white">
-        <ion-icon name="md-trash"></ion-icon>
-      </ion-col>
+      
     </ion-row>
   </ion-card>
   <ion-card class="card-list" [hidden]='hideMe'>
@@ -76,9 +71,13 @@
       </ion-col>
       <ion-col class="font-white">
         หน่วย
+      </ion-col >
+      <ion-col col-1 class="font-white" *ngIf="data_item.status == 'DATA ENTRY'"> 
+      </ion-col>
+      <ion-col col-1 class="font-white" *ngIf="data_item.status == 'DATA ENTRY'">
       </ion-col>
     </ion-row>
-    <ion-row *ngFor="let item of data_saleorderdetail; let i = index" (click)="doEditProduct(item)">
+    <ion-row *ngFor="let item of data_saleorderdetail; let i = index" >
       <ion-col class="font-white">
         {{item.line_no}}  
       </ion-col>
@@ -90,6 +89,12 @@
       </ion-col>
       <ion-col class="font-white">
         {{item.uom}}
+      </ion-col>
+      <ion-col col-1 class="font-white" (click)="doEditProduct(item)" *ngIf="data_item.status == 'DATA ENTRY'">
+        <ion-icon name="md-create"></ion-icon>
+      </ion-col>
+      <ion-col col-1 class="font-white"(click)="doConfirm(item)" *ngIf="data_item.status == 'DATA ENTRY'">
+        <ion-icon name="md-trash"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-card>

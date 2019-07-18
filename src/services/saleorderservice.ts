@@ -1,6 +1,7 @@
 import 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
+import { NavController, LoadingController, ToastController, ModalController, Platform, AlertController, Content, IonicPage } from 'ionic-angular';
 import * as xml2js from "xml2js"
 
 import { Storage } from '@ionic/storage';
@@ -8,13 +9,15 @@ import { Storage } from '@ionic/storage';
 export class SaleOrderService {
   public hostWebService:string;
   url:string;
-  constructor(private http: Http, private storage: Storage){
+  
+  constructor(private toastCtrl: ToastController,private http: Http, private storage: Storage){
 
     this.storage.get('_url').then((res)=>{
       this.url = res;
       this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
     })
   }
+  
 
   GetSalesOrders(oClient, oUserId, oKeyword, oUserGroup) {
     let parameters='oClient='+oClient+'&oUserId='+oUserId+'&oKeyword='+oKeyword+'&oUserGroup='+oUserGroup;
@@ -98,6 +101,28 @@ export class SaleOrderService {
         }
       );
   }
+
+  DeleteSoDetail( oClient, oOrder_no,  oLine_no) {
+    let parameters='oClient='+oClient+'&oOrder_no='+oOrder_no+'&oLine_no='+oLine_no;
+    return this.http.get(this.hostWebService +"/Delete_SoDetail?"+parameters)
+      .toPromise()
+      .then(response =>
+        {
+            let a;
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
+            a = result;
+        });
+            try {
+                // return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+                return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
+            }
+            catch (e) {
+              return [];
+            }
+        }
+      );
+  }
+
   GetCustomerDelivery(oClient, oCustomerId) {
     let parameters='oClient='+oClient+'&oCustomerId='+oCustomerId;
     return this.http.get(this.hostWebService +"/Get_Customer_Delivery?"+parameters)
@@ -151,14 +176,18 @@ export class SaleOrderService {
         }
       );
   } 
+  
+  
   AddOrdersDetails(oClient, oMaker, oOrderNo, oOrderDate, oLineNo, oItemNo, oItemDescription, oUom, oQty, oUnitPrice, oAmount, oNetAmount, oRemarks
     , oDiscountType, oDiscountByLine, oDiscountUnit, oRealDiscount, oItemColor, oServicePrice, oStatus, oZone, oRate, oCustomer, oDiscount, oGrade, oUser_Defined) {
-    let parameters='oClient='+oClient+'&oMaker='+oMaker+'&oOrderNo='+oOrderNo+'&oOrderDate='+oOrderDate
+    
+      let parameters='oClient='+oClient+'&oMaker='+oMaker+'&oOrderNo='+oOrderNo+'&oOrderDate='+oOrderDate
     +'&oLineNo='+oLineNo+'&oItemNo='+oItemNo+'&oItemDescription='+oItemDescription+'&oUom='+oUom
     +'&oQty='+oQty+'&oUnitPrice='+oUnitPrice+'&oAmount='+oAmount+'&oNetAmount='+oNetAmount
     +'&oRemarks='+oRemarks+'&oDiscountType='+oDiscountType+'&oDiscountByLine='+oDiscountByLine+'&oDiscountUnit='+oDiscountUnit
     +'&oRealDiscount='+oRealDiscount+'&oItemColor='+oItemColor+'&oServicePrice='+oServicePrice
     +'&oStatus='+oStatus+'&oZone='+oZone+'&oRate='+oRate+'&oCustomer='+oCustomer+'&oDiscount='+oDiscount+'&oGrade='+oGrade+'&oUser_Defined='+oUser_Defined;
+    
     return this.http.get(this.hostWebService +"/Add_SO_Details?"+parameters)
       .toPromise()
       .then(response =>
