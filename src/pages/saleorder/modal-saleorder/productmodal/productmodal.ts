@@ -124,7 +124,8 @@ export class ProductModalPage {
       this.data_lastsale = res;
       console.log("Last Sale",this.data_lastsale);
       if(this.data_lastsale.length <= 0){
-
+        this.oPerCount = 0;
+        
       }else{
         // this.oPerCount = this.data_lastsale["0"].ราคาขายต่อหน่วย;
         this.oUomSale = this.data_lastsale["0"].หน่วยขาย;
@@ -154,7 +155,9 @@ export class ProductModalPage {
     this.saleorderServ.GetProductStock(this.oClient, this.oItem_no, "", "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
       this.data_productstock = res;
       console.log(this.data_productstock);
-      if(this.data_productstock <= 0){
+      if(this.data_productstock.length <= 0){
+        this.oAvailable = 0;
+        this.oFree = 0;
 
       }else{
         // this.oAvailable = this.data_productstock["0"].qty_avail;
@@ -169,12 +172,15 @@ export class ProductModalPage {
         this.oFree = free.toFixed();
 
         this.oPrice = this.data_productstock["0"].unit_price["0"];
+      
         // this.oPrice = price.toFixed();      
       }      
     })
   }
   doClear(){
-
+      this.oQty = "";
+      this.oUnit = "";
+      this.oRemark = "";
   }
   dismiss() {
     this.viewCtrl.dismiss();

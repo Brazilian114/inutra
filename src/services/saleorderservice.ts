@@ -11,10 +11,10 @@ export class SaleOrderService {
   url:string;
   
   constructor(private toastCtrl: ToastController,private http: Http, private storage: Storage){
-
+    this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx";
     this.storage.get('_url').then((res)=>{
       this.url = res;
-      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
+      // this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
     })
   }
   
@@ -60,6 +60,28 @@ export class SaleOrderService {
       );
   }
 
+  GetVatDetails() {
+    //let parameters='&oVat_id='+oVat_id+'&oDescription='+oDescription+'&oVat='+oVat;
+    return this.http.get(this.hostWebService +"/Get_Vat_Details?")
+      .toPromise()
+      .then(response =>
+        {
+            let a;
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
+            a = result;
+        });
+            try {
+                // return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+                return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
+            }
+            catch (e) {
+              return [];
+            }
+        }
+      );
+  }
+
+
   //Add Sale Order
   GetCustomerParam(oClient) {
     let parameters='oClient='+oClient;
@@ -81,6 +103,8 @@ export class SaleOrderService {
         }
       );
   }
+  
+
   GetProductParam(oReference) {
     let parameters='oReference='+oReference;
     return this.http.get(this.hostWebService +"/Get_Product_Param?"+parameters)

@@ -26,7 +26,7 @@ export class RptStockPage {
   items: any;
   constructor(public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private storage: Storage) {
     this.doGetStorage();
-    this.doGetRptInventoryMovement(this.oClient, "", "", "", "", "", "", "", "", "", "ITEM NO","");
+    this.doGetRptInventoryMovement(this.oClient, "", "", "", "", "", "", "", "", "", "ITEM NO");
   } 
   initializeItems() {
     this.items = this.data_rpt_inventory;
@@ -40,8 +40,8 @@ export class RptStockPage {
       })
     }
   }
-  doGetRptInventoryMovement(oClient, oWarehouse, oZone, oItem_fr, oItem_to, oDescription, oLoc_fr, oLoc_to, oGroup, oGrade, oOrder_by, oCategory){
-    this.reportServ.Rpt_inventory_movement(oClient, oWarehouse, oZone, oItem_fr, oItem_to, oDescription, oLoc_fr, oLoc_to, oGroup, oGrade, oOrder_by, oCategory).then((res)=>{
+  doGetRptInventoryMovement(oClient, oWarehouse, oZone, oItem_fr, oItem_to, oDescription, oLoc_fr, oLoc_to, oGroup, oGrade, oOrder_by){
+    this.reportServ.Rpt_inventory_movement(oClient, oWarehouse, oZone, oItem_fr, oItem_to, oDescription, oLoc_fr, oLoc_to, oGroup, oGrade, oOrder_by).then((res)=>{
       this.data_rpt_inventory = res;
       console.log(this.data_rpt_inventory);
       this.initializeItems();

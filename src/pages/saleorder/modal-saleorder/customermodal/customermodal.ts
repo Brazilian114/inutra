@@ -18,13 +18,17 @@ export class CustomerModalPage {
   oClient:string = "7LINE";
   items: any;
   data_customerparam:any;
+  page = 0;
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams
     , private storage: Storage, private saleorderServ: SaleOrderService) {
-
+    
   }
   ionViewWillEnter(){
     this.doGetCustomerParam();
   }
+
+ 
+
   doGetCustomerParam(){
     this.utility.presentLoading();
     this.saleorderServ.GetCustomerParam(this.oClient).then((res)=>{
@@ -46,11 +50,25 @@ export class CustomerModalPage {
       })
     }
   }
-  doSelectCustomer(customer, customer_name){
-    let data = { 'customer': customer, 'customer_name': customer_name };
+  doSelectCustomer(customer, customer_name , payment_term, vat){
+    let data = { 'customer': customer, 'customer_name': customer_name ,'payment_term':payment_term ,'vat':vat};
     this.viewCtrl.dismiss(data);
   }
   dismiss() {
     this.viewCtrl.dismiss();
   }
+/*
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+   
+    setTimeout(() => {
+      for (let i = 0; i < 30; i++) {
+        this.items.push( this.items[i] );
+      }
+    
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    }, 500);
+  }*/
+
 }

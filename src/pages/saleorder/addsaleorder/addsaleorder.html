@@ -4,7 +4,7 @@
       เพิ่มใบสั่งขาย
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="SaveSaleOrder(oCustomer_name, oDate, oVat1, oDiscount1, oDateSale, oRemark, oType, oPayTerm, oSale)">
+      <button ion-button icon-only (click)="SaveSaleOrder(oCustomer_name, oDate, oVat, oDiscount1, oDateSale, oRemark, oType, oPayTerm, oUserId)">
         <ion-icon name="md-checkmark-circle-outline"></ion-icon>
       </button>
     </ion-buttons>
@@ -12,10 +12,12 @@
 </ion-header>
 
 <ion-content class="backgound-image">
+ 
   <ion-grid>
     <ion-row>
       <ion-col>
           <ion-input type="text" [(ngModel)]="oCustomer_name" placeholder="ลูกค้า" readonly></ion-input>
+        
       </ion-col>
       <ion-col col-2>
         <button ion-button clear (click)="doCustomerModal()">
@@ -42,18 +44,16 @@
     </ion-row>
     <ion-row>
       <ion-item>
-        <ion-select [(ngModel)]="oPayTerm" interface="action-sheet">
+        <ion-select [(ngModel)]="oPayTerm" interface="action-sheet" style="width: 100%">
           <ion-option *ngFor = "let item of data_productparampayterm" value="{{item.param_code}}">{{item.param_desc}}</ion-option>
         </ion-select>
       </ion-item>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-item>
-          <ion-select [(ngModel)]="oSale" interface="action-sheet">
-              <ion-option *ngFor = "let item of data_productparamsale" value="{{item.param_code}}">{{item.param_desc}}</ion-option>
-          </ion-select>
-        </ion-item>
+        
+          <ion-input type="text" [(ngModel)]="oUserId"  readonly></ion-input>
+        
       </ion-col>
       <ion-col>
         <ion-item>
@@ -64,12 +64,11 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-item>
-          <ion-select [(ngModel)]="oVat1" interface="action-sheet" (ionChange)="doChangeTypeVat1(oVat1)">
-            <ion-option value="0">NO VAT</ion-option>
-            <ion-option value="7" selected="true">VAT 7%</ion-option>
-          </ion-select>
-        </ion-item>
+          <ion-item>
+              <ion-select  [(ngModel)]="oVat" interface="action-sheet" style="width: 100%">
+                <ion-option *ngFor = "let item of data_productVat" value="{{item.vat_id}}">{{item.description}}</ion-option>
+              </ion-select>
+            </ion-item>
       </ion-col>
       <!-- <ion-col>
           <ion-input type="text" [(ngModel)]="oDiscount1" placeholder="ส่วนลด" (ionChange)="doChangeTextDiscount1(oDiscount1)"></ion-input>

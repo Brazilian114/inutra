@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController, ViewController, ModalController, NavParams, List } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Utility } from '../../helper/utility';
 
@@ -13,9 +13,14 @@ import { Utility } from '../../helper/utility';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  oUsername:string = '';
+  oPassword:string = '';
+  data_item:any;
 
-  constructor(public navCtrl: NavController, private utility: Utility, private storage: Storage) {
-
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public modalCtrl: ModalController,public storage:Storage
+    , private utility: Utility, public navParams: NavParams) {
+    
+     
   }
   doProductHeaderPage(){
     this.utility.presentLoading();

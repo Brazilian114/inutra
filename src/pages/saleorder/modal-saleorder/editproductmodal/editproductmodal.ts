@@ -56,7 +56,9 @@ export class EditProductModalPage {
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams
     , private storage: Storage, private saleorderServ: SaleOrderService) {
       this.storage.get('_userId').then((res) => {
-        this.oUsername = res;   
+        this.oUsername = res;  
+        console.log(this.oUsername);
+         
       });
       this.item = navParams.get('item');
       this.oCustomer = navParams.get('oCustomer');
@@ -125,6 +127,7 @@ export class EditProductModalPage {
       this.data_lastsale = res;
       console.log("Last Sale",this.data_lastsale);
       if(this.data_lastsale.length <= 0){
+          this.oPerCount = 0;
 
       }else{
         // this.oPerCount = this.data_lastsale["0"].ราคาขายต่อหน่วย;
@@ -156,7 +159,8 @@ export class EditProductModalPage {
       this.data_productstock = res;
       console.log(this.data_productstock);
       if(this.data_productstock <= 0){
-
+        this.oAvailable = 0;
+        this.oFree = 0;
       }else{
         // this.oAvailable = this.data_productstock["0"].qty_avail;
         // this.oFree = this.data_productstock["0"].qty_free;
@@ -175,8 +179,10 @@ export class EditProductModalPage {
     })
   }
   doClear(){
-
-  }
+    this.oQty = "";
+    this.oUnit = "";
+    this.oRemark = "";
+}
   doAddOrdersDetailsAsync(value) {
     return new Promise((resolve) => {
       setTimeout(() => {

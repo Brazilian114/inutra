@@ -20,17 +20,18 @@ export class AddSaleOrderPage {
   oUsername:string = "";
   oUserId:string = "";
   oUserGroup:string = "";
-
+  
   oClient:string = "7LINE";
   oCustomer:string = "";
   oCustomer_name:string = "";
+  oPayment_term:string = "";
   oType:string = "ADHOC";
   oDate:any = new Date().toISOString();
   oPayTerm:string = "";
   oSale:string = "";
   oDateSale:any = new Date().toISOString();
   oTotalPrice: any = 0.00;
-
+  oStreet:string="";
   discount:any = 0.0;
   total_price:any = 0.0;
   pricePlusTax:any = 0.0;
@@ -52,10 +53,15 @@ export class AddSaleOrderPage {
   oCheckDiscount3:any = false;
   oDiscountType3:string = "";
 
+  oVat_id:string;
+  oDescription:string;
+  oVat:string;
+
   oRemark:string = "";
 
   data_customerparam:any;
   data_productparampayterm:any;
+  data_productVat:any;
   data_productparamsale:any;
 
   data_customerdelivery:any;
@@ -67,11 +73,14 @@ export class AddSaleOrderPage {
   constructor(public navCtrl: NavController, private utility: Utility, public navParams: NavParams, public alertCtrl: AlertController
     , private storage: Storage, private saleorderServ: SaleOrderService, private modalCtrl: ModalController, public viewCtrl: ViewController) {
       this.doGetStorage();
+        
+      
   }
   ionViewWillEnter(){
     this.utility.presentLoading();
     this.doProductParamPayTerm();
-    this.doProductParamSale();
+    this.doGetVat();
+    //this.doProductParamSale();
     this.utility.finishLoding();
   }
   doCustomerModal(){
@@ -83,12 +92,23 @@ export class AddSaleOrderPage {
       if(data != undefined){
        this.oCustomer = data.customer;
        this.oCustomer_name = data.customer_name;
-      }else{
+       this.oPayTerm = data.payment_term;
+       this.oVat = data.vat;
+       
+       if(this.oVat == ""){
 
+          this.doGetVat();
+
+       }
+      }else{
+       
       }
     });
     this.utility.finishLoding();
+    console.log(this.oVat1);
   }
+  
+  
   doShowHide(){
     if(this.hideMe == false){
       this.hideMe = true;
@@ -96,6 +116,7 @@ export class AddSaleOrderPage {
       this.hideMe = false;
     }
   }
+  
   doProductParamPayTerm(){
     this.saleorderServ.GetProductParam("PAY-TERM").then((res)=>{
       this.data_productparampayterm = res;
@@ -103,13 +124,26 @@ export class AddSaleOrderPage {
       console.log(this.data_productparampayterm);
     })
   }
+  
+  doGetVat(){
+    
+    this.saleorderServ.GetVatDetails().then((res)=>{
+      this.data_productVat = res;
+      this.oVat = this.data_productVat["2"].vat_id;
+      console.log(this.data_productVat);
+      
+    })
+    
+  }
+ 
+  /*
   doProductParamSale(){
     this.saleorderServ.GetProductParam("SALES CODE").then((res)=>{
       this.data_productparamsale = res;
       this.oSale = this.data_productparamsale["0"].param_code;
       console.log(this.data_productparamsale);
     })
-  }
+  }*/
   doProductModal(){
     if(this.oCustomer == "" || this.oCustomer == undefined){
       this.utility.Alert("Warning","กรุณาเลือก Customer ก่อน");
@@ -225,7 +259,7 @@ export class AddSaleOrderPage {
       }, Math.floor(Math.random() * 1000));
     });
   }
-  SaveSaleOrder(oCustomer_name, oDate, oVat1, oDiscount1, oDateSale, oRemark, oType, oPayTerm, oSale){
+  SaveSaleOrder(oCustomer_name, oDate, oVat, oDiscount1, oDateSale, oRemark, oType, oPayTerm, oUserId){
     if(this.oCustomer == "" || this.oCustomer == undefined){
       this.utility.Alert("Warning","กรุณาเลือก Customer ก่อน");
     }else if(oCustomer_name == "" || oCustomer_name == undefined){
@@ -234,7 +268,7 @@ export class AddSaleOrderPage {
       this.utility.Alert("Warning","กรุณาเลือก Type");
     }else if(oPayTerm == "" || oPayTerm == undefined){
       this.utility.Alert("Warning","กรุณาเลือกการชำระเงิน");
-    }else if(oSale == "" || oSale == undefined){
+    }else if(oUserId == "" || oUserId == undefined){
       this.utility.Alert("Warning","กรุณาเลือก Sale");
     }else{
       if(this.arrayItem.length <= 0){
@@ -245,16 +279,16 @@ export class AddSaleOrderPage {
           console.log(this.data_customerdelivery);
     
           // if(this.data_customerdelivery.length <= 0){
-          //   this.utility.Alert("Wraning", "ไม่พบ Customer Code");
+          //   this.utility.Alert("Warning", "ไม่พบ Customer Code");
           // }else{
 
             var Order_date = oDate.toString();
             var DueDate = oDateSale.toString();
     
-            this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", "", oType, this.oCustomer, oCustomer_name, Order_date, "", "", "", ""
+            this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", "", oType, this.oCustomer, oCustomer_name, Order_date, oVat, "", "", ""
               , "", "", "", "", "", "", "", Order_date, "", oRemark, "", ""
-              , "", DueDate, "", "", "", "", "", "", ""
-              , "", "", DueDate, this.oUsername, oPayTerm, oSale, oSale, "", "", "", "", Order_date
+              , "", DueDate, "", "","", "", "", "", ""
+              , "", "", DueDate, this.oUsername, oPayTerm, oUserId, oUserId, "", "", "", "", Order_date
               , "", DueDate).then((res)=>{
               this.data_addsaleorder = res;
               console.log(this.data_addsaleorder);
