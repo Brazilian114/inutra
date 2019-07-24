@@ -25,8 +25,8 @@ export class SaleMenuPage{
   oUserId:string = "";
   //oStartDate: String = "";
   //oEndDate: String = "";
-  //oStartDate: String = "2019-07-22";
-  //oEndDate: String = "2019-07-22";
+  //oStartDate: String = "2019-07-24";
+  //oEndDate:   String = "2019-07-24";
   oStartDate: String = new Date().toISOString().substring(0, 10);
   oEndDate: String = new Date().toISOString().substring(0, 10);
   oAmount: String = "";
@@ -48,8 +48,12 @@ export class SaleMenuPage{
   date2:any;
   date3:any;
   slice1:any;
-  //latest_date:any;
-  
+  sum2:any;
+  car:any;
+  format:any;
+  latest_date:any;
+  var_z:any;
+  var_a:any;
   constructor(public datepipe: DatePipe,public navCtrl: NavController, private utility: Utility, private saleServ: SaleService, private storage: Storage) {
     this.doGetStorage();
 
@@ -66,40 +70,69 @@ export class SaleMenuPage{
   doGetInvoiceGraph(oStartDate, oEndDate){
     this.saleServ.GetInvoiceGraph(this.oClient, this.oUserId, this.oUserGroup, oStartDate, oEndDate).then((res)=>{
       this.dataInvoiceGraph = res; 
+      if(this.dataInvoiceGraph.length <= 0 ){
+            this.sum = "0"
+            this.var_x = "0"
+
+      }else{
       console.log(this.dataInvoiceGraph);   
       this.oAmount = this.dataInvoiceGraph["0"].amount;
-      this.test = this.dataInvoiceGraph["0"].invoice_date;
-      
+      this.test = this.dataInvoiceGraph["0"].invoice_date;     
       this.var_x = this.dataInvoiceGraph.map(data => data.amount)
-      
       this.var_y = this.dataInvoiceGraph.map(data => data.invoice_date)
-      //var x1 = this.var_x["0"];
-      //var x2 = this.var_x["1"];
-      //var x3 = this.var_x["2"];
-      this.number1 = parseInt(this.var_x["0"]);
-      this.number2 = parseInt(this.var_x["1"]);
-      this.number3 = parseInt(this.var_x["2"]);
-      this.sum = this.number1 + this.number2 + this.number3
+      
+      
+  // console.log(this.var_z);
+   
+      //this.sum = this.number1 + this.number2 + this.number3
+
+      //this.sum  = this.sum.toFixed(2);
       this.date1 = this.var_y["0"]["0"];
       this.date2 = this.var_y["1"]["0"];
       this.date3 = this.var_y["2"]["0"];
-      var number3 = parseInt(this.var_x["2"]);
-      let i;
-      /*
-      for(i = 0; i < this.var_x.length ; i++ ){
-        this.number1 = parseInt(this.var_x);
-      this.sum = this.number1[i];
-      }*/
+     
+      
+      let sum4 = 0;
+      for (let car of this.dataInvoiceGraph) {
+        sum4 += parseInt(car.amount);
+        this.sum = sum4.toFixed(2);
+        //sum4 = sum4 +car.amount;
+        
+      }
+
+      let sum5 = 0;
+      for (this.car of this.dataInvoiceGraph) {
+        //this.date3.slice(11, this.date3.length-6);
+        this.format = this.datepipe.transform(this.car.invoice_date, 'h:mm:ss ');
+        //this.format = this.car.invoice_date
+        
+        sum5 += this.format ;
+        
+        this.sum2 = sum5;
+        
+        //sum4 = sum4 +car.amount;
+        
+      }
       console.log(this.var_y);
       
-      console.log(this.sum);
-      console.log(this.date1);
+      console.log(this.format);
+      console.log(this.sum2);
+      //console.log(this.var_y);
+      
+      
+     //console.log(sum4);
+   //console.log(this.sum2);
+      
+      //console.log(this.var_y);
+      
+      //console.log(this.sum);
+      //console.log(this.date1);
       //var removed = this.var_y.trim(2, 0, "water");  
       var latest_date =this.datepipe.transform(this.test, 'dd-MM-yyyy');
       //var date = this.var_y.next.format('YYYY-MM-DD');
       //this.var_y = new Date().getTime()
       //this.var_y = this.dataInvoiceGraph.map(data => data.start_date)
-      console.log(latest_date);
+      //console.log(latest_date);
       //console.log(x1);
       
       
@@ -145,7 +178,9 @@ export class SaleMenuPage{
           ]
         }
       });
+    }
     })
+  
   }
   doGetStorage(){
     this.storage.get('_user').then((res)=>{

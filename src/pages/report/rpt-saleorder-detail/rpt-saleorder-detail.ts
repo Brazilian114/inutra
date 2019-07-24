@@ -33,7 +33,7 @@ export class RptSaleOrderDetailsPage {
   oAmount:string = "";
   oNetAmount:string = "";
   oVat:string = "";
-
+  oReference_no:string="";
   data_item:any;
   data_saleorderdetail:any;
 
@@ -43,6 +43,7 @@ export class RptSaleOrderDetailsPage {
     console.log(this.data_item);
 
     this.oOrder_no = this.data_item.order_no;
+    this.oReference_no =  this.data_item.reference_no
     this.oDueDate = this.data_item.due_date;
     this.oCustomer = this.data_item.customer;
     this.oCustomer_name = this.data_item.customer_name;
@@ -63,7 +64,7 @@ export class RptSaleOrderDetailsPage {
     this.oVat = this.data_item.vat;
   }
   ionViewWillEnter(){
-    this.doGetOrdersDetails(this.oOrder_no);
+    this.doGetOrdersDetails();
   }
   doShowHide(){
     if(this.hideMe == false){
@@ -72,8 +73,8 @@ export class RptSaleOrderDetailsPage {
       this.hideMe = false;
     }
   }
-  doGetOrdersDetails(oOrder_no){
-    this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup, oOrder_no).then((res)=>{
+  doGetOrdersDetails(){
+    this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup, this.oReference_no).then((res)=>{
       this.data_saleorderdetail = res;  
       console.log(this.data_saleorderdetail);
       

@@ -23,7 +23,7 @@
     <div class="line"></div>
     <ion-row padding>
       
-      <ion-col class="col-line" >
+      <ion-col class="col-line" text-center>
         <ion-row>
           <b class="font-red font-big" *ngIf="oQty_Free  <0">{{oQty_Free}}</b>
         </ion-row>
@@ -31,12 +31,12 @@
           <b class="font-orange font-big" *ngIf="oQty_Free  >0">{{oQty_Free}}</b>
         </ion-row>
        
-        <ion-row>
+        <ion-row >
           <p>จำนวน</p>
         </ion-row>
       </ion-col>
       <ion-col>
-        <ion-row style="text-align: center">
+        <ion-row>
           <b class="font-orange font-big">{{oUom}}</b>
         </ion-row>
         <ion-row>
