@@ -21,10 +21,12 @@ export class CustomerModalPage {
   page = 0;
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams
     , private storage: Storage, private saleorderServ: SaleOrderService) {
+
     
   }
   ionViewWillEnter(){
     this.doGetCustomerParam();
+    
   }
 
  
@@ -62,13 +64,13 @@ export class CustomerModalPage {
     console.log('Begin async operation');
    
     setTimeout(() => {
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 50; i++) {
         this.items.push( this.items[i] );
       }
     
       console.log('Async operation has ended');
       infiniteScroll.complete();
     }, 500);
-  }*/
-
+  }
+*/
 }

@@ -27,7 +27,7 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-item>
+        <ion-item no-lines >
           <ion-select [(ngModel)]="oType" interface="action-sheet">
             <ion-option value="ADHOC" [selected]="true">ADHOC</ion-option>
             <ion-option value="RESERVE">RESERVE</ion-option>
@@ -36,27 +36,25 @@
         </ion-item>
       </ion-col>
       <ion-col>
-        <ion-item>
+        <ion-item no-lines>
           <ion-label>Date</ion-label>
           <ion-datetime [(ngModel)]="oDate" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-item>
-        <ion-select [(ngModel)]="oPayTerm" interface="action-sheet" style="width: 100%">
+      <ion-col>
+      <ion-item no-lines>
+        <ion-select [(ngModel)]="oPayTerm" placeholder="กรุณาเลือก การชำระเงินหลังวางบิล" interface="action-sheet" style="width: 100%">
           <ion-option *ngFor = "let item of data_productparampayterm" value="{{item.param_code}}">{{item.param_desc}}</ion-option>
         </ion-select>
       </ion-item>
+      </ion-col>
     </ion-row>
+   
     <ion-row>
       <ion-col>
-        
-          <ion-input type="text" [(ngModel)]="oUserId"  readonly></ion-input>
-        
-      </ion-col>
-      <ion-col>
-        <ion-item>
+        <ion-item no-lines>
           <ion-label>Due Date</ion-label>
           <ion-datetime [(ngModel)]="oDateSale" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
         </ion-item>
@@ -64,9 +62,9 @@
     </ion-row>
     <ion-row>
       <ion-col>
-          <ion-item>
-              <ion-select  [(ngModel)]="oVat" interface="action-sheet" style="width: 100%">
-                <ion-option *ngFor = "let item of data_productVat" value="{{item.vat_id}}">{{item.description}}</ion-option>
+          <ion-item no-lines>
+              <ion-select   placeholder="กรุณาเลือก VAT"[(ngModel)]="oVat" interface="action-sheet" style="width: 100%">
+                <ion-option *ngFor = "let item of data_productVat"  value="{{item.vat_id}}">{{item.description}}</ion-option>
               </ion-select>
             </ion-item>
       </ion-col>
@@ -183,7 +181,24 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-input type="text" [(ngModel)]="oRemark" placeholder="บันทึก"></ion-input>
+      <ion-col>
+        
+          <ion-input type="text" [(ngModel)]="oRemark" placeholder="บันทึก" text-left></ion-input>
+        
+      </ion-col>  
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        
+          <ion-label text-right>Create By</ion-label>
+        
+      </ion-col>
+
+      <ion-col>
+        
+          <ion-input type="text" [(ngModel)]="oUserId"  readonly text-center></ion-input>
+       
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

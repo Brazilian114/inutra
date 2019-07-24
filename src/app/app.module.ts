@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
-
+import { DatePipe } from '@angular/common'
 import { GreenTimberlandZenStock } from './app.component';
 
 import { Utility } from '../helper/utility';
@@ -56,7 +56,8 @@ import { ReportService } from '../services/reportservice';
     LoginService,
     CustomerService,
     SaleService,
-    ReportService
+    ReportService,
+    DatePipe
   ]
 })
 export class AppModule {}

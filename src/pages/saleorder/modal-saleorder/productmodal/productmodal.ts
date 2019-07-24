@@ -37,7 +37,7 @@ export class ProductModalPage {
   oPrice:string = "";
   oDiscount:string = "";
   oRemark:string = "";
-
+  oGrade:string="001";
   item: any;
   data_customerparam:any;
   data_productuom:any;
@@ -152,7 +152,7 @@ export class ProductModalPage {
     })
   }
   doGetProductStock(oZone, oItemPacking){
-    this.saleorderServ.GetProductStock(this.oClient, this.oItem_no, "", "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
+    this.saleorderServ.GetProductStock(this.oClient, this.oItem_no, this.oGrade, "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
       this.data_productstock = res;
       console.log(this.data_productstock);
       if(this.data_productstock.length <= 0){
@@ -185,4 +185,5 @@ export class ProductModalPage {
   dismiss() {
     this.viewCtrl.dismiss();
   }
+  
 }

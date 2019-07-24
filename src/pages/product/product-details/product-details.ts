@@ -25,10 +25,11 @@ export class ProductDetailsPage {
 
   oItem_Qty:string = "";
   oItem_Uom:string = "";
-
+  
   oClient:string = "7LINE";
   oItemNo:string = ""; 
-  oGrade:string = ""; 
+  oGrade:string = "001"; 
+  oQty_Free:string = ""; 
   oLotNo:string = ""; 
   oBatchNo:string = ""; 
   oItemSize:string = ""; 
@@ -62,6 +63,7 @@ export class ProductDetailsPage {
       // }else{
         this.oItem_Qty = this.data_productuom["0"].item_qty;
         this.oItem_Uom = this.data_productuom["0"].item_uom;
+        
       // } 
     })
   }
@@ -71,16 +73,24 @@ export class ProductDetailsPage {
       , this.oLocation, this.oPalletNo, this.oOiNo).then((res)=>{
 
       this.data_productstock = res;
+  
+  
+  
       console.log(this.data_productstock);
       if(this.data_productstock.length <= 0){
         this.oQty_Avail = "0.00";
         this.oUom = "PCS";
         this.oPrice = "0.00";
+        this.oQty_Free = "0.00";
+        
       }else{
         this.oQty_Avail = this.data_productstock["0"].qty_avail;
+        this.oQty_Free = this.data_productstock["0"].qty_free;
         this.oUom = this.data_productstock["0"].uom;
         this.oPrice = this.data_productstock["0"].unit_price;
+        
       }      
+      
     })
   }
 }

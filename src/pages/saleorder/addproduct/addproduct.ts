@@ -98,4 +98,6 @@ export class AddProductPage {
     });
     this.utility.finishLoding();
   }
+
+  
 }

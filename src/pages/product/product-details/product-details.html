@@ -15,29 +15,28 @@
     <ion-row>
       <b class="font-big">{{data_item.item_no}}</b>
     </ion-row>
+    
     <ion-row>
       <p class="font-medium">{{data_item.description}}</p>
     </ion-row>
+    
     <div class="line"></div>
     <ion-row padding>
-      <ion-col class="col-line">
+      
+      <ion-col class="col-line" >
         <ion-row>
-          <b class="font-orange font-big">{{oPrice}}</b>
+          <b class="font-red font-big" *ngIf="oQty_Free  <0">{{oQty_Free}}</b>
         </ion-row>
         <ion-row>
-          <p>ราคาปลีก</p>
+          <b class="font-orange font-big" *ngIf="oQty_Free  >0">{{oQty_Free}}</b>
         </ion-row>
-      </ion-col>
-      <ion-col class="col-line">
-        <ion-row>
-          <b class="font-orange font-big">{{oQty_Avail}}</b>
-        </ion-row>
+       
         <ion-row>
           <p>จำนวน</p>
         </ion-row>
       </ion-col>
       <ion-col>
-        <ion-row>
+        <ion-row style="text-align: center">
           <b class="font-orange font-big">{{oUom}}</b>
         </ion-row>
         <ion-row>

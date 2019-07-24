@@ -73,7 +73,7 @@ export class AddSaleOrderPage {
   constructor(public navCtrl: NavController, private utility: Utility, public navParams: NavParams, public alertCtrl: AlertController
     , private storage: Storage, private saleorderServ: SaleOrderService, private modalCtrl: ModalController, public viewCtrl: ViewController) {
       this.doGetStorage();
-        
+     
       
   }
   ionViewWillEnter(){
@@ -82,6 +82,7 @@ export class AddSaleOrderPage {
     this.doGetVat();
     //this.doProductParamSale();
     this.utility.finishLoding();
+    
   }
   doCustomerModal(){
     this.utility.presentLoading();
@@ -118,20 +119,29 @@ export class AddSaleOrderPage {
   }
   
   doProductParamPayTerm(){
+   
     this.saleorderServ.GetProductParam("PAY-TERM").then((res)=>{
       this.data_productparampayterm = res;
-      this.oPayTerm = this.data_productparampayterm["0"].param_code;
+      if(this.oPayTerm.length <= 0){
+        this.oPayTerm = "";
+      }else{
+        this.oVat = this.data_productVat["2"].vat_id;
       console.log(this.data_productparampayterm);
+    }
     })
+  
   }
   
   doGetVat(){
     
     this.saleorderServ.GetVatDetails().then((res)=>{
       this.data_productVat = res;
+     if(this.oPayTerm.length <= 0){
+        this.oPayTerm = "";
+     }else{
       this.oVat = this.data_productVat["2"].vat_id;
       console.log(this.data_productVat);
-      
+     }
     })
     
   }
@@ -268,8 +278,8 @@ export class AddSaleOrderPage {
       this.utility.Alert("Warning","กรุณาเลือก Type");
     }else if(oPayTerm == "" || oPayTerm == undefined){
       this.utility.Alert("Warning","กรุณาเลือกการชำระเงิน");
-    }else if(oUserId == "" || oUserId == undefined){
-      this.utility.Alert("Warning","กรุณาเลือก Sale");
+    }else if(oVat == "" || oVat == undefined){
+      this.utility.Alert("Warning","กรุณาเลือก Vat");
     }else{
       if(this.arrayItem.length <= 0){
         this.utility.Alert("Warning","กรุณาเลือกสินค้าก่อน");
@@ -294,7 +304,7 @@ export class AddSaleOrderPage {
               console.log(this.data_addsaleorder);
               
               if(this.data_addsaleorder["0"].sqlstatus != "0"){
-                this.utility.Alert("Waning", this.data_addsaleorder["0"].sqlmsg);
+                this.utility.Alert("Warning", this.data_addsaleorder["0"].sqlmsg);
               }else{
                 for(let i=0; i < this.arrayItem.length; i++){
                   this.doAddOrdersDetailsAsync(i) 
