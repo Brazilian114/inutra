@@ -48,6 +48,7 @@ export class SaleOrderDetailsPage {
   oAmount:string = "";
   oNetAmount:string = "";
   oVat:string = "";
+  oRemark:string="";
   //Details
 
   data_addsaleorder:any;
@@ -65,6 +66,7 @@ export class SaleOrderDetailsPage {
     console.log(this.data_item);
     this.oLineNo = this.data_item.oLineNo;
     this.oOrder_no = this.data_item.order_no;
+    this.oRemark = this.data_item.remarks;
     this.oDueDate = this.data_item.due_date;
     this.oCustomer = this.data_item.customer;
     this.oCustomer_name = this.data_item.customer_name;
@@ -84,6 +86,16 @@ export class SaleOrderDetailsPage {
       this.oNetAmount = this.data_item.net_amount;
 
     this.oVat = this.data_item.vat;
+
+    if(this.data_item.remarks == "")
+      this.oRemark = "-";
+    else 
+      this.oRemark = this.data_item.remarks;
+
+    if(this.data_item.dlvr_street == "" || this.data_item.dlvr_bldg == "")
+      this.oAddress = "-";
+    else
+      this. oAddress = this.data_item.dlvr_street + " " + this.data_item.dlvr_bldg;
   }
   ionViewWillLeave() {
     this.storage.remove('_oLine');

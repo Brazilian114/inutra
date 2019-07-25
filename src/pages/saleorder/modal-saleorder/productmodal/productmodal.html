@@ -72,13 +72,13 @@
       <ion-input type="text" [(ngModel)]="oRemark" placeholder="บันทึก"></ion-input>
     </ion-row>
     <ion-row>
-      <ion-col col-6>
-        <button ion-button clear (click)="doClear()">เคลียข้อมูล</button>
+      <ion-col col-7>
+        <button ion-button clear (click)="doClear()">เคลียร์ข้อมูล</button>
       </ion-col>
-      <ion-col col-3>
+      <ion-col col-2>
         <button ion-button clear (click)="dismiss()">ยกเลิก</button>
       </ion-col>
-      <ion-col col-3>
+      <ion-col col-2>
         <button ion-button clear (click)="doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oRemark, oUnit)">ตกลง</button>
       </ion-col>
     </ion-row>

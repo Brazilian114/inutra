@@ -30,11 +30,11 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-  </div>
+  </div>  
   <br/>
   <ion-grid>
     <ion-row>
-      <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
+      <ion-searchbar  style="border-radius:20px;" type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
     </ion-row>
     <ion-row>
       วันที่ : {{oDateView}} 
