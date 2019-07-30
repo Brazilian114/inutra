@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, ModalController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, ModalController,Content } from 'ionic-angular';
 
 import { Utility } from '../../../helper/utility';
 import { CustomerService } from '../../../services/customerservice';
@@ -14,14 +14,18 @@ import { CustomerService } from '../../../services/customerservice';
   templateUrl: 'customer-header.html'
 })
 export class CustomerHeaderPage {
-
+  @ViewChild(Content) pageTop: Content;
+  public pageScroller(){
+    this.pageTop.scrollToTop();
+  }
   oClient:string = "7LINE";
   oSearch:string = "";
 
   data_customer:any;
-
+  hasMoreData:any = true;
   hideMe:any = true;
   items: any;
+  item2 = [];
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, private utility: Utility, private customerServ: CustomerService) {
 
   } 
@@ -29,8 +33,35 @@ export class CustomerHeaderPage {
     this.doGetCustomerDetails(this.oSearch);
   }
   initializeItems() {
-    this.items = this.data_customer;
+    this.items = this.data_customer;   
+    for(let i = 0; i < 30; i++){
+      this.item2.push(this.data_customer[this.item2.length]);
+      }  
   }
+
+  doInfinite(ionInfinite) {
+    console.log("Start Scroll");
+      setTimeout(() => {      
+       for(let i = 0; i < 30; i++){
+         this.item2.push(this.data_customer[this.item2.length]);
+         } 
+        
+        if (this.item2.length > this.data_customer.length) {
+          ionInfinite.enable(false);
+          this.hasMoreData = false;
+        } else {
+          ionInfinite.enable(true);
+          this.hasMoreData = true;
+        }
+       
+       
+       console.log('End Scroll');      
+       ionInfinite.complete();
+       
+         }, 500);  
+      
+   }
+
   onInput(ev: any){
     this.initializeItems();
      console.log(this.items);

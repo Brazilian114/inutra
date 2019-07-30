@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-
+import { DatePipe } from '@angular/common'
 import {Http, Headers, Response} from '@angular/http';
 import { Utility } from '../../../helper/utility';
 import { SaleOrderService } from '../../../services/saleorderservice';
@@ -26,7 +26,8 @@ export class SaleOrderListPage {
   oUserGroup:string = "";
   oUserId:string = "";
   oSearch:string = "";
-  constructor(private http: Http,public navCtrl: NavController, private utility: Utility, private storage: Storage, private saleorderServ: SaleOrderService) {
+  date_time:any;
+  constructor(public datepipe: DatePipe,private http: Http,public navCtrl: NavController, private utility: Utility, private storage: Storage, private saleorderServ: SaleOrderService) {
    
     this.doGetStorage();
     
@@ -53,7 +54,9 @@ export class SaleOrderListPage {
     this.utility.presentLoading();
     this.saleorderServ.GetSalesOrders(this.oClient, this.oUserId, oSearch, this.oUserGroup).then((res)=>{
       this.data_saleorder = res;
+      
       console.log(this.data_saleorder);
+     
       this.utility.finishLoding();
     })
   }
@@ -80,5 +83,13 @@ export class SaleOrderListPage {
     })  
   }
 
- 
+  doRefresh(refresher) {
+    this.saleorderServ.GetSalesOrders(this.oClient, this.oUserId, this.oSearch, this.oUserGroup).then((res)=>{
+      this.data_saleorder = res;
+      
+      console.log(this.data_saleorder);
+      refresher.complete();
+    });
+
+  }
 }

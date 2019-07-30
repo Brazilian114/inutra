@@ -32,6 +32,7 @@ export class AddSaleOrderPage {
   oDateSale:any = new Date().toISOString();
   oTotalPrice: any = 0.00;
   oStreet:string="";
+
   discount:any = 0.0;
   total_price:any = 0.0;
   pricePlusTax:any = 0.0;
@@ -56,7 +57,8 @@ export class AddSaleOrderPage {
   oVat_id:string;
   oDescription:string;
   oVat:string;
-
+  oAddress:string = "";
+  oBuilding:string = "";
   oRemark:string = "";
 
   data_customerparam:any;
@@ -82,6 +84,7 @@ export class AddSaleOrderPage {
     this.doGetVat();
     //this.doProductParamSale();
     this.utility.finishLoding();
+   
     
   }
   doCustomerModal(){
@@ -90,13 +93,18 @@ export class AddSaleOrderPage {
     modal.present();
     modal.onDidDismiss(data =>{
       console.log(data);
+      
+      
       if(data != undefined){
        this.oCustomer = data.customer;
        this.oCustomer_name = data.customer_name;
        this.oPayTerm = data.payment_term;
        this.oVat = data.vat;
-       
-       if(this.oVat == ""){
+       this.oAddress = data.street;
+       this.oBuilding = data.building;
+     
+      
+       if(this.oVat == "" || this.oVat == undefined){
 
           this.doGetVat();
 
@@ -107,6 +115,8 @@ export class AddSaleOrderPage {
     });
     this.utility.finishLoding();
     console.log(this.oVat1);
+    
+    
   }
   
   
@@ -241,6 +251,7 @@ export class AddSaleOrderPage {
     })  
     this.storage.get('_userId').then((res)=>{
       this.oUserId = res;
+      console.log(this.oUserId["0"]);
     })  
     this.storage.get('_userGroup').then((res)=>{
       this.oUserGroup = res;
@@ -249,6 +260,7 @@ export class AddSaleOrderPage {
   dismiss() {
     this.viewCtrl.dismiss();
   }
+
 
 
   doAddOrdersDetailsAsync(value) {
@@ -268,6 +280,7 @@ export class AddSaleOrderPage {
         resolve(value);
       }, Math.floor(Math.random() * 1000));
     });
+   
   }
   SaveSaleOrder(oCustomer_name, oDate, oVat, oDiscount1, oDateSale, oRemark, oType, oPayTerm, oUserId){
     if(this.oCustomer == "" || this.oCustomer == undefined){
@@ -288,6 +301,7 @@ export class AddSaleOrderPage {
           this.data_customerdelivery = res;
           console.log(this.data_customerdelivery);
     
+    
           // if(this.data_customerdelivery.length <= 0){
           //   this.utility.Alert("Warning", "ไม่พบ Customer Code");
           // }else{
@@ -297,8 +311,8 @@ export class AddSaleOrderPage {
     
             this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", "", oType, this.oCustomer, oCustomer_name, Order_date, oVat, "", "", ""
               , "", "", "", "", "", "", "", Order_date, "", oRemark, "", ""
-              , "", DueDate, "", "","", "", "", "", ""
-              , "", "", DueDate, this.oUsername, oPayTerm, oUserId, oUserId, "", "", "", "", Order_date
+              , "", DueDate, "", "",this.oAddress, this.oBuilding, "", "", ""
+              , "", "", DueDate, this.oUsername, oPayTerm, this.oUserId["0"], this.oUserId["0"], "", "", "", "", Order_date
               , "", DueDate).then((res)=>{
               this.data_addsaleorder = res;
               console.log(this.data_addsaleorder);

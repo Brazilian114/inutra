@@ -42,34 +42,39 @@
     </ion-row>
   </ion-grid> -->
   <ion-grid>
-    <ion-list  (click)="doDetails(item)" *ngFor="let item of items; let i = index">
+    <ion-list  (click)="doDetails(item)" *ngFor="let item of item2; let i = index">
       <ion-card ion-item>
         <!-- <ion-item style="border-bottom: 0.5px solid;"> -->
           <ion-row>
-            <ion-col col-1>
-              {{i+1}}.
-            </ion-col>
+                      
             <ion-col>
-              {{item.item_no}}
+                {{i+1}}. รหัสสินค้า : {{item.item_no}}
             </ion-col>          
           </ion-row>
           <ion-row>
             <ion-col>
-              {{item.description}}
+              ชื่อสินค้า : {{item.description}}
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
-              {{item.qty_avail}} {{item.uom}}
+              จำนวน : {{item.qty_avail}} {{item.uom}}
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
-              {{item.unit_cost}} บาท
+              ราคา : {{item.unit_cost}} บาท
             </ion-col>
           </ion-row>
         <!-- </ion-item>        -->
       </ion-card>
     </ion-list>
   </ion-grid>
+  <ion-fab right bottom>
+      <button ion-fab color="darkroyal" (click)="pageScroller()">
+      <ion-icon name="ios-arrow-up"></ion-icon></button>
+    </ion-fab>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

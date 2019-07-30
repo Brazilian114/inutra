@@ -33,25 +33,16 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label stacked>วันที่เริ่มต้น</ion-label>
+              <ion-label stacked>เลือกวันที่</ion-label>
               <ion-datetime [(ngModel)]="oStartDate" display-format="MM/YYYY" picker-format="MMMM YYYY" ></ion-datetime>
             </ion-item>
           </ion-col>
-          <ion-col col-auto>
-            <ion-label>ถึง</ion-label>
-          </ion-col>
-          <ion-col>
-            <ion-item>
-              <ion-label stacked>วันที่สิ้นสุด</ion-label>
-              <ion-datetime [(ngModel)]="oEndDate" display-format="MM/YYYY" picker-format="MMMM YYYY" ></ion-datetime>
-            </ion-item>
-          </ion-col>
-         
+     
         </ion-row>
-        <button ion-button block (click)="doGetInvoiceGraph(oStartDate,oEndDate)">Search</button>
+        <button ion-button block (click)="doGetInvoiceGraph(oStartDate)">Search</button>
       </ion-grid>
-    </div>-->
-  <!---
+    </div>
+  
 <ion-row>
   <ion-col>
     <ion-item no-lines>

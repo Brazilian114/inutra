@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, ViewController, ModalController, NavParams, List } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, ViewController,Content, ModalController, NavParams, List } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { Utility } from '../../../helper/utility';
@@ -17,13 +17,17 @@ import { ProductService } from '../../../services/productservice';
   templateUrl: 'addproduct.html'
 })
 export class AddProductPage {
-
+  
+  @ViewChild(Content) pageTop: Content;
+  public pageScroller(){
+    this.pageTop.scrollToTop();
+  }
   oClient:string = "7LINE";
   oCustomer:string = "";
   isChecked:any = [];
 
   arrayItem:any = [];
-
+  item2 = [];
   data_product:any;
 
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public modalCtrl: ModalController
@@ -44,10 +48,26 @@ export class AddProductPage {
     this.utility.presentLoading();
     this.saleorderServ.GetProduct(this.oClient).then((res)=>{
       this.data_product = res;
+      for(let i = 0; i < 30; i++){
+        this.item2.push(this.data_product[this.item2.length]);
+        }  
       console.log(this.data_product);
       this.utility.finishLoding();
     })
   }
+
+  doInfinite(ionInfinite) {
+    console.log("Start Scroll");
+      setTimeout(() => {      
+       for(let i = 0; i < 30; i++){
+         this.item2.push(this.data_product[this.item2.length]);
+         } 
+       console.log('End Scroll'); 
+       
+       ionInfinite.complete();
+         }, 500);  
+   }
+
   doProductModal(item){
       this.utility.presentLoading();
       let modal = this.modalCtrl.create("ProductModalPage",{ item: item, oCustomer: this.oCustomer, arrayItem: this.arrayItem })
@@ -71,6 +91,7 @@ export class AddProductPage {
     this.utility.presentLoading();
     this.productServ.GetProductByKeyword(this.oClient, oKeyword).then((res)=>{
       this.data_product = res;
+     
       console.log(this.data_product); 
       this.utility.finishLoding();    
     })

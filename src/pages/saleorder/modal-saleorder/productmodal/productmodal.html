@@ -54,8 +54,8 @@
       <ion-col>
         <ion-select [(ngModel)]="oUnit" interface="action-sheet">
           <ion-option value="0" selected = "true">โปรดเลือกประเภทสินค้าที่ใช้ในการจัดส่ง</ion-option>
-          <ion-option value="ประกอบ" >ประกอบ</ion-option>
-          <ion-option value="ไม่ประกอบ">ไม่ประกอบ</ion-option>
+          <ion-option value="ประกอบ" >ประกอบ (ราคาต่อชุด {{oPrice2}} ฿)</ion-option>
+          <ion-option value="ไม่ประกอบ">ไม่ประกอบ (ราคาต่อชุด {{oPrice1}} ฿)</ion-option>
         </ion-select>
       </ion-col>
     </ion-row>

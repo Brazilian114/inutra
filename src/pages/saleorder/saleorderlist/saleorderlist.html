@@ -6,7 +6,15 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="backgound-image">
+<ion-content class="backgound-image">
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            
+            
+            refreshingSpinner="circles"
+            >
+        </ion-refresher-content>
+      </ion-refresher>
   <div class="div-border" [hidden]='hideMe'>
     <ion-grid padding>
       <ion-row>

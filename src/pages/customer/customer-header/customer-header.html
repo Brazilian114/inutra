@@ -43,7 +43,7 @@
     </ion-row>
   </ion-grid>
   <ion-grid>
-    <ion-card (click)="doDetails(item)" *ngFor="let item of items">
+    <ion-card (click)="doDetails(item)" *ngFor="let item of item2">
       <ion-card-header>
           <b>{{item.customer_name}}</b>
       </ion-card-header>
@@ -59,4 +59,11 @@
       </ion-card-content> 
     </ion-card>    
   </ion-grid>
+  <ion-fab right bottom>
+      <button ion-fab color="darkroyal" (click)="pageScroller()">
+      <ion-icon name="ios-arrow-up"></ion-icon></button>  
+    </ion-fab>
+  <ion-infinite-scroll *ngIf="hasMoreData" (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController, Content } 
+from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { Utility } from '../../../helper/utility';
@@ -15,6 +16,11 @@ import { ProductService } from '../../../services/productservice';
   templateUrl: 'product-details.html'
 })
 export class ProductDetailsPage {
+  @ViewChild(Content) pageTop: Content;
+  public pageScroller(){
+    this.pageTop.scrollToTop();
+  }
+
   data_item:any;
   data_productuom:any;
   data_productstock:any;
@@ -25,7 +31,8 @@ export class ProductDetailsPage {
 
   oItem_Qty:string = "";
   oItem_Uom:string = "";
-  
+  oPrice1:string = "";
+  oPrice2:string = "";
   oClient:string = "7LINE";
   oItemNo:string = ""; 
   oGrade:string = "001"; 
@@ -49,6 +56,7 @@ export class ProductDetailsPage {
     console.log(this.data_item);
     
   }
+  3
   ionViewWillEnter(){
     this.doGetProductUom();
     this.doGetProductStock();
@@ -88,7 +96,10 @@ export class ProductDetailsPage {
         this.oQty_Free = this.data_productstock["0"].qty_free;
         this.oUom = this.data_productstock["0"].uom;
         this.oPrice = this.data_productstock["0"].unit_price;
-        
+        var price1 = +this.data_productstock["0"].price_assemble_no
+        var price2 = +this.data_productstock["0"].price_assemble
+        this.oPrice1 = price1.toFixed(2);
+        this.oPrice2 = price2.toFixed(2);
       }      
       
     })

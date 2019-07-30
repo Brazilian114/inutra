@@ -23,8 +23,8 @@ export class SaleMenuPage{
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
-  //oStartDate: String = "2019-07-26";
-  //oEndDate:   String = "2019-07-26";
+  //oStartDate: String = "";
+  //oEndDate:   String = "";
   oStartDate: String = new Date().toISOString().substring(0, 10);
   oEndDate: String = new Date().toISOString().substring(0, 10);
   oAmount: String = "";
@@ -138,6 +138,7 @@ console.log(this.test2);*/
       });
     }
     })
+    return true;
   
   }
   doGetStorage(){

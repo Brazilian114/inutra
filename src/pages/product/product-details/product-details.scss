@@ -3,7 +3,6 @@ page-product-details {
         width: 100%;
         height: 250px;
     }
-
     .line{
         border-bottom: 1px solid #ff7b00;
     }
@@ -17,8 +16,11 @@ page-product-details {
         color: white;
     }
     .font-orange{
-        color: #ff7b00;
+        color: #ff7b00;  
     }
+    div.b {
+        text-align: center;
+      }
     .font-red{
         color: #ff2222;
     }

@@ -13,17 +13,33 @@
   </div>
   <ion-grid padding>
     <ion-row>
-      <b class="font-big"> {{data_item.item_no}}</b>
+      <b class="font-big">รหัสสินค้า : {{data_item.item_no}}</b>
     </ion-row>
     
     <ion-row>
-      <p class="font-medium">{{data_item.description}}</p>
+      <p class="font-medium">ชื่อสินค้า : {{data_item.description}}</p>
     </ion-row>
     
     <div class="line"></div>
-    <ion-row padding>
-      
-      <ion-col class="col-line" text-center>
+    <ion-row padding >
+        <ion-col class="col-line">
+          <div>
+            <ion-row>
+                <b class="font-orange font-medium">{{oPrice2}} ฿</b>
+            </ion-row>
+              <ion-row>
+                  <p>ราคารวมประกอบ</p>
+              </ion-row>
+              <div class="line"></div>
+              <ion-row >
+                  <b class="font-orange font-medium">{{oPrice1}} ฿</b>
+            </ion-row>
+              <ion-row>
+                  <p>ราคาไม่รวมประกอบ</p>
+              </ion-row>
+            </div>
+            </ion-col>
+      <ion-col class="col-line" >
         <ion-row>
           <b class="font-red font-big" *ngIf="oQty_Free  <0">{{oQty_Free}}</b>
         </ion-row>
@@ -32,7 +48,7 @@
         </ion-row>
        
         <ion-row >
-          <p>จำนวน</p>
+          <p >จำนวน</p>
         </ion-row>
       </ion-col>
       <ion-col>

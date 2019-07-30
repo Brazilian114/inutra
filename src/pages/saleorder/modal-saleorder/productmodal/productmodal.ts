@@ -27,14 +27,15 @@ export class ProductModalPage {
   oZone:any;
   oUnit:any;
   oCheckDiscount:boolean = false;
-
+  
   oAvailable:any;
   oFree:any;
   oUomQty:string = "";
   oPerCount:any;
   oUomSale:string = "";
   oQty:string = "";
-  oPrice:string = "";
+  oPrice1:string = "";
+  oPrice2:string = "";
   oDiscount:string = "";
   oRemark:string = "";
   oGrade:string="001";
@@ -60,7 +61,8 @@ export class ProductModalPage {
       this.oCustomer = navParams.get('oCustomer');
 
       this.oItem_no = this.item.item_no;
-      this.oDescription = this.item.description;    
+      this.oDescription = this.item.description;  
+    
       setTimeout(()=>{        
         this.InputQty.setFocus();
       },1000);
@@ -166,12 +168,15 @@ export class ProductModalPage {
 
         var available = +this.data_productstock["0"].qty_avail;
         var free = +this.data_productstock["0"].qty_free;        
-        var price = +this.data_productstock["0"].unit_price;
-
+        //var price = +this.data_productstock["0"].unit_price;
+        var price1 = +this.data_productstock["0"].price_assemble_no
+        var price2 = +this.data_productstock["0"].price_assemble
+        this.oPrice1 = price1.toFixed(2);
+        this.oPrice2 = price2.toFixed(2);
         this.oAvailable = available.toFixed();
         this.oFree = free.toFixed();
 
-        this.oPrice = this.data_productstock["0"].unit_price["0"];
+        //this.oPrice = this.data_productstock["0"].unit_price;
       
         // this.oPrice = price.toFixed();      
       }      

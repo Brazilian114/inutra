@@ -31,9 +31,9 @@
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col col-6 *ngFor = "let item of data_product; let i = index;" (click)="doProductModal(item)">
-          <ion-card>            
-            <ion-card-content>
+        <ion-col col-6 *ngFor = "let item of item2; let i = index;" (click)="doProductModal(item)">
+          <ion-card >            
+            <ion-card-content class="fix-line">
               <!-- <ion-checkbox color="dark" [(ngModel)]="isChecked[item.item_no]" (ionChange)="doProductModal(item, isChecked[item.item_no])"></ion-checkbox> -->
               <b>{{item.item_no}}</b>
               <p>{{item.description}}</p>
@@ -42,9 +42,14 @@
         </ion-col>   
       </ion-row> 
     </ion-grid>
-    
-</ion-content>
 
+  
+
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>
+ 
 <ion-footer>
   <ion-row>
     <ion-col style="text-align: center" text-center> 
@@ -53,5 +58,8 @@
       </button>
     </ion-col>
   </ion-row>
-  
+  <ion-fab right bottom >
+      <button ion-button class="button-circle" (click)="pageScroller()" >
+      <ion-icon name="ios-arrow-up" ></ion-icon></button>
+    </ion-fab>
 </ion-footer>

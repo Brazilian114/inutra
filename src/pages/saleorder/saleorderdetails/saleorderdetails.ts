@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { Utility } from '../../../helper/utility';
 import { SaleOrderService } from '../../../services/saleorderservice';
-
+import { DatePipe } from '@angular/common'
 @IonicPage(
   {name:'SaleOrderDetailsPage',
   segment: 'SaleOrderDetails'}
@@ -48,15 +48,16 @@ export class SaleOrderDetailsPage {
   oAmount:string = "";
   oNetAmount:string = "";
   oVat:string = "";
+  oCreate_date:string = "";
   oRemark:string="";
   //Details
-
+  date_time:any;
   data_addsaleorder:any;
   data_addsaledetail:any;
   data_deletedetail:any;
 
 
-  constructor(private toastCtrl: ToastController,public viewCtrl: ViewController,public alertCtrl: AlertController,public navCtrl: NavController, private utility: Utility, public navParams: NavParams, private storage: Storage
+  constructor(public datepipe: DatePipe,private toastCtrl: ToastController,public viewCtrl: ViewController,public alertCtrl: AlertController,public navCtrl: NavController, private utility: Utility, public navParams: NavParams, private storage: Storage
     , private saleorderServ: SaleOrderService, public modalCtrl: ModalController) {
    
     this.doGetStorage();
@@ -64,6 +65,7 @@ export class SaleOrderDetailsPage {
     this.data_item = navParams.get('item');
     
     console.log(this.data_item);
+    this.oCreate_date = this.data_item.create_date[0];
     this.oLineNo = this.data_item.oLineNo;
     this.oOrder_no = this.data_item.order_no;
     this.oRemark = this.data_item.remarks;
@@ -73,15 +75,18 @@ export class SaleOrderDetailsPage {
     this.oAddress = this.data_item.dlvr_street + " " + this.data_item.dlvr_bldg;
     this.oDiscountRate = this.data_item.discount_rate;
     this.oDiscountType = this.data_item.discount_type;
- console.log(this.oLineNo);
+    this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
+ //console.log(this.oLineNo);
+ //console.log(this.date_time);
+ 
  
     if(this.data_item.amount == undefined)
-      this.oAmount = "0";
+      this.oAmount = "0.00";
     else
       this.oAmount = this.data_item.amount;
 
     if(this.data_item.net_amount == undefined)  
-      this.oNetAmount = "0";
+      this.oNetAmount = "0.00";
     else
       this.oNetAmount = this.data_item.net_amount;
 
@@ -92,7 +97,7 @@ export class SaleOrderDetailsPage {
     else 
       this.oRemark = this.data_item.remarks;
 
-    if(this.data_item.dlvr_street == "" || this.data_item.dlvr_bldg == "")
+    if(this.data_item.dlvr_street == "undefined" || this.data_item.dlvr_street == ""  )
       this.oAddress = "-";
     else
       this. oAddress = this.data_item.dlvr_street + " " + this.data_item.dlvr_bldg;

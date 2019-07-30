@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController , Content} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { Utility } from '../../../helper/utility';
@@ -16,6 +16,12 @@ import { ReportService } from '../../../services/reportservice';
 })
 export class RptSaleOrderPage {
   
+  @ViewChild(Content) pageTop: Content;
+  public pageScroller(){
+    this.pageTop.scrollToTop();
+  }
+
+  
   oClient:string = "7LINE";
   oUsername:string = "";
   oUserGroup:string = "";
@@ -26,7 +32,7 @@ export class RptSaleOrderPage {
 
   data_getsaleorder_bydate:any;
   data_saleorderdetail:any;
-
+  item2 = [];
   items: any;
   constructor(public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private storage: Storage) {
     this.doGetStorage();
@@ -34,7 +40,22 @@ export class RptSaleOrderPage {
   }
   initializeItems() {
     this.items = this.data_getsaleorder_bydate;
-  }
+    /*for(let i = 0; i < 30; i++){
+      this.item2.push(this.data_getsaleorder_bydate[this.item2.length]);
+      }*/
+  }  
+
+  doInfinite(ionInfinite) {
+    console.log("Start Scroll");
+      setTimeout(() => {      
+       for(let i = 0; i < 30; i++){
+         this.item2.push(this.data_getsaleorder_bydate[this.item2.length]);
+         } 
+       console.log('End Scroll');      
+       ionInfinite.complete();
+         }, 500);  
+   }
+  
   onInput(ev: any){
     this.initializeItems();
    let val = ev.target.value;

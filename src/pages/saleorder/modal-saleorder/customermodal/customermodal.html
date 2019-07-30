@@ -1,32 +1,35 @@
+
 <ion-content class="mymodal">
-  <ion-navbar color="primary">
-    <ion-searchbar
-      [(ngModel)]="myInput"
-      [showCancelButton]="shouldShowCancel"
-      (ionInput)="onInput($event)"
-      clearInput>
-    </ion-searchbar>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="dismiss()">
-        <ion-icon name="close"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-  <div *ngFor = "let item of items">
-    <ion-card (click)="doSelectCustomer(item.customer, item.customer_name, item.payment_term, item.vat, item.seles_name,item.branch)">
+  
+    <ion-navbar color="primary">
+        <ion-searchbar 
+          [(ngModel)]="myInput"
+          [showCancelButton]="shouldShowCancel"
+          (ionInput)="onInput($event)"
+          clearInput>
+        </ion-searchbar>
+        <ion-buttons end>
+          <button ion-button icon-only (click)="dismiss()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </ion-buttons>
+      </ion-navbar>
+   
+  <div *ngFor = "let item of item2">
+    <ion-card (click)="doSelectCustomer(item.customer, item.customer_name, item.payment_term, item.vat, item.street,item.building)">
       <ion-card-content>
         <b>{{item.customer_name}}</b>
-        <p>{{item.customer}}</p>
+        <p>{{item.customer}}</p>       
       </ion-card-content>
     </ion-card>
     
   </div>
+  <ion-fab right bottom>
+      <button ion-fab color="darkroyal" (click)="pageScroller()">
+      <ion-icon name="ios-arrow-up"></ion-icon></button>
+    </ion-fab>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
-<!---
-  <ion-infinite-scroll  (ionInfinite)="doInfinite($event)">
-      <ion-infinite-scroll-content>
-    </ion-infinite-scroll-content>
-    </ion-infinite-scroll>
-  -->
-    
 </ion-content>
