@@ -6,24 +6,23 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="backgound-image">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content
-            
-            
-            refreshingSpinner="circles"
-            >
-        </ion-refresher-content>
-      </ion-refresher>
+<ion-content class="backgound">
+  <ion-refresher class="backgound" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content refreshingSpinner="circles" >
+    </ion-refresher-content>
+  </ion-refresher>
   <div class="div-border" [hidden]='hideMe'>
     <ion-grid padding>
       <ion-row>
         <ion-col>
-          <ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา"></ion-input>
+          <!---<ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา"></ion-input>-->
+          <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
         </ion-col>
+        <!----
         <ion-col col-1>
           <button ion-button block><ion-icon name="md-search" (click)="doSearch(oSearch)"></ion-icon></button>
         </ion-col>
+      -->
       </ion-row>
     </ion-grid>
   </div>
@@ -43,7 +42,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-card (click)="gotoDetail(item)" *ngFor="let item of data_saleorder">
+  <ion-card (click)="gotoDetail(item)" *ngFor="let item of items">
     <ion-card-content>
       <ion-row>
         <ion-col>

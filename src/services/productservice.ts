@@ -16,8 +16,8 @@ export class ProductService {
     })
   }
 
-  GetProductTop30(oClient) {
-   let parameters='oClient='+oClient;
+  GetProductTop30(oClient,oKeyword) {
+   let parameters='oClient='+oClient+'&oKeyword='+oKeyword;;
    return this.http.get(this.hostWebService +"/Get_Product_Top_30?"+parameters)
      .toPromise()
      .then(response =>

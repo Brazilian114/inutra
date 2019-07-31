@@ -27,6 +27,7 @@ export class SaleOrderListPage {
   oUserId:string = "";
   oSearch:string = "";
   date_time:any;
+  items: any;
   constructor(public datepipe: DatePipe,private http: Http,public navCtrl: NavController, private utility: Utility, private storage: Storage, private saleorderServ: SaleOrderService) {
    
     this.doGetStorage();
@@ -34,6 +35,10 @@ export class SaleOrderListPage {
   }  
   ionViewWillEnter(){
     this.doGetSalesOrders(this.oSearch);
+  }
+  initializeItems() {
+    this.items = this.data_saleorder;   
+    
   }
   doShowHide(){
     if(this.hideMe == false){
@@ -56,7 +61,7 @@ export class SaleOrderListPage {
       this.data_saleorder = res;
       
       console.log(this.data_saleorder);
-     
+      this.initializeItems();
       this.utility.finishLoding();
     })
   }
@@ -82,12 +87,23 @@ export class SaleOrderListPage {
       this.oUserGroup = res;
     })  
   }
-
+  onInput(ev: any){
+    this.initializeItems();
+     console.log(this.items);
+   let val = ev.target.value;
+    if(val && val.trim() != ''){
+      this.items = this.items.filter((item)=>{
+        return (item.order_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 || item.status["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 || item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
+          
+      })
+    }
+  }
   doRefresh(refresher) {
     this.saleorderServ.GetSalesOrders(this.oClient, this.oUserId, this.oSearch, this.oUserGroup).then((res)=>{
       this.data_saleorder = res;
       
       console.log(this.data_saleorder);
+      this.initializeItems();
       refresher.complete();
     });
 

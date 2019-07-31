@@ -18,12 +18,17 @@ export class ProductHeaderPage {
   hideMe:any = true;
   data_product:any;
   oClient:string = "7LINE";
-
+  items: any;
+  oSearch:string = "";
   constructor(public navCtrl: NavController, private utility: Utility, private storage: Storage, private productServ: ProductService) {
     
   }
   ionViewWillEnter(){
-    this.getProductTop30();
+    this.getProductTop30(this.oSearch);
+  }
+  initializeItems() {
+    this.items = this.data_product;   
+   
   }
   doShowHide(){
     if(this.hideMe == false){
@@ -32,16 +37,27 @@ export class ProductHeaderPage {
       this.hideMe = false;
     }
   }
+  onInput(ev: any){
+    this.initializeItems();
+     console.log(this.items);
+   let val = ev.target.value;
+    if(val && val.trim() != ''){
+      this.items = this.items.filter((item)=>{
+        return (item.item_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
   doDetails(item){
     this.utility.presentLoading();
     this.navCtrl.push("ProductDetailsPage",{ item: item })
     this.utility.finishLoding();
   }
-  getProductTop30(){
+  getProductTop30(oSearch){
     this.utility.presentLoading();
-    this.productServ.GetProductTop30(this.oClient).then((res)=>{
+    this.productServ.GetProductTop30(this.oClient, oSearch).then((res)=>{
       this.data_product = res;
       console.log(this.data_product);
+      this.initializeItems();
       this.utility.finishLoding();     
     })
   }

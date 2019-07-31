@@ -135,7 +135,7 @@ export class AddSaleOrderPage {
       if(this.oPayTerm.length <= 0){
         this.oPayTerm = "";
       }else{
-        this.oVat = this.data_productVat["2"].vat_id;
+        //this.oVat = this.data_productVat["2"].vat;
       console.log(this.data_productparampayterm);
     }
     })
@@ -150,7 +150,7 @@ export class AddSaleOrderPage {
         this.oPayTerm = "";
      }else{
       this.oVat = this.data_productVat["2"].vat_id;
-      console.log(this.data_productVat);
+      console.log(this.oVat);
      }
     })
     
@@ -194,8 +194,6 @@ export class AddSaleOrderPage {
       this.utility.finishLoding();
     }
   }
-  
-    
   
   doGetCustomerDelivery(){
     this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{

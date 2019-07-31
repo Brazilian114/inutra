@@ -35,19 +35,20 @@ export class SaleOrderDetailsPage {
   oSale:string = "";
   oDateSale:any = new Date().toISOString();
   oTotalPrice: any = 0.00;
-
+  data_productVat:any;
   //Header
   oLineNo:string = "";
   oOrder_no:string = "";
   oCustomer:string = "";
   oCustomer_name:string = "";
   oAddress:string = "";
-  oDiscountRate:string = "";
+  oDiscountRate:any;
   oDiscountType:string = "";
   oDueDate:string = "";
   oAmount:string = "";
   oNetAmount:string = "";
-  oVat:string = "";
+  oVat:any;
+  
   oCreate_date:string = "";
   oRemark:string="";
   //Details
@@ -55,19 +56,22 @@ export class SaleOrderDetailsPage {
   data_addsaleorder:any;
   data_addsaledetail:any;
   data_deletedetail:any;
-
-
+  oDiscount1:any;
+  oDiscount2:any;
+  ovat2:any = "123456"
   constructor(public datepipe: DatePipe,private toastCtrl: ToastController,public viewCtrl: ViewController,public alertCtrl: AlertController,public navCtrl: NavController, private utility: Utility, public navParams: NavParams, private storage: Storage
     , private saleorderServ: SaleOrderService, public modalCtrl: ModalController) {
    
     this.doGetStorage();
-
+    
     this.data_item = navParams.get('item');
     
     console.log(this.data_item);
     this.oCreate_date = this.data_item.create_date[0];
     this.oLineNo = this.data_item.oLineNo;
     this.oOrder_no = this.data_item.order_no;
+    this.oAmount = this.data_item.amount;
+    this.oVat = this.data_item.vat_rate;
     this.oRemark = this.data_item.remarks;
     this.oDueDate = this.data_item.due_date;
     this.oCustomer = this.data_item.customer;
@@ -76,21 +80,28 @@ export class SaleOrderDetailsPage {
     this.oDiscountRate = this.data_item.discount_rate;
     this.oDiscountType = this.data_item.discount_type;
     this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
- //console.log(this.oLineNo);
- //console.log(this.date_time);
- 
- 
-    if(this.data_item.amount == undefined)
-      this.oAmount = "0.00";
-    else
-      this.oAmount = this.data_item.amount;
+    //console.log(this.oLineNo);
+    //console.log(this.date_time);
+    // console.log(this.oAmount);
+    //this.ovat2 =  this.oVat.toFixed(2);
+    
+    console.log(this.oVat);
+    
+
+
+ if(this.data_item.amount == undefined)  
+ this.oAmount = "0.00";
+else
+ this.oAmount = this.data_item.amount;
+
+    
 
     if(this.data_item.net_amount == undefined)  
       this.oNetAmount = "0.00";
     else
       this.oNetAmount = this.data_item.net_amount;
 
-    this.oVat = this.data_item.vat;
+    
 
     if(this.data_item.remarks == "")
       this.oRemark = "-";
@@ -108,6 +119,7 @@ export class SaleOrderDetailsPage {
   }
   ionViewWillEnter(){
     this.doGetOrdersDetails(this.oOrder_no);
+    this.doGetVat();
   
   }
   doShowHide(){
@@ -122,8 +134,51 @@ export class SaleOrderDetailsPage {
       this.data_saleorderdetail = res;  
       console.log(this.data_saleorderdetail);
       
+      
+      if(this.data_saleorderdetail["0"].amount == undefined)
+      this.oAmount = "0.00";
+    else
+      this.oAmount = this.data_saleorderdetail["0"].amount;
+
+      if(this.data_saleorderdetail["0"].net_amount == undefined)
+      this.oNetAmount = "0.00";  
+    else
+      this.oNetAmount = this.data_saleorderdetail["0"].net_amount;
+
+      this.oDiscount1 = parseInt(this.oAmount)
+      this.oDiscount2 = parseInt(this.oNetAmount)
+      
+      console.log(this.oDiscount1);
+      
+      /*if(this.data_deletedetail["0"].discount_rate == undefined) 
+        this.oDiscountRate = "0.00";
+      else  */
+      this.oDiscountRate = this.oDiscount1 - this.oDiscount2;
+       this.oDiscountRate = this.oDiscountRate.toFixed(2);
+        
+        
+      console.log(this.oDiscountRate);
+      
+   
     })
   }
+  doGetVat(){
+    
+    this.saleorderServ.GetVatDetails().then((res)=>{
+      this.data_productVat = res;
+     
+      
+      
+       // this.oVat = this.data_productVat[this.oVat.toFixed(0)].vat
+        
+      console.log(this.data_productVat);
+      
+     // console.log(this.oVat);
+     
+    })
+    
+  }
+ 
   doEditProduct(item){
     this.utility.presentLoading();
       let modal = this.modalCtrl.create("EditProductModalPage",{ item: item, oCustomer: this.oCustomer, oOrder_no: this.oOrder_no })

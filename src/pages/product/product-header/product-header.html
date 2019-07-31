@@ -11,7 +11,8 @@
     <ion-grid padding>
       <ion-row>
         <ion-col>
-          <ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา" (keyup.enter)="getProductByKeyword(oSearch)"></ion-input>
+          <!---<ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา" (keyup.enter)="getProductByKeyword(oSearch)"></ion-input>-->
+          <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
         </ion-col>    
         <ion-col col-1>
           <button ion-button block (click)="getProductByKeyword(oSearch)"><ion-icon name="md-search"></ion-icon></button>
@@ -26,7 +27,7 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-card (click)="doDetails(item)" *ngFor="let item of data_product">
+  <ion-card (click)="doDetails(item)" *ngFor="let item of items">
     <ion-card-header>
        <b>{{item.item_no}}</b>
     </ion-card-header>

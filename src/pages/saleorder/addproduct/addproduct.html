@@ -21,7 +21,7 @@
       <ion-grid padding>
         <ion-row>
           <ion-col>
-            <ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา" (keyup.enter)="getProductByKeyword(oSearch)"></ion-input>
+              <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
           </ion-col>
           <ion-col col-1>
             <button ion-button block (click)="getProductByKeyword(oSearch)"><ion-icon name="md-search"></ion-icon></button>
@@ -31,7 +31,7 @@
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col col-6 *ngFor = "let item of item2; let i = index;" (click)="doProductModal(item)">
+        <ion-col col-6 *ngFor = "let item of items" (click)="doProductModal(item)">
           <ion-card >            
             <ion-card-content class="fix-line">
               <!-- <ion-checkbox color="dark" [(ngModel)]="isChecked[item.item_no]" (ionChange)="doProductModal(item, isChecked[item.item_no])"></ion-checkbox> -->
