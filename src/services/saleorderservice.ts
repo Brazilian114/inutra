@@ -11,7 +11,7 @@ export class SaleOrderService {
   url:string;
   
   constructor(private toastCtrl: ToastController,private http: Http, private storage: Storage){
-    this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx";
+    this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx";  
     this.storage.get('_url').then((res)=>{
       this.url = res;
       // this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
@@ -172,7 +172,8 @@ export class SaleOrderService {
     , oContact, oDeliveryDate, oDeliveryCode, oDeliveryTo, oDeliveryStreet, oDeliveryBuilding, oDeliveryStreets3, oDeliveryTown, oDeliveryState
     , oDeliveryCountry, oDeliveryPostCode, oDueDate, oMaker, oPaymentTerm, oSalesCode, oSalesName, oBackorder, oReference, oOnpallet, oDO, oStandCost
     , oDepartment, oLoadDate) {
-    let parameters='oClient='+oClient+'&oBook='+oBook+'&oBranch='+oBranch+'&oOrderNo='+oOrderNo
+      
+      let parameters='oClient='+oClient+'&oBook='+oBook+'&oBranch='+oBranch+'&oOrderNo='+oOrderNo
     +'&oOrderType='+oOrderType+'&oCustomer='+oCustomer+'&oCustomerName='+oCustomerName+'&oOrderDate='+oOrderDate
     +'&oVat='+oVat+'&oDiscountType='+oDiscountType+'&oDiscountRate='+oDiscountRate+'&oDiscountType2='+oDiscountType2
     +'&oDiscountRate2='+oDiscountRate2+'&oDiscountType3='+oDiscountType3+'&oDiscountRate3='+oDiscountRate3+'&oTotalPrice='+oTotalPrice

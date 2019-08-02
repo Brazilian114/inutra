@@ -49,9 +49,9 @@ export class CustomerModalPage {
   }  
   initializeItems() { 
     this.items = this.data_customerparam;
-    for(let i = 0; i < 30; i++){
+   /* for(let i = 0; i < 30; i++){
       this.item2.push(this.data_customerparam[this.item2.length]);
-      }  
+      }  */
   }
 
   doInfinite(ionInfinite) {
@@ -69,8 +69,8 @@ export class CustomerModalPage {
     this.initializeItems();
     let val = ev.target.value;
     if(val && val.trim() != ''){
-      this.item2 = this.item2.filter((item)=>{
-        return (item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
+      this.items = this.items.filter((item)=>{
+        return (item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 || item.customer["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }

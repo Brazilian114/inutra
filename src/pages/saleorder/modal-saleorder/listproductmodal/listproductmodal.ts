@@ -35,6 +35,14 @@ export class ListProductModalPage {
   ionViewDidEnter(){
    
   }
+  removeItems(item){
+    this.arrayItem.forEach((element, idex) => {
+      if (element == item){
+        this.arrayItem.splice(idex, 1);
+      }    
+    });
+  }
+
   
   dismiss() {
     this.viewCtrl.dismiss();

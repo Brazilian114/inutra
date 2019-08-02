@@ -15,7 +15,7 @@
         </ion-buttons>
       </ion-navbar>
    
-  <div *ngFor = "let item of item2">
+  <div *ngFor = "let item of items">
     <ion-card (click)="doSelectCustomer(item.customer, item.customer_name, item.payment_term, item.vat, item.street,item.building)">
       <ion-card-content>
         <b>{{item.customer_name}}</b>
@@ -28,8 +28,10 @@
       <button ion-fab color="darkroyal" (click)="pageScroller()">
       <ion-icon name="ios-arrow-up"></ion-icon></button>
     </ion-fab>
+    <!----
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+-->
 
 </ion-content>

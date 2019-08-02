@@ -30,12 +30,16 @@ export class AddProductPage {
   item2 = [];
   data_product:any;
   items: any;
+  data_return:any = [];
   constructor(public navCtrl: NavController, public viewCtrl: ViewController, public modalCtrl: ModalController
     , private utility: Utility, private saleorderServ: SaleOrderService, private productServ: ProductService, public navParams: NavParams) {
       this.oCustomer = navParams.get('oCustomer');
       console.log(this.oCustomer);
       this.arrayItem = navParams.get('arrayItem');
       console.log("array",this.arrayItem);
+    
+     
+      
   }
   ionViewWillEnter(){
     this.doGetProduct();
@@ -43,7 +47,6 @@ export class AddProductPage {
   }
   initializeItems() {
     this.items = this.data_product;   
-   
   }
   checkItem(){
     console.log(this.isChecked);
@@ -111,7 +114,16 @@ export class AddProductPage {
     })
   }
   SaveSaleOrder(){
-    this.viewCtrl.dismiss(this.arrayItem);
+    for(let i=0; i<this.arrayItem.length; i++){
+     
+      if(this.arrayItem[i]["2"] <= 0){
+        alert("Not Zero")
+      }else{
+        this.viewCtrl.dismiss(this.arrayItem);
+        }
+    }
+   
+    
   }
   dismiss() {
     this.viewCtrl.dismiss();

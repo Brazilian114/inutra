@@ -22,7 +22,8 @@ export class EditProductModalPage {
   oDescription:string = "";
   oCustomer:string = "";
   oOrder_no:string = "";
-
+  oPrice1:string = "";
+  oPrice2:string = "";
   oParamCode:any;
   oUOM:any;
   oZone:any;
@@ -120,7 +121,7 @@ export class EditProductModalPage {
       this.data_productcolor = res;
       console.log(this.data_productcolor);
       
-    })
+    }) 
   }
   doGetLastSale(){
     this.saleorderServ.GetLastSale(this.oClient, this.item.item_no, this.oCustomer).then((res)=>{
@@ -158,7 +159,7 @@ export class EditProductModalPage {
     this.saleorderServ.GetProductStock(this.oClient, this.oItem_no, "", "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
       this.data_productstock = res;
       console.log(this.data_productstock);
-      if(this.data_productstock <= 0){
+      if(this.data_productstock.length <= 0){
         this.oAvailable = 0;
         this.oFree = 0;
       }else{
@@ -168,12 +169,15 @@ export class EditProductModalPage {
 
         var available = +this.data_productstock["0"].qty_avail;
         var free = +this.data_productstock["0"].qty_free;        
-        var price = +this.data_productstock["0"].unit_price;
+        //var price = +this.data_productstock["0"].unit_price;
 
         this.oAvailable = available.toFixed();
         this.oFree = free.toFixed();
-
-        this.oPrice = this.data_productstock["0"].unit_price["0"];
+        var price1 = +this.data_productstock["0"].price_assemble_no
+        var price2 = +this.data_productstock["0"].price_assemble
+        this.oPrice1 = price1.toFixed(2);
+        this.oPrice2 = price2.toFixed(2);
+        //this.oPrice = this.data_productstock["0"].unit_price["0"];
         // this.oPrice = price.toFixed();      
       }      
     })

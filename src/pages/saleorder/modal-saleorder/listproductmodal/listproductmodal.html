@@ -1,7 +1,7 @@
 <ion-content class="mymodal">
   <ion-navbar color="primary">
     <ion-row>
-      <h3>รายการสินค้า</h3>
+      <h3 style="color: white">รายการสินค้า</h3>
     </ion-row>
     <ion-buttons end>
       <button ion-button icon-only (click)="dismiss()">
@@ -11,10 +11,12 @@
   </ion-navbar>
   <div *ngFor = "let item of arrayItem">
     <ion-card>
-      <ion-card-content>
+      <ion-card-content>   
+        <ion-icon (click)="removeItems(item)" style="float: right;" class="button-circle" name="md-remove-circle"></ion-icon>
         <b>{{item['9']}}</b> <p>({{item['0']}})</p>
         <p>จำนวน {{item['2']}} {{item['3']}}</p>
         <p>ประเภท {{item['8']}}</p>
+      
       </ion-card-content>
     </ion-card>
   </div>

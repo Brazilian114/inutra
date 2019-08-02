@@ -22,6 +22,7 @@ export class RptSaleOrderDetailsPage {
   oUserGroup:string = "";
   oUserId:string = "";
   oRemarks:string="";
+  
   //Header
   oOrder_no:string = "";
   oCustomer:string = "";
@@ -31,7 +32,7 @@ export class RptSaleOrderDetailsPage {
   oDiscountType:string = "";
   oDueDate:string = "";
   oAmount:string = "";
-  oNetAmount:string = "";
+  oNetAmount:any;
   oVat:string = "";
   oReference_no:string="";
   data_item:any;
@@ -45,36 +46,57 @@ export class RptSaleOrderDetailsPage {
     console.log(this.data_item);
     this.oCreate_date = this.data_item.create_date[0];
     this.oOrder_no = this.data_item.order_no;
-    this.oReference_no =  this.data_item.reference_no
+    
     this.oDueDate = this.data_item.due_date;
     this.oRemarks = this.data_item.remarks;
     this.oCustomer = this.data_item.customer;
     this.oCustomer_name = this.data_item.customer_name;
     this.oAddress = this.data_item.dlvr_street + " " + this.data_item.dlvr_bldg;
-    this.oDiscountRate = this.data_item.discount_rate;
+    //this.oDiscountRate = this.data_item.discount_rate;
+    
     this.oDiscountType = this.data_item.discount_type;
     this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
+    var str = this.data_item.reference_no["0"];
+    var rate = this.data_item.discount_rate["0"];
+    var amount = this.data_item.amount["0"];
+    this.oAmount = parseFloat(amount).toFixed(2);
+    this.oDiscountRate = parseFloat(rate).toFixed(2);
+    var sum = amount - rate;
+    console.log(sum);
     
-    
+      if(str.length <= 9 )
+      this.oReference_no =  "SO0"+this.data_item.reference_no
+      else
+      this.oReference_no = this.data_item.reference_no;
+      
     if(this.data_item.amount == undefined)
-      this.oAmount = "0";
+      this.oAmount = "0.00";
     else
       this.oAmount = this.data_item.amount;
 
     if(this.data_item.net_amount == undefined)  
-      this.oNetAmount = "0";
+      this.oNetAmount = "0.00";
     else
-      this.oNetAmount = this.data_item.net_amount;
+      this.oNetAmount = sum.toFixed(2);
 
+    if(this.data_item.vat == undefined || this.data_item.vat == "")
+      this.oVat = "0.00";
+    else
       this.oVat = this.data_item.vat;
+
     if(this.data_item.remarks == "")
       this.oRemarks = "-";
     else
       this.oRemarks = this.data_item.remarks; 
 
+     
+      
+       
+
   }
   ionViewWillEnter(){
     this.doGetOrdersDetails();
+    
   }
   doShowHide(){
     if(this.hideMe == false){
@@ -84,7 +106,7 @@ export class RptSaleOrderDetailsPage {
     }
   }
   doGetOrdersDetails(){
-    this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup, this.oReference_no).then((res)=>{
+    this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup,this.oReference_no).then((res)=>{
       this.data_saleorderdetail = res;  
       console.log(this.data_saleorderdetail);
       

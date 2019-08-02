@@ -114,7 +114,7 @@ export class AddSaleOrderPage {
       }
     });
     this.utility.finishLoding();
-    console.log(this.oVat1);
+    //console.log(this.oVat1);
     
     
   }
@@ -150,7 +150,9 @@ export class AddSaleOrderPage {
         this.oPayTerm = "";
      }else{
       this.oVat = this.data_productVat["2"].vat_id;
-      console.log(this.oVat);
+      //console.log(this.oVat);
+      console.log(this.data_productVat);
+      
      }
     })
     
@@ -195,12 +197,22 @@ export class AddSaleOrderPage {
     }
   }
   
+  removeItems(item){
+    this.arrayItem.forEach((element, idex) => {
+      if (element == item){
+        this.arrayItem.splice(idex, 1);
+      }
+      
+    });
+  }
+
+
   doGetCustomerDelivery(){
     this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{
       this.data_customerdelivery = res;
       console.log(this.data_customerdelivery);
     })
-  }
+  } 
   doChangeTypeVat1(oVat1){
     this.oVat1 = oVat1;
   }
@@ -258,8 +270,6 @@ export class AddSaleOrderPage {
   dismiss() {
     this.viewCtrl.dismiss();
   }
-
-
 
   doAddOrdersDetailsAsync(value) {
     return new Promise((resolve) => {

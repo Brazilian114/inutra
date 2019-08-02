@@ -70,7 +70,7 @@ export class SaleOrderDetailsPage {
     this.oCreate_date = this.data_item.create_date[0];
     this.oLineNo = this.data_item.oLineNo;
     this.oOrder_no = this.data_item.order_no;
-    this.oAmount = this.data_item.amount;
+    //this.oAmount = this.data_item.amount;
     this.oVat = this.data_item.vat_rate;
     this.oRemark = this.data_item.remarks;
     this.oDueDate = this.data_item.due_date;
@@ -80,22 +80,14 @@ export class SaleOrderDetailsPage {
     this.oDiscountRate = this.data_item.discount_rate;
     this.oDiscountType = this.data_item.discount_type;
     this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
-    //console.log(this.oLineNo);
-    //console.log(this.date_time);
-    // console.log(this.oAmount);
-    //this.ovat2 =  this.oVat.toFixed(2);
-    
-    console.log(this.oVat);
-    
-
-
+/*
  if(this.data_item.amount == undefined)  
  this.oAmount = "0.00";
 else
  this.oAmount = this.data_item.amount;
 
     
-
+*/
     if(this.data_item.net_amount == undefined)  
       this.oNetAmount = "0.00";
     else
@@ -122,19 +114,20 @@ else
     this.doGetVat();
   
   }
+  /*
   doShowHide(){
     if(this.hideMe == false){
       this.hideMe = true;
     }else{
       this.hideMe = false;
     }
-  }
+  }*/
   doGetOrdersDetails(oOrder_no){
     this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup, oOrder_no).then((res)=>{
       this.data_saleorderdetail = res;  
       console.log(this.data_saleorderdetail);
       
-      
+      /*
       if(this.data_saleorderdetail["0"].amount == undefined)
       this.oAmount = "0.00";
     else
@@ -146,18 +139,19 @@ else
       this.oNetAmount = this.data_saleorderdetail["0"].net_amount;
 
       this.oDiscount1 = parseInt(this.oAmount)
-      this.oDiscount2 = parseInt(this.oNetAmount)
+      this.oDiscount2 = parseInt(this.oNetAmount)*/
       
-      console.log(this.oDiscount1);
+      //console.log(this.oDiscount1);
       
       /*if(this.data_deletedetail["0"].discount_rate == undefined) 
         this.oDiscountRate = "0.00";
       else  */
+/*
       this.oDiscountRate = this.oDiscount1 - this.oDiscount2;
-       this.oDiscountRate = this.oDiscountRate.toFixed(2);
+       this.oDiscountRate = this.oDiscountRate.toFixed(2);*/
         
         
-      console.log(this.oDiscountRate);
+     // console.log(this.oDiscountRate);
       
    
     })

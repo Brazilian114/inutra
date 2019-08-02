@@ -30,20 +30,20 @@ export class ProductHeaderPage {
     this.items = this.data_product;   
    
   }
-  doShowHide(){
+  /*doShowHide(){
     if(this.hideMe == false){
       this.hideMe = true;
     }else{
       this.hideMe = false;
     }
-  }
+  }*/
   onInput(ev: any){
     this.initializeItems();
      console.log(this.items);
    let val = ev.target.value;
     if(val && val.trim() != ''){
       this.items = this.items.filter((item)=>{
-        return (item.item_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (item.item_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 ||  item.description["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }

@@ -40,6 +40,7 @@ export class SaleOrderListPage {
     this.items = this.data_saleorder;   
     
   }
+  /*
   doShowHide(){
     if(this.hideMe == false){
       this.hideMe = true;
@@ -47,7 +48,7 @@ export class SaleOrderListPage {
       this.hideMe = false;
     }
   }
-
+*/
 
   gotoDetail(item){
     this.navCtrl.push("SaleOrderDetailsPage", { item: item });
@@ -65,6 +66,7 @@ export class SaleOrderListPage {
       this.utility.finishLoding();
     })
   }
+  
   doSearch(oSearch){
     this.doGetSalesOrders(oSearch);
   }
@@ -89,13 +91,17 @@ export class SaleOrderListPage {
   }
   onInput(ev: any){
     this.initializeItems();
-     console.log(this.items);
+    
+      
    let val = ev.target.value;
     if(val && val.trim() != ''){
       this.items = this.items.filter((item)=>{
-        return (item.order_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 || item.status["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 || item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
-          
+        //console.log(item.dlvr_to["0"]);
+        //console.log(item.status["0"]);
+        return (item.status["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 || item.order_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1  || item.customer["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 ||  item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
+         
       })
+      
     }
   }
   doRefresh(refresher) {

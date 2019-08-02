@@ -56,7 +56,7 @@ export class ProductDetailsPage {
     console.log(this.data_item);
     
   }
-  3
+  
   ionViewWillEnter(){
     this.doGetProductUom();
     this.doGetProductStock();

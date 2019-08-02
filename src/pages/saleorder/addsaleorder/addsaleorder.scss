@@ -2,16 +2,26 @@ page-addsaleorder {
     ion-select{
         max-width: 100% !important;
     }
+    .card{
+        border-radius:  5px;
+        }
     
     .button-circle{
         display:block;
         //border-radius: 50%;
+    }
+    .button-del{
+        background-color: rgb(194, 81, 81);
+        width: 25px;
+        height: 25px;
+        margin-left: 80%;
     }
     ion-input{
         background-color: #F3F3F3;
         border: 1px solid #cecece;
         border-radius: 5px 5px 5px 5px;
     }
+  
     .item{
         top: 40%;
         height: 35%;
@@ -23,7 +33,14 @@ page-addsaleorder {
         padding: 5px;
        // background-color: transparent;
        max-width: 100% !important;
-       
-      
+    }
+    .icon-circle{
+        margin-top: -2px;
+        font-size: 23px;
+        color: rgb(182, 55, 55);
+        background-color: rgb(255, 255, 255);
+        align-content: center;
+        float: left;
+        
     }
 }

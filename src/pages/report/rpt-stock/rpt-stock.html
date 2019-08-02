@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding class="backgound-image">
-  <div class="div-border">
+ 
     <ion-grid padding>
       <!-- <ion-row>
         <ion-col>
@@ -33,7 +33,7 @@
         <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
       </ion-row>
     </ion-grid>
-  </div>
+ 
   <br/>
   <!-- <ion-grid>
 
@@ -42,7 +42,7 @@
     </ion-row>
   </ion-grid> -->
   <ion-grid>
-    <ion-list  (click)="doDetails(item)" *ngFor="let item of item2; let i = index">
+    <ion-list  (click)="doDetails(item)" *ngFor="let item of items; let i = index">
       <ion-card ion-item>
         <!-- <ion-item style="border-bottom: 0.5px solid;"> -->
           <ion-row>
@@ -74,7 +74,10 @@
       <button ion-fab color="darkroyal" (click)="pageScroller()">
       <ion-icon name="ios-arrow-up"></ion-icon></button>
     </ion-fab>
-  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    <!---
+  <ion-infinite-scroll  (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content *ngIf="pagingEnabled"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+-->
+  
 </ion-content>

@@ -20,12 +20,13 @@ export class RptStockPage {
   public pageScroller(){
     this.pageTop.scrollToTop();
   }
-
+  public pagingEnabled: boolean = true;
   oClient:string = "7LINE";
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
-
+  newpost:any;
+  hasMoreData:any="true";
   data_rpt_inventory:any;
   data_saleorderdetail:any;
   item2 = [];
@@ -36,29 +37,31 @@ export class RptStockPage {
   } 
   initializeItems() {
     this.items = this.data_rpt_inventory;
+    /*
     for(let i = 0; i < 30; i++){
       this.item2.push(this.data_rpt_inventory[this.item2.length]);
-      }  
+      }  */
   }
 
-  doInfinite(ionInfinite) {
+  /*doInfinite(ionInfinite) {
     console.log("Start Scroll");
       setTimeout(() => {      
        for(let i = 0; i < 30; i++){
          this.item2.push(this.data_rpt_inventory[this.item2.length]);
-         } 
+        }
        console.log('End Scroll');      
        ionInfinite.complete();
-         }, 500);  
+         }, 500);   
    }
+*/
 
-
+  
   onInput(ev: any){
     this.initializeItems();
    let val = ev.target.value;
     if(val && val.trim() != ''){
-      this.item2 = this.item2.filter((item)=>{
-        return (item.item_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
+      this.items = this.items.filter((item)=>{
+        return (item.item_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 || item.description["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }
@@ -86,4 +89,34 @@ export class RptStockPage {
     this.navCtrl.push("ReportDetailPage",{ item: item })
     this.utility.finishLoding();
   }
+
+
+/*
+doInfinite(e): Promise<any> {
+  console.log("Begin async operation");
+     return new Promise(resolve => {
+     setTimeout(() => {
+        this.authService.postData(this.userPostData, "feed").then(
+        result => {
+           this.resposeData = result;
+           if (this.resposeData.feedData.length) {
+              const newData = this.resposeData.feedData;
+              this.userPostData.lastCreated = this.resposeData.feedData[newData.length - 1].created;
+  
+       for (let i = 0; i < newData.length; i++) {
+          this.dataSet.push(newData[i]);
+       }
+  } else {
+      this.noRecords = true;
+       console.log("No user updates");
+  }
+  },
+  err => {
+  //Connection failed message
+  }
+  );
+  resolve();
+  }, 500);
+  });
+  }*/
 }

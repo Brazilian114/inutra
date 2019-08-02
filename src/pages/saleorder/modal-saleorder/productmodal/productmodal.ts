@@ -80,9 +80,10 @@ export class ProductModalPage {
   }
   doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oRemark, oUnit){
 
+    
     if(oUnit == undefined || oUnit == "0"){
       this.utility.Alert("Warning","กรุณาเลือกประเภทสินค้าในการจัดส่ง");
-    }else if(oQty == undefined || oQty == ""){
+    }else if(oQty == undefined || oQty == "" || oQty <= 0){
       this.utility.Alert("Warning","กรุณาเพิ่มจำนวนสินค้าในการจัดส่ง");
     }else{
       this.data_return.push(oItem_no["0"]);
@@ -96,7 +97,7 @@ export class ProductModalPage {
       this.data_return.push(oUnit);
       this.data_return.push(this.oDescription.toString());
 
-      console.log(this.data_return);
+      console.log("return",this.data_return);
       this.viewCtrl.dismiss(this.data_return);
     }
   }

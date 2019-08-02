@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content padding class="backgound-image">
-  <div class="div-border" [hidden]='hideMe'>
+  
     <ion-grid padding>
       <ion-row>
         <ion-col>
@@ -34,14 +34,8 @@
         </ion-col> -->
       </ion-row>
     </ion-grid>
-  </div>
-  <ion-grid>
-    <ion-row class="textcenter">
-      <ion-col>
-        <ion-label (click)="doShowHide()">แสดงแถบค้นหา  <ion-icon name="md-search"></ion-icon></ion-label>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  
+  
   <ion-grid>
     <ion-card (click)="doDetails(item)" *ngFor="let item of items">
       <ion-card-header>

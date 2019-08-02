@@ -23,8 +23,8 @@ export class SaleMenuPage{
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
-  //oStartDate: String = "";
-  //oEndDate:   String = "";
+  //oStartDate: String = "2019/08/2";
+  //oEndDate:   String =  "2019/08/2";
   oStartDate: String = new Date().toISOString().substring(0, 10);
   oEndDate: String = new Date().toISOString().substring(0, 10);
   oAmount: String = "";

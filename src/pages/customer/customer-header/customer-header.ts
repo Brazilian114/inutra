@@ -20,7 +20,8 @@ export class CustomerHeaderPage {
   }
   oClient:string = "7LINE";
   oSearch:string = "";
-
+  oPrice1:string = "";
+  oPrice2:string = "";
   data_customer:any;
   hasMoreData:any = true;
   hideMe:any = true;
@@ -34,9 +35,9 @@ export class CustomerHeaderPage {
   }
   initializeItems() {
     this.items = this.data_customer;   
-    for(let i = 0; i < 30; i++){
+    /*for(let i = 0; i < 30; i++){
       this.item2.push(this.data_customer[this.item2.length]);
-      }  
+      }  */
   }
 
   doInfinite(ionInfinite) {
@@ -68,17 +69,18 @@ export class CustomerHeaderPage {
    let val = ev.target.value;
     if(val && val.trim() != ''){
       this.items = this.items.filter((item)=>{
-        return (item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (item.customer["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 ||  item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }
+  /*
   doShowHide(){
     if(this.hideMe == false){
       this.hideMe = true;
     }else{
       this.hideMe = false;
     }
-  }
+  }*/
   doGetCustomerDetails(oSearch){
     this.customerServ.GetCustomerDetails(this.oClient, oSearch).then((res)=>{
       this.data_customer = res;
