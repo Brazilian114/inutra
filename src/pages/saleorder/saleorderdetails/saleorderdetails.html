@@ -58,16 +58,16 @@
   </ion-card>
   <ion-card class="card-list">
     <ion-row>
-      <ion-col class="font-white">
+      <ion-col class="font-white"text-center>
         ลำดับ
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white"text-center col-3>
         สินค้า
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white"text-center>
         จำนวน
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white"text-center>
         หน่วย
       </ion-col >
       <ion-col col-1 class="font-white" *ngIf="data_item.status == 'DATA ENTRY'"> 
@@ -76,16 +76,16 @@
       </ion-col>
     </ion-row>
     <ion-row *ngFor="let item of data_saleorderdetail; let i = index" >
-      <ion-col class="font-white">
+      <ion-col class="font-white" text-center>
         {{item.line_no}}  
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white" text-center col-3>
         {{item.item_no}}
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white"text-center>
         {{item.qty_so}}
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white"text-center>
         {{item.uom}}
       </ion-col>
       <ion-col col-1 class="font-white" (click)="doEditProduct(item)" *ngIf="data_item.status == 'DATA ENTRY'">
@@ -95,7 +95,19 @@
         <ion-icon name="md-trash"></ion-icon>
       </ion-col>
     </ion-row>
+    
   </ion-card>
+  
+  <ion-row *ngIf="data_item.status == 'DATA ENTRY'">
+      <ion-col col-auto>
+        <button ion-button class="button-circle" (click)="doProductModal()">
+          <ion-icon name="md-add"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <ion-label>เพิ่มสินค้า</ion-label>
+      </ion-col>
+    </ion-row>
   <!---
   <ion-card>
     <ion-row>

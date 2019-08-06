@@ -16,7 +16,7 @@ import { SaleOrderService } from '../../../services/saleorderservice';
 })
 export class RptSaleOrderDetailsPage {
   hideMe:any = true;
-
+  
   oClient:string = "7LINE";
   oUsername:string = "";
   oUserGroup:string = "";
@@ -37,6 +37,7 @@ export class RptSaleOrderDetailsPage {
   oReference_no:string="";
   data_item:any;
   oCreate_date:any;
+  sum:any;
   date_time:any;
   data_saleorderdetail:any;
 
@@ -46,7 +47,7 @@ export class RptSaleOrderDetailsPage {
     console.log(this.data_item);
     this.oCreate_date = this.data_item.create_date[0];
     this.oOrder_no = this.data_item.order_no;
-    
+    this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
     this.oDueDate = this.data_item.due_date;
     this.oRemarks = this.data_item.remarks;
     this.oCustomer = this.data_item.customer;
@@ -56,14 +57,25 @@ export class RptSaleOrderDetailsPage {
     
     this.oDiscountType = this.data_item.discount_type;
     this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
-    var str = this.data_item.reference_no["0"];
-    var rate = this.data_item.discount_rate["0"];
-    var amount = this.data_item.amount["0"];
+    var str = this.data_item.reference_no;
+    var rate = this.data_item.discount_rate;
+    var amount = this.data_item.amount;
     this.oAmount = parseFloat(amount).toFixed(2);
     this.oDiscountRate = parseFloat(rate).toFixed(2);
     var sum = amount - rate;
-    console.log(sum);
-    
+    //console.log(sum);
+      
+      
+      if(this.data_item.discount_rate || undefined)
+      this.oDiscountRate == "0.00"
+      else
+
+      if(this.data_item.discount_rate == undefined || this.data_item.discount_rate == "")
+      this.oDiscountRate = "0.00";
+      else{
+        this.oDiscountRate = this.oDiscountRate
+      }
+      
       if(str.length <= 9 )
       this.oReference_no =  "SO0"+this.data_item.reference_no
       else
@@ -98,15 +110,15 @@ export class RptSaleOrderDetailsPage {
     this.doGetOrdersDetails();
     
   }
-  doShowHide(){
+  /*doShowHide(){
     if(this.hideMe == false){
       this.hideMe = true;
     }else{
       this.hideMe = false;
     }
-  }
+  }*/
   doGetOrdersDetails(){
-    this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup,this.oReference_no).then((res)=>{
+    this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup,this.oOrder_no).then((res)=>{
       this.data_saleorderdetail = res;  
       console.log(this.data_saleorderdetail);
       

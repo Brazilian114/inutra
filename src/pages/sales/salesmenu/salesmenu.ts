@@ -5,6 +5,7 @@ import { Chart } from 'chart.js';
 import { Utility } from '../../../helper/utility';
 import { SaleService } from '../../../services/salseservice';
 import { DatePipe } from '@angular/common'
+import { ReportService } from '../../../services/reportservice';
 @IonicPage(
   {name:'SaleMenuPage',
   segment: 'SaleMenu'}
@@ -27,7 +28,9 @@ export class SaleMenuPage{
   //oEndDate:   String =  "2019/08/2";
   oStartDate: String = new Date().toISOString().substring(0, 10);
   oEndDate: String = new Date().toISOString().substring(0, 10);
-  oAmount: String = "";
+  //oStartDate: String="";
+  //oEndDate: String="";
+  oAmount:any;
   private lineChart: Chart;
   items:any;
   posts:any;
@@ -37,10 +40,13 @@ export class SaleMenuPage{
   item:any;
   slic:string="";
   sum:any;
-  
+  data_getsaleorder_bydate:any;
+  data_saleorderdetail:any;
   sum2:any;
   car:any;
   public format: any = [];
+  public sum_price: any = [];
+  public sum_price2: any = [];
   latest_date:any;
   var_z:any;
   var_a:any;
@@ -48,11 +54,14 @@ export class SaleMenuPage{
   date_time:any;
   
   
-  constructor(public datepipe: DatePipe,public navCtrl: NavController, private utility: Utility, private saleServ: SaleService, private storage: Storage) {
+  constructor( private reportServ: ReportService,public datepipe: DatePipe,public navCtrl: NavController, private utility: Utility, private saleServ: SaleService, private storage: Storage) {
     this.doGetStorage();
 
     this.doGetInvoiceGraph(this.oStartDate, this.oEndDate);
     //this.ngOnInit(this.oStartDate, this.oEndDate);
+  }
+  initializeItems() {
+    this.items = this.dataInvoiceGraph;
   }
   doReservation(){
     this.navCtrl.push("SaleReservationPage");
@@ -61,27 +70,50 @@ export class SaleMenuPage{
   doCirculation(){
     this.navCtrl.push("CirculationPage");
   }
-  doGetInvoiceGraph(oStartDate, oEndDate){
-    this.saleServ.GetInvoiceGraph(this.oClient, this.oUserId, this.oUserGroup, oStartDate, oEndDate).then((res)=>{
-      this.dataInvoiceGraph = res; 
+  
+
+  doGetInvoiceGraph(oStartDate, oEndDate) {
+    this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oUserId, oStartDate, oStartDate, this.oUserGroup).then((res)=>{
+      this.dataInvoiceGraph = res;
+
       if(this.dataInvoiceGraph.length <= 0 ){
             this.sum = "0"
+            
           
       }else{
       console.log(this.dataInvoiceGraph);   
-      this.oAmount = this.dataInvoiceGraph["0"].amount;
-      this.date_time = this.dataInvoiceGraph["0"].invoice_date;     
+      
+      this.date_time = this.dataInvoiceGraph["0"].last_update;     
       this.var_x = this.dataInvoiceGraph.map(data => data.amount)
-      
-      this.var_y = this.dataInvoiceGraph.map(data => data.invoice_date)
-      var this_date =this.datepipe.transform(this.date_time, 'dd/MM/yyyy');
-      
+      this.oAmount = this.dataInvoiceGraph.amount;
+      this.var_y = this.dataInvoiceGraph.map(data => data.last_update)
+      //var this_date =this.datepipe.transform(this.date_time, 'dd/MM/yyyy');
+      var this_date = this.datepipe.transform(this.oStartDate, 'dd/MM/yyyy');
+        
+   
+
       for(let i=0;i<this.var_y.length;i++){
-       
+        if(this.dataInvoiceGraph[i].amount == undefined){
+          //this.dataInvoiceGraph[i].amount = ["0.00"];
+        }else{
         this.format = this.datepipe.transform(this.var_y[i], 'HH.mm');       
         this.format2.push(this.format);
-
+        }
+        
       }
+console.log(this.format2);
+
+      for(let i=0;i<this.dataInvoiceGraph.length;i++){
+        if(this.dataInvoiceGraph[i].amount == undefined){
+          this.dataInvoiceGraph[i].amount = ["0.00"];
+        }else{
+        this.sum_price = this.dataInvoiceGraph[i].amount      
+        this.sum_price2.push(this.sum_price);
+        }
+      } 
+      console.log(this.sum_price2);
+     
+     
          //console.log(this.var_y);
          //console.log(this.test5);
 
@@ -90,7 +122,9 @@ export class SaleMenuPage{
         index += parseInt(array.amount);
         this.sum = index.toFixed(2);       
         
+        
       }
+      console.log(this.sum);
 /*
       let sum5=[];
       for (this.car of this.dataInvoiceGraph) {
@@ -130,7 +164,7 @@ console.log(this.test2);*/
               pointHoverBorderWidth: 5,
               pointRadius: 1,
               pointHitRadius: 5,
-              data: this.var_x,
+              data: this.sum_price2,
               spanGaps: true
             }
           ]

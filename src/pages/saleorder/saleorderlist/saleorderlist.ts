@@ -66,18 +66,18 @@ export class SaleOrderListPage {
       this.utility.finishLoding();
     })
   }
-  
+  /*
   doSearch(oSearch){
     this.doGetSalesOrders(oSearch);
-  }
-  SelectFilter(oSelectFilter){
+  }*/
+  /*SelectFilter(oSelectFilter){
     this.utility.presentLoading();
     this.saleorderServ.GetSalesOrdersKeyword(this.oClient, oSelectFilter).then((res)=>{
       this.data_saleorder = res;
       console.log(this.data_saleorder);
       this.utility.finishLoding();
     })
-  }
+  }*/
   doGetStorage(){
     this.storage.get('_user').then((res)=>{
       this.oUsername = res;

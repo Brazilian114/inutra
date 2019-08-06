@@ -93,7 +93,6 @@ else
     else
       this.oNetAmount = this.data_item.net_amount;
 
-    
 
     if(this.data_item.remarks == "")
       this.oRemark = "-";
@@ -112,7 +111,36 @@ else
   ionViewWillEnter(){
     this.doGetOrdersDetails(this.oOrder_no);
     this.doGetVat();
+    
   
+  }
+
+  doProductModal(){
+   
+      this.utility.presentLoading();
+      let modal = this.modalCtrl.create("AddSaleOrderDetailPage", { item:this.data_item })
+      modal.present();
+      modal.onDidDismiss(data =>{
+        if(data != undefined){
+          this.arrayItem = data;
+          console.log("addsessionAddsale", this.arrayItem);
+
+          for(let i=0; i<this.arrayItem.length; i++){
+            var uom = +this.arrayItem[i]["2"];
+            var price = parseFloat(this.arrayItem[i]["5"]);
+            console.log(price);
+            var total = price * uom;
+            console.log(total);
+            
+            this.oTotalPrice = +this.oTotalPrice + total;
+            console.log(this.oTotalPrice);
+            
+          }
+        }else{
+          this.doGetOrdersDetails(this.oOrder_no);
+        }
+      });
+      this.utility.finishLoding();
   }
   /*
   doShowHide(){
@@ -215,7 +243,7 @@ else
   }
   
   doConfirm(item){
-    console.log(item);
+    console.log();
     
     const confirm = this.alertCtrl.create({
       title: 'ลบรายการสินค้า?',

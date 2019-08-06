@@ -49,40 +49,37 @@
   </ion-card>
   <ion-card class="card-headlist">
     <ion-row>
-      <ion-col col-1 class="font-white">
-        <ion-icon name="ios-list" (click)="doShowHide()"></ion-icon>
-      </ion-col>
       <ion-col class="font-white">         
         รายการสินค้า
       </ion-col>
     </ion-row>
   </ion-card>
-  <ion-card class="card-list" [hidden]='hideMe'>
+  <ion-card class="card-list">
     <ion-row>
-      <ion-col class="font-white">
+      <ion-col class="font-white" text-center>
         ลำดับ
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white" text-center>
         สินค้า
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white" text-center>
         จำนวน
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white" text-center>
         หน่วย
       </ion-col>
     </ion-row>
     <ion-row *ngFor="let item of data_saleorderdetail; let i = index" (click)="doEditProduct(item)">
-      <ion-col class="font-white">
+      <ion-col class="font-white" text-center>
         {{item.line_no}}  
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white" text-center>
         {{item.item_no}}
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white" text-center>
         {{item.qty_so}}
       </ion-col>
-      <ion-col class="font-white">
+      <ion-col class="font-white" text-center>
         {{item.uom}}
       </ion-col>
     </ion-row>

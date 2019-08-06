@@ -37,6 +37,8 @@ export class RptStockPage {
   } 
   initializeItems() {
     this.items = this.data_rpt_inventory;
+    console.log(this.items);
+    
     /*
     for(let i = 0; i < 30; i++){
       this.item2.push(this.data_rpt_inventory[this.item2.length]);

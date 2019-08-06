@@ -55,6 +55,7 @@ export class ProductDetailsPage {
     this.data_item = navParams.get('item');
     console.log(this.data_item);
     
+
   }
   
   ionViewWillEnter(){
@@ -85,22 +86,28 @@ export class ProductDetailsPage {
   
   
       console.log(this.data_productstock);
+   
       if(this.data_productstock.length <= 0){
         this.oQty_Avail = "0.00";
         this.oUom = "PCS";
         this.oPrice = "0.00";
         this.oQty_Free = "0.00";
-        
       }else{
         this.oQty_Avail = this.data_productstock["0"].qty_avail;
         this.oQty_Free = this.data_productstock["0"].qty_free;
         this.oUom = this.data_productstock["0"].uom;
         this.oPrice = this.data_productstock["0"].unit_price;
+       
+      }
+      if(this.data_productstock["0"].price_assemble == undefined || this.data_productstock["0"].price_assemble_no == undefined ){
+        this.oPrice1 = "-";
+        this.oPrice2 = "-";
+      }else{
         var price1 = +this.data_productstock["0"].price_assemble_no
         var price2 = +this.data_productstock["0"].price_assemble
-        this.oPrice1 = price1.toFixed(2);
-        this.oPrice2 = price2.toFixed(2);
-      }      
+        this.oPrice1 = price1.toFixed(2)+" ฿";
+        this.oPrice2 = price2.toFixed(2)+" ฿";
+      }  
       
     })
   }

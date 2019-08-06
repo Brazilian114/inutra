@@ -261,7 +261,7 @@ export class AddSaleOrderPage {
     })  
     this.storage.get('_userId').then((res)=>{
       this.oUserId = res;
-      console.log(this.oUserId["0"]);
+      //console.log(this.oUserId["0"]);
     })  
     this.storage.get('_userGroup').then((res)=>{
       this.oUserGroup = res;
@@ -316,6 +316,8 @@ export class AddSaleOrderPage {
 
             var Order_date = oDate.toString();
             var DueDate = oDateSale.toString();
+           
+            
     
             this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", "", oType, this.oCustomer, oCustomer_name, Order_date, oVat, "", "", ""
               , "", "", "", "", "", "", "", Order_date, "", oRemark, "", ""

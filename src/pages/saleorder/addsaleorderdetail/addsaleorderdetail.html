@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-buttons start>
+        <button ion-button icon-only (click)="SaveSaleOrder()">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>
+        เพิ่มสินค้า
+      </ion-title>  
+      <ion-buttons end>
+        <button ion-button icon-only (click)="dismiss()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding class="backgound-image">
+      <div class="div-border" [hidden]='hideMe'>
+        <ion-grid padding>
+          <ion-row>
+            <ion-col>
+                <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
+            </ion-col>
+           
+          </ion-row>
+        </ion-grid>
+      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6 *ngFor = "let item of items" (click)="doProductModal(item)">
+            <ion-card >            
+              <ion-card-content class="fix-line">
+                <!-- <ion-checkbox color="dark" [(ngModel)]="isChecked[item.item_no]" (ionChange)="doProductModal(item, isChecked[item.item_no])"></ion-checkbox> -->
+                <b>{{item.item_no}}</b>
+                <p>{{item.description}}</p>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>   
+        </ion-row> 
+      </ion-grid>
+  
+    
+  
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+  </ion-content>
+   
+  <ion-footer>
+    <ion-row>
+      <ion-col style="text-align: center" text-center> 
+        <button ion-button class="button-circle" (click)="doListProductModal()">
+          <ion-icon name="list-box"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-fab right bottom >
+        <button ion-button class="button-circle" (click)="pageScroller()" >
+        <ion-icon name="ios-arrow-up" ></ion-icon></button>
+      </ion-fab>
+  </ion-footer>
+  

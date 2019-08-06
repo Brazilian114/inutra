@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content padding class="backgound-image">
-  <div class="div-border">
+  <div>
     <ion-grid padding>
       <ion-row>
         <ion-col>
@@ -34,33 +34,46 @@
   <br/>
   <ion-grid>
     <ion-row>
-      <ion-searchbar  style="border-radius:20px;" type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
+        <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
     </ion-row>
     <ion-row>
       วันที่ : {{oDateView}} 
-    </ion-row>
+    </ion-row >
   </ion-grid>
-  <ion-grid>
-    <ion-list *ngFor="let item of data_getsaleorder_bydate; let i = index">
-      <ion-card ion-item (click)="doDetails(item)">
-        <!-- <ion-item style="border-bottom: 0.5px solid;"> -->
-          <ion-row>
-            <ion-col col-1>
-              {{i+1}}.
-            </ion-col>
-            <ion-col>
-              {{item.order_no}}
-            </ion-col>          
-          </ion-row>
-          <ion-row>
-            <ion-col>
-              {{item.customer_name}}
-            </ion-col>
-          </ion-row>
-        <!-- </ion-item>        -->
-      </ion-card>
-    </ion-list>
-  </ion-grid>
+  <ion-card (click)="doDetails(item)" *ngFor="let item of data_getsaleorder_bydate">
+  
+      <ion-card-content>
+        <ion-row>
+          <ion-col>
+            <ion-row>
+              <b>ใบสั่งขาย : {{item.order_no}}</b>
+            </ion-row>
+            <ion-row>
+              <p>ลูกค้า : {{item.customer_name}}</p>
+            </ion-row> 
+            <ion-row>
+              <p>วันที่ : {{item.create_date}}</p>
+            </ion-row>     
+          </ion-col>
+          <ion-col col-5 style="text-align: center;" *ngIf="item.status == 'CANCEL'">
+            <button ion-button style="background-color: red">{{item.status}}</button>
+          </ion-col>
+          <ion-col col-5 style="text-align: center" *ngIf="item.status == 'WAITING'">
+            <button ion-button style="background-color: rgb(192, 192, 19)">{{item.status}}</button>
+          </ion-col>
+          <ion-col col-5 style="text-align: center" *ngIf="item.status == 'PICKING'">
+            <button ion-button style="background-color: rgb(17, 173, 140)">{{item.status}}</button>
+          </ion-col>
+          <ion-col col-5 style="text-align: center" *ngIf="item.status == 'PICKED'">
+            <button ion-button style="background-color: rgb(48, 180, 99)">{{item.status}}</button>
+          </ion-col>
+          <ion-col col-5 style="text-align: center" *ngIf="item.status == 'DATA ENTRY'">
+            <button ion-button >{{item.status}}</button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content> 
+      
+    </ion-card>    
   <ion-fab right bottom>
       <button ion-fab color="darkroyal" (click)="pageScroller()">
       <ion-icon name="ios-arrow-up"></ion-icon></button>
