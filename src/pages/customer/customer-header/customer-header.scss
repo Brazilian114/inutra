@@ -34,4 +34,18 @@ page-customer-header {
         border: 1px solid #cecece;
         border-radius: 5px 5px 5px 5px;
     }
+
+    ion-searchbar{    
+          
+        .searchbar-input-container{   
+                     
+            .searchbar-input {
+                border-radius: 20px;
+                border: 0 !important;
+                width: 100%;
+                //box-shadow: none !important;
+            }
+        }
+    }
+      
 }

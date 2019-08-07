@@ -25,6 +25,7 @@ export class CustomerDetailsPage {
 
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, public navParams: NavParams) {
     this.data_item = navParams.get('item');
+console.log(this.data_item);
 
     this.oCustomer = this.data_item.customer;
     this.oCustomer_name = this.data_item.customer_name;

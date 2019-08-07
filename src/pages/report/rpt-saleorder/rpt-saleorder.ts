@@ -71,7 +71,7 @@ export class RptSaleOrderPage {
    let val = ev.target.value;
     if(val && val.trim() != ''){
       this.data_getsaleorder_bydate = this.data_getsaleorder_bydate.filter((item)=>{
-        return (item.order_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 || item.status["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
+        return (item.status["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 || item.order_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1  || item.customer["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 ||  item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }
   }

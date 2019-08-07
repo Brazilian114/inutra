@@ -67,7 +67,7 @@ export class SaleOrderDetailsPage {
     this.data_item = navParams.get('item');
     
     console.log(this.data_item);
-    this.oCreate_date = this.data_item.create_date[0];
+    //this.oCreate_date = this.data_item.create_date[0];
     this.oLineNo = this.data_item.oLineNo;
     this.oOrder_no = this.data_item.order_no;
     //this.oAmount = this.data_item.amount;
@@ -79,7 +79,7 @@ export class SaleOrderDetailsPage {
     this.oAddress = this.data_item.dlvr_street + " " + this.data_item.dlvr_bldg;
     this.oDiscountRate = this.data_item.discount_rate;
     this.oDiscountType = this.data_item.discount_type;
-    this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
+    this.date_time =this.data_item.create_date;
 /*
  if(this.data_item.amount == undefined)  
  this.oAmount = "0.00";

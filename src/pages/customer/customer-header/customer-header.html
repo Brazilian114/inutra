@@ -10,14 +10,15 @@
       clearInput>
     </ion-searchbar> -->
   </ion-navbar>
+  
 </ion-header>
 
 <ion-content padding class="backgound-image">
-  
+   
     <ion-grid padding>
       <ion-row>
         <ion-col>
-          <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
+          <ion-searchbar showCancelButton="focus" type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
         </ion-col>
         <!-- <ion-col>
           <ion-item>

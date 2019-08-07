@@ -37,4 +37,16 @@ page-saleorderlist {
         background-color: rgb(236, 236, 236);
        // background-color:  rgb(220, 255, 241);
     }
+    ion-searchbar{    
+          
+        .searchbar-input-container{   
+                     
+            .searchbar-input {
+                border-radius: 20px;
+                border: 0 !important;
+                width: 100%;
+                //box-shadow: none !important;
+            }
+        }
+    }
 }

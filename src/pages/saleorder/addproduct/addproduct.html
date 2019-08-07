@@ -17,7 +17,7 @@
 </ion-header>
 
 <ion-content padding class="backgound-image">
-    <div class="div-border" [hidden]='hideMe'>
+   
       <ion-grid padding>
         <ion-row>
           <ion-col>
@@ -26,7 +26,7 @@
          
         </ion-row>
       </ion-grid>
-    </div>
+    
     <ion-grid>
       <ion-row>
         <ion-col col-6 *ngFor = "let item of items" (click)="doProductModal(item)">

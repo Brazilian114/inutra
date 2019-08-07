@@ -21,4 +21,16 @@ page-addproduct {
         display:block;
         border-radius: 50%;
     }
+    ion-searchbar{    
+          
+        .searchbar-input-container{   
+                     
+            .searchbar-input {
+                border-radius: 20px;
+                border: 0 !important;
+                width: 100%;
+                //box-shadow: none !important;
+            }
+        }
+    }
 }
