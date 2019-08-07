@@ -18,6 +18,7 @@ import { DatePipe } from '@angular/common'
 export class SaleOrderDetailsPage {
   @ViewChild('focusQty') InputQty;
   hideMe:any = true;
+  hideMe2:any = false;
   data_item:any;
   data_saleorderdetail:any;
 
@@ -28,7 +29,7 @@ export class SaleOrderDetailsPage {
   oUserId:string = "";
   data_customerdelivery:any;
   arrayItem:any = [];
- 
+  
   oType:string = "ADHOC";
   oDate:any = new Date().toISOString();
   oPayTerm:string = "";
@@ -138,12 +139,13 @@ else
           }
         }else{
           this.doGetOrdersDetails(this.oOrder_no);
+          
         }
       });
       this.utility.finishLoding();
   }
-  /*
-  doShowHide(){
+  
+ /* doShowHide(){
     if(this.hideMe == false){
       this.hideMe = true;
     }else{
@@ -154,6 +156,14 @@ else
     this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup, oOrder_no).then((res)=>{
       this.data_saleorderdetail = res;  
       console.log(this.data_saleorderdetail);
+       
+      if(this.data_saleorderdetail.length <=  0){
+      this.hideMe = false;
+      this.hideMe2 = true;
+      }else{
+        this.hideMe = true;
+        this.hideMe2 = false;
+      } 
       
       /*
       if(this.data_saleorderdetail["0"].amount == undefined)
@@ -242,7 +252,7 @@ else
     toast.present();
   }
   
-  doConfirm(item){
+  doDelete(item){
     console.log();
     
     const confirm = this.alertCtrl.create({

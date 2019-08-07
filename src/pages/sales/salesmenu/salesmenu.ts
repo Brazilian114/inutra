@@ -84,8 +84,8 @@ export class SaleMenuPage{
       console.log(this.dataInvoiceGraph);   
       
       this.date_time = this.dataInvoiceGraph["0"].last_update;     
-      this.var_x = this.dataInvoiceGraph.map(data => data.amount)
-      this.oAmount = this.dataInvoiceGraph.amount;
+      this.var_x = this.dataInvoiceGraph.map(data => data.net_amount)
+      this.oAmount = this.dataInvoiceGraph.net_amount;
       this.var_y = this.dataInvoiceGraph.map(data => data.last_update)
       //var this_date =this.datepipe.transform(this.date_time, 'dd/MM/yyyy');
       var this_date = this.datepipe.transform(this.oStartDate, 'dd/MM/yyyy');
@@ -93,7 +93,7 @@ export class SaleMenuPage{
    
 
       for(let i=0;i<this.var_y.length;i++){
-        if(this.dataInvoiceGraph[i].amount == undefined){
+        if(this.dataInvoiceGraph[i].net_amount == undefined){
           //this.dataInvoiceGraph[i].amount = ["0.00"];
         }else{
         this.format = this.datepipe.transform(this.var_y[i], 'HH.mm');       
@@ -104,10 +104,10 @@ export class SaleMenuPage{
 console.log(this.format2);
 
       for(let i=0;i<this.dataInvoiceGraph.length;i++){
-        if(this.dataInvoiceGraph[i].amount == undefined){
-          this.dataInvoiceGraph[i].amount = ["0.00"];
+        if(this.dataInvoiceGraph[i].net_amount == undefined){
+          this.dataInvoiceGraph[i].net_amount = ["0.00"];
         }else{
-        this.sum_price = this.dataInvoiceGraph[i].amount      
+        this.sum_price = this.dataInvoiceGraph[i].net_amount      
         this.sum_price2.push(this.sum_price);
         }
       } 
@@ -119,9 +119,8 @@ console.log(this.format2);
 
       let index = 0;
       for (let array of this.dataInvoiceGraph) {
-        index += parseInt(array.amount);
-        this.sum = index.toFixed(2);       
-        
+        index += parseInt(array.net_amount);
+        this.sum = index.toFixed(2);              
         
       }
       console.log(this.sum);
@@ -186,8 +185,4 @@ console.log(this.test2);*/
       this.oUserGroup = res;
     })  
   }
-
-  
-  
-  
 }

@@ -183,6 +183,8 @@ export class SaleOrderService {
     +'&oDeliveryTown='+oDeliveryTown+'&oDeliveryState='+oDeliveryState+'&oDeliveryCountry='+oDeliveryCountry+'&oDeliveryPostCode='+oDeliveryPostCode
     +'&oDueDate='+oDueDate+'&oMaker='+oMaker+'&oPaymentTerm='+oPaymentTerm+'&oSalesCode='+oSalesCode+'&oSalesName='+oSalesName+'&oBackorder='+oBackorder
     +'&oReference='+oReference+'&oOnpallet='+oOnpallet+'&oDO='+oDO+'&oStandCost='+oStandCost+'&oDepartment='+oDepartment+'&oLoadDate='+oLoadDate;
+      console.log(oCustomerName);
+      
     return this.http.get(this.hostWebService +"/Add_SO_master?"+parameters)
       .toPromise()
       .then(response =>
@@ -352,9 +354,9 @@ export class SaleOrderService {
         }
       );
   } 
-  GetProductStock(oClient, oItemNo, oGrade, oLotNo, oBatchNo, oItemSize, oItemColor, oItemClass, oWarehouse, oZone, oItemPacking, oExpiryDate
+  GetProductStock(oClient,oCustomer, oItemNo, oGrade, oLotNo, oBatchNo, oItemSize, oItemColor, oItemClass, oWarehouse, oZone, oItemPacking, oExpiryDate
     , oProdDate, oLocation, oPalletNo, oOiNo) {
-    let parameters='oClient='+oClient+'&oItemNo='+oItemNo+'&oGrade='+oGrade+'&oLotNo='+oLotNo+'&oBatchNo='+oBatchNo+'&oItemSize='+oItemSize+'&oItemColor='+oItemColor
+    let parameters='oClient='+oClient+'&oCustomer='+oCustomer+'&oItemNo='+oItemNo+'&oGrade='+oGrade+'&oLotNo='+oLotNo+'&oBatchNo='+oBatchNo+'&oItemSize='+oItemSize+'&oItemColor='+oItemColor
     +'&oItemClass='+oItemClass+'&oWarehouse='+oWarehouse+'&oZone='+oZone+'&oItemPacking='+oItemPacking+'&oExpiryDate='+oExpiryDate+'&oProdDate='+oProdDate
     +'&oLocation='+oLocation+'&oPalletNo='+oPalletNo+'&oOiNo='+oOiNo;
     return this.http.get(this.hostWebService +"/Get_Product_Stock?"+parameters)

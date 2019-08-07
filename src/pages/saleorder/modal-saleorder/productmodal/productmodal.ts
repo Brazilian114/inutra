@@ -20,7 +20,7 @@ export class ProductModalPage {
   oUsername:string = "";
   oItem_no:string = "";
   oDescription:string = "";
-  oCustomer:string = "";
+  oCustomer:any;
 
   oParamCode:any;
   oUOM:any;
@@ -54,11 +54,20 @@ export class ProductModalPage {
   arrayItem:any = [];
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams
     , private storage: Storage, private saleorderServ: SaleOrderService) {
+      
+      
+
+      
+        if(this.oCustomer = navParams.get('oCustomer') != "7LINE"){
+        this.oCustomer = "ALL"
+        }else{
+        this.oCustomer = navParams.get('oCustomer');
+        }
       this.storage.get('_userId').then((res) => {
         this.oUsername = res;   
       });
       this.item = navParams.get('item');
-      this.oCustomer = navParams.get('oCustomer');
+      //this.oCustomer = navParams.get('oCustomer');
 
       this.oItem_no = this.item.item_no;
       this.oDescription = this.item.description;  
@@ -81,10 +90,13 @@ export class ProductModalPage {
   doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oRemark, oUnit){
 
     
+
     if(oUnit == undefined || oUnit == "0"){
       this.utility.Alert("Warning","กรุณาเลือกประเภทสินค้าในการจัดส่ง");
     }else if(oQty == undefined || oQty == "" || oQty <= 0){
       this.utility.Alert("Warning","กรุณาเพิ่มจำนวนสินค้าในการจัดส่ง");
+    }else if(oQty > this.oAvailable){
+      this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต็อก");
     }else{
       this.data_return.push(oItem_no["0"]);
       this.data_return.push(oZone);
@@ -155,7 +167,7 @@ export class ProductModalPage {
     })
   }
   doGetProductStock(oZone, oItemPacking){
-    this.saleorderServ.GetProductStock(this.oClient, this.oItem_no, this.oGrade, "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
+    this.saleorderServ.GetProductStock(this.oClient,this.oCustomer, this.oItem_no, this.oGrade, "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
       this.data_productstock = res;
       console.log(this.data_productstock);
       if(this.data_productstock["0"].price_assemble == undefined){

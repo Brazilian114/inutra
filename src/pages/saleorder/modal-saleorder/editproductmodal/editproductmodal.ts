@@ -20,7 +20,8 @@ export class EditProductModalPage {
   oUsername:string = "";
   oItem_no:string = "";
   oDescription:string = "";
-  oCustomer:string = "";
+  oCustomer:any;
+  oCustomer2:any;
   oOrder_no:string = "";
   oPrice1:string = "";
   oPrice2:string = "";
@@ -62,7 +63,14 @@ export class EditProductModalPage {
          
       });
       this.item = navParams.get('item');
-      this.oCustomer = navParams.get('oCustomer');
+      
+      this.oCustomer2 = navParams.get('oCustomer');
+      if(this.oCustomer = navParams.get('oCustomer') != "7LINE"){
+        this.oCustomer = "ALL"
+        }else{
+        this.oCustomer = navParams.get('oCustomer');
+        }
+      
       this.oOrder_no = navParams.get('oOrder_no');
 
       console.log(this.item);     
@@ -87,10 +95,14 @@ export class EditProductModalPage {
   doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oRemark, oUnit){
     if(oUnit == undefined || oUnit == "0"){
       this.utility.Alert("Warning","กรุณาเลือกประเภทสินค้าในการจัดส่ง");
+    }else if(oQty == undefined || oQty == "" || oQty <= 0){
+      this.utility.Alert("Warning","กรุณาเพิ่มจำนวนสินค้าในการจัดส่ง");
+    }else if(oQty > this.oAvailable){
+      this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต็อก");
     }else{
       this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.oOrder_no, "", this.item.line_no, oItem_no
       , "", oUOM, oQty, "", "", "", oRemark, "", "", "", "", "", "", ""
-      , oZone, "", this.oCustomer, "", "", oUnit).then((res)=>{
+      , oZone, "", this.oCustomer2, "", "", oUnit).then((res)=>{
         this.data_addsaledetail = res;
         console.log(this.data_addsaledetail);
         if(this.data_addsaledetail["0"].sqlstatus != "0"){
@@ -156,7 +168,7 @@ export class EditProductModalPage {
     })
   }
   doGetProductStock(oZone, oItemPacking){
-    this.saleorderServ.GetProductStock(this.oClient, this.oItem_no, "", "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
+    this.saleorderServ.GetProductStock(this.oClient,this.oCustomer, this.oItem_no, "", "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
       this.data_productstock = res;
       console.log(this.data_productstock);
       if(this.data_productstock.length <= 0){
@@ -179,7 +191,12 @@ export class EditProductModalPage {
         this.oPrice2 = price2.toFixed(2);
         //this.oPrice = this.data_productstock["0"].unit_price["0"];
         // this.oPrice = price.toFixed();      
-      }      
+      }   
+      /*if(this.oQty <= "0"){
+        this.utility.Alert("Warning","กรุณาเพิ่มจำนวนสินค้าในการจัดส่ง");
+      }else if(this.oQty > this.data_productstock["0"].qty_avail){
+        this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต็อก");
+      }*/   
     })
   }
   doClear(){
