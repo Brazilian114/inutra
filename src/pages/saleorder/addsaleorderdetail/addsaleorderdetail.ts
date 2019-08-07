@@ -230,27 +230,13 @@ doAddOrdersDetailsAsync(value) {
   
       if(this.arrayItem.length <= 0){
         this.utility.Alert("Warning","กรุณาเลือกสินค้าก่อน");
-      }else{           
-        var Order_date = this.oDate.toString();
-        var DueDate = this.oDateSale.toString();
-
-            this.saleorderServ.AddSalesOrders(this.oClient, "01", this.oOrder_no, "", this.oType, this.oCustomer, this.oCustomer_name,Order_date, this.oVat, "", "", ""
-              , "", "", "", "", "", "", "",Order_date, "", this.oRemarks, "", ""
-              , "", DueDate, "", "",this.oAddress, this.oBuilding, "", "", ""
-              , "", "", DueDate, this.oUsername, this.oPayTerm, this.oSaleManCode, this.oSaleManCode, "", "", "", "", Order_date
-              , "", DueDate).then((res)=>{
-              this.data_addsaleorder = res;
-              console.log(this.data_addsaleorder);
-      
-              if(this.data_addsaleorder["0"].sqlstatus != "0"){
-                this.utility.Alert("Warning", this.data_addsaleorder["0"].sqlmsg);
-              }else{
+      }else{
                 for(let i=0; i < this.arrayItem.length; i++){
                   this.doAddOrdersDetailsAsync(i) 
                 }
                 let alert = this.alertCtrl.create({
                   title: this.oOrder_no,
-                  subTitle: this.data_addsaleorder["0"].sqlmsg,
+                  subTitle: "Sales Order Updated",
                   buttons: [ {
                       text: 'ตกลง',
                       handler: item => {
@@ -262,8 +248,7 @@ doAddOrdersDetailsAsync(value) {
               
                 alert.present();              
               }
-            })            
-      }
+      
     
     }
 
