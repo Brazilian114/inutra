@@ -22,7 +22,7 @@ export class ReportDetailPage {
   item_no:string ="";
   grade:string ="";
   uom:string ="";
-  qty_avail1:string ="";
+  qty_avail:string ="";
   
 
 
@@ -33,7 +33,8 @@ export class ReportDetailPage {
     this.item_no = this.data_item.item_no;
     this.grade = this.data_item.grade;
     this.uom = this.data_item.uom;
-    this.qty_avail1 = this.data_item.qty_avail1;
+    this.qty_avail = this.data_item.qty_avail;
+    
     console.log(this.data_item);
     
   }

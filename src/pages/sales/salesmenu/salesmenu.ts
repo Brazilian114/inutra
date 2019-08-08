@@ -24,10 +24,10 @@ export class SaleMenuPage{
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
-  //oStartDate: String = "2019/08/2";
-  //oEndDate:   String =  "2019/08/2";
-  oStartDate: String = new Date().toISOString().substring(0, 10);
-  oEndDate: String = new Date().toISOString().substring(0, 10);
+  oStartDate: String = "2019/08/7";
+  oEndDate:   String =  "2019/08/7";
+  //oStartDate: String = new Date().toISOString().substring(0, 10);
+  //oEndDate: String = new Date().toISOString().substring(0, 10);
   //oStartDate: String="";
   //oEndDate: String="";
   oAmount:any;
@@ -98,10 +98,9 @@ export class SaleMenuPage{
         }else{
         this.format = this.datepipe.transform(this.var_y[i], 'HH.mm');       
         this.format2.push(this.format);
-        }
-        
+        }   
       }
-console.log(this.format2);
+    //console.log(this.format2);
 
       for(let i=0;i<this.dataInvoiceGraph.length;i++){
         if(this.dataInvoiceGraph[i].net_amount == undefined){
@@ -111,7 +110,7 @@ console.log(this.format2);
         this.sum_price2.push(this.sum_price);
         }
       } 
-      console.log(this.sum_price2);
+      //console.log(this.sum_price2);
      
      
          //console.log(this.var_y);
@@ -123,7 +122,7 @@ console.log(this.format2);
         this.sum = index.toFixed(2);              
         
       }
-      console.log(this.sum);
+      //console.log(this.sum);
 /*
       let sum5=[];
       for (this.car of this.dataInvoiceGraph) {

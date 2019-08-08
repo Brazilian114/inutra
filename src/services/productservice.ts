@@ -76,9 +76,9 @@ export class ProductService {
         }
       );
   }
-  GetProductStock(oClient, oItemNo, oGrade, oLotNo, oBatchNo, oItemSize, oItemColor
+  GetProductStock(oClient, oCustomer, oItemNo, oGrade, oLotNo, oBatchNo, oItemSize, oItemColor
     , oItemClass, oWarehouse, oZone, oItemPacking, oExpiryDate, oProdDate, oLocation, oPalletNo, oOiNo) {
-    let parameters='oClient='+oClient+'&oItemNo='+oItemNo+'&oGrade='+oGrade+'&oLotNo='+oLotNo+'&oBatchNo='+oBatchNo
+    let parameters='oClient='+oClient+'&oCustomer='+oCustomer+'&oItemNo='+oItemNo+'&oGrade='+oGrade+'&oLotNo='+oLotNo+'&oBatchNo='+oBatchNo
     +'&oItemSize='+oItemSize+'&oItemColor='+oItemColor+'&oItemClass='+oItemClass+'&oWarehouse='+oWarehouse+'&oZone='+oZone
     +'&oItemPacking='+oItemPacking+'&oExpiryDate='+oExpiryDate+'&oProdDate='+oProdDate+'&oLocation='+oLocation
     +'&oPalletNo='+oPalletNo+'&oOiNo='+oOiNo;

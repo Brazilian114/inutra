@@ -190,11 +190,11 @@ export class ProductModalPage {
         // this.oFree = this.data_productstock["0"].qty_free;
         this.oUomQty = this.data_productstock["0"].uom;
 
-        var available = +this.data_productstock["0"].qty_avail;
+        //var available = +this.data_productstock["0"].qty_avail;
         var free = +this.data_productstock["0"].qty_free;        
         //var price = +this.data_productstock["0"].unit_price;
         
-        this.oAvailable = available.toFixed();
+        this.oAvailable = parseInt(this.data_productstock["0"].qty_avail);
         this.oFree = free.toFixed();
 
         //this.oPrice = this.data_productstock["0"].unit_price;

@@ -183,8 +183,6 @@ export class SaleOrderService {
     +'&oDeliveryTown='+oDeliveryTown+'&oDeliveryState='+oDeliveryState+'&oDeliveryCountry='+oDeliveryCountry+'&oDeliveryPostCode='+oDeliveryPostCode
     +'&oDueDate='+oDueDate+'&oMaker='+oMaker+'&oPaymentTerm='+oPaymentTerm+'&oSalesCode='+oSalesCode+'&oSalesName='+oSalesName+'&oBackorder='+oBackorder
     +'&oReference='+oReference+'&oOnpallet='+oOnpallet+'&oDO='+oDO+'&oStandCost='+oStandCost+'&oDepartment='+oDepartment+'&oLoadDate='+oLoadDate;
-      console.log(oCustomerName);
-      
     return this.http.get(this.hostWebService +"/Add_SO_master?"+parameters)
       .toPromise()
       .then(response =>

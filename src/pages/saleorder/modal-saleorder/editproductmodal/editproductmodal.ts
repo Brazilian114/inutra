@@ -179,11 +179,13 @@ export class EditProductModalPage {
         // this.oFree = this.data_productstock["0"].qty_free;
         this.oUomQty = this.data_productstock["0"].uom;
 
-        var available = +this.data_productstock["0"].qty_avail;
+        //var available = +this.data_productstock["0"].qty_avail;
         var free = +this.data_productstock["0"].qty_free;        
         //var price = +this.data_productstock["0"].unit_price;
 
-        this.oAvailable = available.toFixed();
+        this.oAvailable = parseInt(this.data_productstock["0"].qty_avail);
+        console.log(this.oAvailable);
+        
         this.oFree = free.toFixed();
         var price1 = +this.data_productstock["0"].price_assemble_no
         var price2 = +this.data_productstock["0"].price_assemble

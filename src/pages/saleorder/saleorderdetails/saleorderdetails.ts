@@ -275,7 +275,7 @@ else
       this.saleorderServ.DeleteSoDetail(this.oClient,item.order_no,item.line_no).then((res)=>{
         let data_r_delete = res;
           console.log(data_r_delete);
-          this.presentToast("ลบรายการแล้ว", false, 'bottom');
+          this.presentToast("ลบรายการสินค้าแล้ว", false, 'bottom');
       this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup, this.oOrder_no).then((res)=>{
             this.data_saleorderdetail = res;  
             console.log(this.data_saleorderdetail);
