@@ -90,7 +90,7 @@ export class EditProductModalPage {
     this.doGetZone();
   }
   ionViewDidEnter(){
-    this.doGetProductStock(this.data_zone["0"].Zone, this.data_productuom["0"].item_packing);
+    this.doGetProductStock("",this.data_productuom["0"].item_packing);
   }
   doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oRemark, oUnit){
     if(oUnit == undefined || oUnit == "0"){

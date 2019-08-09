@@ -114,9 +114,9 @@ export class AddProductPage {
     })
   }
   SaveSaleOrder(){
-    /*if(this.arrayItem.length <= 0)
-    this.utility.Alert("Warning","กรุณาเพิ่มสินค้า");
-    else*/
+    if(this.arrayItem.length <= 0)
+    this.utility.Alert("Warning","กรุณาเพิ่มรายการสินค้า");
+    else
     for(let i=0; i<this.arrayItem.length; i++){
      
       if(this.arrayItem[i]["2"] <= 0){

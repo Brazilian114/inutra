@@ -85,7 +85,7 @@ export class ProductModalPage {
     this.doGetZone();
   }
   ionViewDidEnter(){
-    this.doGetProductStock(this.data_zone["0"].Zone, this.data_productuom["0"].item_packing);
+    this.doGetProductStock("", this.data_productuom["0"].item_packing);
   }
   doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oRemark, oUnit){
 
@@ -161,7 +161,7 @@ export class ProductModalPage {
   doGetZone(){
     this.saleorderServ.GetZone(this.oUsername, "").then((res)=>{
       this.data_zone = res;
-      console.log(this.data_zone);
+      console.log("zone",this.data_zone);
       this.oZone = this.data_zone["0"].Zone["0"];
       
     })

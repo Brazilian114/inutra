@@ -24,10 +24,10 @@ export class SaleMenuPage{
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
-  oStartDate: String = "2019/08/7";
-  oEndDate:   String =  "2019/08/7";
-  //oStartDate: String = new Date().toISOString().substring(0, 10);
-  //oEndDate: String = new Date().toISOString().substring(0, 10);
+  //oStartDate: String = "2019/08/7";
+  //oEndDate:   String =  "2019/08/7";
+  oStartDate: String = new Date().toISOString().substring(0, 10);
+  oEndDate: String = new Date().toISOString().substring(0, 10);
   //oStartDate: String="";
   //oEndDate: String="";
   oAmount:any;

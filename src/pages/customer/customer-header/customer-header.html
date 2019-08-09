@@ -45,11 +45,11 @@
       <ion-card-content>
         <ion-row>
           
-            <p><b>Customer Code : </b> {{item.customer}}</p>              
+            <p>รหัสลูกค้า : {{item.customer}}</p>              
           
         </ion-row>
         <ion-row>
-          <p><b>ที่อยู่ : </b>{{item.building}} {{item.street}}</p>
+          <p>ที่อยู่ : {{item.building}} {{item.street}}</p>
         </ion-row>      
       </ion-card-content> 
     </ion-card>    
@@ -58,7 +58,9 @@
       <button ion-fab color="darkroyal" (click)="pageScroller()">
       <ion-icon name="ios-arrow-up"></ion-icon></button>  
     </ion-fab>
+    <!----
   <ion-infinite-scroll *ngIf="hasMoreData" (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content></ion-infinite-scroll-content>
   </ion-infinite-scroll>
+-->
 </ion-content>

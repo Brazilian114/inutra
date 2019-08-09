@@ -13,53 +13,58 @@
   </div>
   <ion-grid padding>
     <ion-row>
-      <b class="font-big">รหัสสินค้า : {{data_item.item_no}}</b>
+      <b style="margin-left: 0%" class="font-medium">รหัสสินค้า: {{data_item.item_no}}</b>
     </ion-row>
-    
+    <br>
     <ion-row>
-      <p class="font-medium">ชื่อสินค้า : {{data_item.description}}</p>
+      <b style="margin-left: 0%" class="font-medium">ชื่อสินค้า: {{data_item.description}}</b>
     </ion-row>
+    <br>
     <div class="line"></div>
-   
-    <ion-row padding >
+   <br>
+    <ion-row>
         <ion-col class="col-line">
-          <div>
+          
             <ion-row>
                 <b class="font-orange font-medium">{{oPrice1}}</b>
             </ion-row>
               <ion-row>
                   <p>ราคาปกติ</p>
               </ion-row>
-              <div class="line"></div>
+            </ion-col>
+            <ion-col class="col-line">
               <ion-row >
                   <b class="font-orange font-medium">{{oPrice2}}</b>
             </ion-row>
               <ion-row>
-                  <p>ราคารวมประกอบ</p>
+                  <p>ราคา+ประกอบ</p>
               </ion-row>
-            </div>
+            
             </ion-col>
-      <ion-col class="col-line" >
+      <ion-col class="col-line">
         <ion-row>
-          <b class="font-red font-big" *ngIf="oQty_Free  <0">{{oQty_Free}}</b>
-        </ion-row>
-        <ion-row>
-          <b class="font-orange font-big" *ngIf="oQty_Free  >0">{{oQty_Free}}</b>
-        </ion-row>
-       
-        <ion-row >
-          <p >จำนวน</p>
-        </ion-row>
-      </ion-col>
-      <ion-col>
-        <ion-row>
-          <b class="font-orange font-big">{{oUom}}</b>
+          <b class="font-orange font-medium">{{oUom}}</b>
         </ion-row>
         <ion-row>
           <p>หน่วย</p>
         </ion-row>
       </ion-col>
+      <ion-col >
+          <ion-row>
+            <b class="font-red font-big" *ngIf="oQty_Free  <0">{{oQty_Free}}</b>
+          </ion-row>
+          <ion-row>
+            <b class="font-orange font-big" *ngIf="oQty_Free  >0">{{oQty_Free}}</b>
+          </ion-row>
+         
+          <ion-row>
+            <p >จำนวน</p>
+          </ion-row>
+        </ion-col>
     </ion-row>
+    <br>
+    
+ 
     <div class="line"></div>
   </ion-grid>
   <ion-card>
