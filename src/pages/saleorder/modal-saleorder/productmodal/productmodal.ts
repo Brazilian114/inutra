@@ -96,7 +96,7 @@ export class ProductModalPage {
     }else if(oQty == undefined || oQty == "" || oQty <= 0){
       this.utility.Alert("Warning","กรุณาเพิ่มจำนวนสินค้าในการจัดส่ง");
     }else if(oQty > this.oAvailable){
-      this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต็อก");
+      this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต๊อก");
     }else{
       this.data_return.push(oItem_no["0"]);
       this.data_return.push(oZone);

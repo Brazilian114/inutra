@@ -59,7 +59,7 @@ export class EditProductModalPage {
     , private storage: Storage, private saleorderServ: SaleOrderService) {
       this.storage.get('_userId').then((res) => {
         this.oUsername = res;  
-        console.log(this.oUsername);
+        //console.log(this.oUsername);
          
       });
       this.item = navParams.get('item');
@@ -98,7 +98,7 @@ export class EditProductModalPage {
     }else if(oQty == undefined || oQty == "" || oQty <= 0){
       this.utility.Alert("Warning","กรุณาเพิ่มจำนวนสินค้าในการจัดส่ง");
     }else if(oQty > this.oAvailable){
-      this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต็อก");
+      this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต๊อก");
     }else{
       this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.oOrder_no, "", this.item.line_no, oItem_no
       , "", oUOM, oQty, "", "", "", oRemark, "", "", "", "", "", "", ""
@@ -184,7 +184,7 @@ export class EditProductModalPage {
         //var price = +this.data_productstock["0"].unit_price;
 
         this.oAvailable = parseInt(this.data_productstock["0"].qty_avail);
-        console.log(this.oAvailable);
+        //console.log(this.oAvailable);
         
         this.oFree = free.toFixed();
         var price1 = +this.data_productstock["0"].price_assemble_no
@@ -197,7 +197,7 @@ export class EditProductModalPage {
       /*if(this.oQty <= "0"){
         this.utility.Alert("Warning","กรุณาเพิ่มจำนวนสินค้าในการจัดส่ง");
       }else if(this.oQty > this.data_productstock["0"].qty_avail){
-        this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต็อก");
+        this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต๊อก");
       }*/   
     })
   }

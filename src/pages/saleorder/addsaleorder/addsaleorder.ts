@@ -277,7 +277,7 @@ export class AddSaleOrderPage {
         , this.arrayItem[value]["1"], "", this.oCustomer, "", "", this.arrayItem[value]["8"]).then((res)=>{
           this.data_addsaledetail = res;
           console.log(this.data_addsaledetail);
-          if(this.data_addsaledetail["0"].sqlstatus < 0){
+          if(this.data_addsaledetail["0"].sqlstatus != "0"){
             this.utility.Alert("Order Winning"+this.data_addsaledetail["0"].sqlmsg, this.data_addsaledetail["0"].sqlmsg2);
           }else{
 
@@ -323,7 +323,7 @@ export class AddSaleOrderPage {
               this.data_addsaleorder = res;
               console.log(this.data_addsaleorder);
               
-              if(this.data_addsaleorder["0"].sqlstatus < 0){
+              if(this.data_addsaleorder["0"].sqlstatus != "0"){
                 this.utility.Alert("Winning", this.data_addsaleorder["0"].sqlmsg);
               }else{
                 for(let i=0; i < this.arrayItem.length; i++){

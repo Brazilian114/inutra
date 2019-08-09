@@ -101,10 +101,7 @@ export class RptSaleOrderDetailsPage {
     else
       this.oRemarks = this.data_item.remarks; 
 
-     
-      
-       
-
+    
   }
   ionViewWillEnter(){
     this.doGetOrdersDetails();
