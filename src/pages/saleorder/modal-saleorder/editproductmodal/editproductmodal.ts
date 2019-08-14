@@ -62,6 +62,7 @@ export class EditProductModalPage {
         //console.log(this.oUsername);
          
       });
+
       this.item = navParams.get('item');
       
       this.oCustomer2 = navParams.get('oCustomer');
@@ -76,7 +77,7 @@ export class EditProductModalPage {
       console.log(this.item);     
       
       this.oItem_no = this.item.item_no;
-      this.oDescription = this.item.description;    
+      this.oDescription = this.item.item_description;    
       setTimeout(()=>{        
         this.InputQty.setFocus();
       },1000);

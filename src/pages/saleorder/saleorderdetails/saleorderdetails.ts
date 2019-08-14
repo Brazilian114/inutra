@@ -48,6 +48,7 @@ export class SaleOrderDetailsPage {
   oDueDate:string = "";
   oAmount:string = "";
   oNetAmount:string = "";
+  oDlvr_code:string = "";
   oVat:any;
   
   oCreate_date:string = "";
@@ -77,7 +78,7 @@ export class SaleOrderDetailsPage {
     this.oDueDate = this.data_item.due_date;
     this.oCustomer = this.data_item.customer;
     this.oCustomer_name = this.data_item.customer_name;
-    this.oAddress = this.data_item.dlvr_street + " " + this.data_item.dlvr_bldg;
+    
     this.oDiscountRate = this.data_item.discount_rate;
     this.oDiscountType = this.data_item.discount_type;
     this.date_time =this.data_item.create_date;
@@ -89,6 +90,8 @@ else
 
     
 */
+ 
+
     if(this.data_item.net_amount == undefined)  
       this.oNetAmount = "0.00";
     else
@@ -100,11 +103,19 @@ else
     else 
       this.oRemark = this.data_item.remarks;
 
+    if(this.data_item.dlvr_bldg == "undefined" || this.data_item.dlvr_bldg == "")
+      this.oDlvr_code = "";
+    else
+      this.oDlvr_code = this.data_item.dlvr_bldg;
+
     if(this.data_item.dlvr_street == "undefined" || this.data_item.dlvr_street == ""  )
       this.oAddress = "-";
+
     else
-      this. oAddress = this.data_item.dlvr_street + " " + this.data_item.dlvr_bldg;
+      this. oAddress = this.data_item.dlvr_street + " " + this.oDlvr_code;
+      
   }
+
   ionViewWillLeave() {
     this.storage.remove('_oLine');
   

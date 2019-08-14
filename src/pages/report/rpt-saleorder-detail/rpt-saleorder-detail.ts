@@ -22,7 +22,7 @@ export class RptSaleOrderDetailsPage {
   oUserGroup:string = "";
   oUserId:string = "";
   oRemarks:string="";
-  
+  oDlvr_code:string="";
   //Header
   oOrder_no:string = "";
   oCustomer:string = "";
@@ -45,9 +45,9 @@ export class RptSaleOrderDetailsPage {
     , private storage: Storage, public navParams: NavParams) {
     this.data_item = navParams.get('item');
     console.log(this.data_item);
-    this.oCreate_date = this.data_item.create_date[0];
+    this.oCreate_date = this.data_item.create_date;
     this.oOrder_no = this.data_item.order_no;
-    this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
+    //this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
     this.oDueDate = this.data_item.due_date;
     this.oRemarks = this.data_item.remarks;
     this.oCustomer = this.data_item.customer;
@@ -56,7 +56,8 @@ export class RptSaleOrderDetailsPage {
     //this.oDiscountRate = this.data_item.discount_rate;
     
     this.oDiscountType = this.data_item.discount_type;
-    this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
+    //this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
+    
     var str = this.data_item.reference_no;
     var rate = this.data_item.discount_rate;
     var amount = this.data_item.amount;
@@ -76,10 +77,10 @@ export class RptSaleOrderDetailsPage {
         this.oDiscountRate = this.oDiscountRate
       }
       
-      if(str.length <= 9 )
+      /*if(str.length <= 9 )
       this.oReference_no =  "SO0"+this.data_item.reference_no
       else
-      this.oReference_no = this.data_item.reference_no;
+      this.oReference_no = this.data_item.reference_no;*/
       
     if(this.data_item.amount == undefined)
       this.oAmount = "0.00";
@@ -101,7 +102,18 @@ export class RptSaleOrderDetailsPage {
     else
       this.oRemarks = this.data_item.remarks; 
 
-    
+      if(this.data_item.dlvr_bldg == "undefined" || this.data_item.dlvr_bldg == "")
+      this.oDlvr_code = "";
+    else
+      this.oDlvr_code = this.data_item.dlvr_bldg;
+
+    if(this.data_item.dlvr_street == "undefined" || this.data_item.dlvr_street == ""  )
+      this.oAddress = "-";
+
+    else
+      this. oAddress = this.data_item.dlvr_street + " " + this.oDlvr_code;
+      
+
   }
   ionViewWillEnter(){
     this.doGetOrdersDetails();

@@ -19,19 +19,24 @@ export class SaleMenuPage{
   @ViewChild("barCanvas") barCanvas: ElementRef;
   @ViewChild("doughnutCanvas") doughnutCanvas: ElementRef;
   @ViewChild("lineCanvas") lineCanvas: ElementRef;
+  
+  private barChart: Chart;
+  private doughnutChart: Chart;
+  private lineChart: Chart;
   oClient:string = "7LINE";
+  select:any;
   //test:string ="";
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
-  //oStartDate: String = "2019/08/7";
-  //oEndDate:   String =  "2019/08/7";
+  //oStartDate: String = "2019/08/13";
+  //oEndDate:   String =  "2019/08/13";
   oStartDate: String = new Date().toISOString().substring(0, 10);
   oEndDate: String = new Date().toISOString().substring(0, 10);
   //oStartDate: String="";
   //oEndDate: String="";
   oAmount:any;
-  private lineChart: Chart;
+  oDiscount:any;
   items:any;
   posts:any;
   var_x:any;
@@ -56,7 +61,7 @@ export class SaleMenuPage{
   
   constructor( private reportServ: ReportService,public datepipe: DatePipe,public navCtrl: NavController, private utility: Utility, private saleServ: SaleService, private storage: Storage) {
     this.doGetStorage();
-
+    
     this.doGetInvoiceGraph(this.oStartDate, this.oEndDate);
     //this.ngOnInit(this.oStartDate, this.oEndDate);
   }
@@ -72,25 +77,26 @@ export class SaleMenuPage{
   }
   
 
+
   doGetInvoiceGraph(oStartDate, oEndDate) {
-    this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oUserId, oStartDate, oStartDate, this.oUserGroup).then((res)=>{
+    this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oUserId, oStartDate, oEndDate, this.oUserGroup).then((res)=>{
       this.dataInvoiceGraph = res;
 
       if(this.dataInvoiceGraph.length <= 0 ){
-            this.sum = "0"
+            this.sum = "0.00"
             
-          
       }else{
       console.log(this.dataInvoiceGraph);   
       
       this.date_time = this.dataInvoiceGraph["0"].last_update;     
-      this.var_x = this.dataInvoiceGraph.map(data => data.net_amount)
-      this.oAmount = this.dataInvoiceGraph.net_amount;
+      //this.var_x = this.dataInvoiceGraph.map(data => data.net_amount)
+      this.oAmount = this.dataInvoiceGraph.amount;
       this.var_y = this.dataInvoiceGraph.map(data => data.last_update)
       //var this_date =this.datepipe.transform(this.date_time, 'dd/MM/yyyy');
       var this_date = this.datepipe.transform(this.oStartDate, 'dd/MM/yyyy');
+      //var this_date2 = this.datepipe.transform(this.oEndDate, 'dd/MM/yyyy');
         
-   
+     
 
       for(let i=0;i<this.var_y.length;i++){
         if(this.dataInvoiceGraph[i].net_amount == undefined){
@@ -100,28 +106,34 @@ export class SaleMenuPage{
         this.format2.push(this.format);
         }   
       }
-    //console.log(this.format2);
+   // console.log(this.format2);
 
       for(let i=0;i<this.dataInvoiceGraph.length;i++){
         if(this.dataInvoiceGraph[i].net_amount == undefined){
-          this.dataInvoiceGraph[i].net_amount = ["0.00"];
+          this.sum_price = this.dataInvoiceGraph[i].amount      
+         
+         
         }else{
-        this.sum_price = this.dataInvoiceGraph[i].net_amount      
+        this.oDiscount = parseInt(this.dataInvoiceGraph[i].discount_rate);
+        this.sum_price = this.dataInvoiceGraph[i].amount -  this.oDiscount;
         this.sum_price2.push(this.sum_price);
         }
       } 
-      //console.log(this.sum_price2);
+      console.log(this.sum_price2);
      
      
          //console.log(this.var_y);
          //console.log(this.test5);
 
       let index = 0;
-      for (let array of this.dataInvoiceGraph) {
-        index += parseInt(array.net_amount);
-        this.sum = index.toFixed(2);              
+      for (let array of this.sum_price2) {
+    
+        index += parseInt(array);
+        this.sum = index.toFixed(2);       
+        }
         
-      }
+         
+      
       //console.log(this.sum);
 /*
       let sum5=[];
@@ -138,7 +150,7 @@ export class SaleMenuPage{
 console.log(this.test2);*/
       
 
-      this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+      this.lineChart  = new Chart(this.lineCanvas.nativeElement, {
         type: "line",
         data: {
           labels: this.format2,
@@ -150,12 +162,12 @@ console.log(this.test2);*/
               backgroundColor: "rgba(75,192,192,0.4)",
               borderColor: "rgba(75,192,192,1)",
               borderCapStyle: "butt",
-              borderDash: [],
+              borderDash: [ ],
               borderDashOffset: 0.0,
               borderJoinStyle: "miter",
               pointBorderColor: "rgba(75,192,192,1)",
               pointBackgroundColor: "#fff",
-              pointBorderWidth: 4,
+              pointBorderWidth: 0,
               pointHoverRadius: 3,
               pointHoverBackgroundColor: "rgba(75,192,192,1)",
               pointHoverBorderColor: "rgba(220,220,220,1)",
@@ -166,13 +178,16 @@ console.log(this.test2);*/
               spanGaps: true
             }
           ]
+          
         }
       });
+    
     }
     })
     return true;
-  
+
   }
+
   doGetStorage(){
     this.storage.get('_user').then((res)=>{
       this.oUsername = res;

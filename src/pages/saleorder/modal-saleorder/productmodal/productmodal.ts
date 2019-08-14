@@ -21,6 +21,7 @@ export class ProductModalPage {
   oItem_no:string = "";
   oDescription:string = "";
   oCustomer:any;
+  oCustomer2:any;
 
   oParamCode:any;
   oUOM:any;
@@ -49,20 +50,22 @@ export class ProductModalPage {
   data_zone:any;
   data_productstock:any;
   data_price:any;
-
+  items:any;
   data_return:any = [];
   arrayItem:any = [];
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams
     , private storage: Storage, private saleorderServ: SaleOrderService) {
       
-      
+      this.oCustomer2 = navParams.get('oCustomer');
 
-      
-        if(this.oCustomer = navParams.get('oCustomer') != "7LINE"){
+
+
+      if(this.oCustomer2 != "7LINE"){
         this.oCustomer = "ALL"
         }else{
-        this.oCustomer = navParams.get('oCustomer');
+        this.oCustomer = this.oCustomer2;
         }
+
       this.storage.get('_userId').then((res) => {
         this.oUsername = res;   
       });
@@ -75,6 +78,10 @@ export class ProductModalPage {
       setTimeout(()=>{        
         this.InputQty.setFocus();
       },1000);
+  }
+  initializeItems() {
+    this.items = this.data_productstock;
+    
   }
   ionViewWillEnter(){
     this.doGetProductUom();
@@ -170,6 +177,8 @@ export class ProductModalPage {
     this.saleorderServ.GetProductStock(this.oClient,this.oCustomer, this.oItem_no, this.oGrade, "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
       this.data_productstock = res;
       console.log(this.data_productstock);
+      this.initializeItems();
+      
       if(this.data_productstock["0"].price_assemble == undefined){
         this.oPrice1 =0;
         this.oPrice2 =0;
@@ -200,8 +209,11 @@ export class ProductModalPage {
         //this.oPrice = this.data_productstock["0"].unit_price;
       
         // this.oPrice = price.toFixed();      
-      }      
+        
+      }     
+      
     })
+    
   }
   doClear(){
       this.oQty = "";

@@ -29,48 +29,76 @@
     
   </ion-card> 
 
-    <!---
+    <!----
   <div>
       <ion-grid padding>
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label stacked>เลือกวันที่</ion-label>
+              <ion-label stacked>เลือกวันที่เริ่ม</ion-label>
               <ion-datetime [(ngModel)]="oStartDate" display-format="MM/YYYY" picker-format="MMMM YYYY" ></ion-datetime>
             </ion-item>
           </ion-col>
      
         </ion-row>
-        <button ion-button block (click)="doGetInvoiceGraph(oStartDate)">Search</button>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label stacked>เลือกวันที่สิ้นสุด</ion-label>
+              <ion-datetime [(ngModel)]="oEndDate" display-format="MM/YYYY" picker-format="MMMM YYYY" ></ion-datetime>
+            </ion-item>
+          </ion-col>
+     
+        </ion-row>
+        <button ion-button block (click)="doGetInvoiceGraph(oStartDate,oEndDate)">Search</button>
+       
       </ion-grid>
     </div>
-
-<ion-row>
-  <ion-col>
-    <ion-item no-lines>
-      <ion-input type="text" [(ngModel)]="oStartDate" placeholder="startDate"></ion-input>
-    </ion-item>
-  </ion-col>
-  <ion-col>
-      <ion-item no-lines>
-        <ion-input type="text" [(ngModel)]="oEndDate" placeholder="endDate"></ion-input>
-      </ion-item>
-    </ion-col>
-</ion-row>
+  
+  <ion-item>
+    <ion-label>Select Chart Type</ion-label>
+    <ion-select  [(ngModel)]="select">
+         <ion-option value="Bar">Bar Chart</ion-option> 
+         <ion-option value="Doughnut">Doughnut Chart</ion-option> 
+         <ion-option value="Line">Line Chart</ion-option> 
+   </ion-select>
+  
+</ion-item>
+<button ion-button block (click)="getChart(select)">Select</button>
 -->
+
+
+<ion-card>
+  <ion-card-header>
+    กราฟแสดงยอดขายสินค้า
+  </ion-card-header>
+  <div  style="display:block;">
+  <ion-card-content>
+    <canvas #lineCanvas></canvas>
+  </ion-card-content>
+  </div>
+</ion-card>
+
+<!---
+  <ion-card>
+    <ion-card-header>
+      Doughnut Chart
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #doughnutCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
 
   <ion-card>
     <ion-card-header>
-      กราฟแสดงยอดขายสินค้า
+      Line Chart
     </ion-card-header>
-    <div  style="display:block;">
     <ion-card-content>
       <canvas #lineCanvas></canvas>
     </ion-card-content>
-    </div>
   </ion-card>
 
-  <!-- <ion-list inset>
+  <ion-list inset>
     <button ion-item (click)="doReservation()">
       <ion-icon name="ios-basket" item-start></ion-icon>
         ยอดจองสินค้า
