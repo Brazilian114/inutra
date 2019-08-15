@@ -33,7 +33,7 @@ export class RptSaleOrderDetailsPage {
   oDueDate:string = "";
   oAmount:string = "";
   oNetAmount:any;
-  oVat:string = "";
+  oVat:any;
   oReference_no:string="";
   data_item:any;
   oCreate_date:any;
@@ -63,9 +63,20 @@ export class RptSaleOrderDetailsPage {
     var amount = this.data_item.amount;
     this.oAmount = parseFloat(amount).toFixed(2);
     this.oDiscountRate = parseFloat(rate).toFixed(2);
-    var sum = amount - rate;
+    //var sum = amount - rate;
     //console.log(sum);
+    var rate = this.data_item.discount_rate;
+    var amount = this.data_item.amount;
+    var sum;
+      if(this.data_item.discount_type == "percent"){
+      var sum_discount = amount * rate / 100
+      sum = amount - sum_discount
+      this.oDiscountRate = this.oDiscountRate+" %"
+      }else{
+      sum = amount - rate
       
+      this.oDiscountRate = this.oDiscountRate+" ฿"
+      }
       
       if(this.data_item.discount_rate || undefined)
       this.oDiscountRate == "0.00"
@@ -92,10 +103,11 @@ export class RptSaleOrderDetailsPage {
     else
       this.oNetAmount = sum.toFixed(2);
 
-    if(this.data_item.vat == undefined || this.data_item.vat == "")
+    if(this.data_item.vat_rate == undefined || this.data_item.vat_rate == "")
       this.oVat = "0.00";
     else
-      this.oVat = this.data_item.vat;
+      var vat = this.data_item.vat_rate;
+      this.oVat = parseFloat(vat).toFixed(0);
 
     if(this.data_item.remarks == "")
       this.oRemarks = "-";

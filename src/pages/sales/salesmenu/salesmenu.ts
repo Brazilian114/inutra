@@ -29,8 +29,8 @@ export class SaleMenuPage{
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
-  //oStartDate: String = "2019/08/13";
-  //oEndDate:   String =  "2019/08/13";
+  //oStartDate: String = "2019/08/14";
+  //oEndDate:   String =  "2019/08/14";
   oStartDate: String = new Date().toISOString().substring(0, 10);
   oEndDate: String = new Date().toISOString().substring(0, 10);
   //oStartDate: String="";
@@ -111,8 +111,12 @@ export class SaleMenuPage{
       for(let i=0;i<this.dataInvoiceGraph.length;i++){
         if(this.dataInvoiceGraph[i].net_amount == undefined){
           this.sum_price = this.dataInvoiceGraph[i].amount      
-         
-         
+        
+        }else if(this.dataInvoiceGraph[i].discount_type == "percent"){
+          
+          var sum_discount = this.dataInvoiceGraph[i].amount * this.dataInvoiceGraph[i].discount_rate / 100
+          this.sum_price = this.dataInvoiceGraph[i].amount - sum_discount
+          this.sum_price2.push(this.sum_price);
         }else{
         this.oDiscount = parseInt(this.dataInvoiceGraph[i].discount_rate);
         this.sum_price = this.dataInvoiceGraph[i].amount -  this.oDiscount;
