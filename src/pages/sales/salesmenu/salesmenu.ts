@@ -89,12 +89,10 @@ export class SaleMenuPage{
       console.log(this.dataInvoiceGraph);   
       
       this.date_time = this.dataInvoiceGraph["0"].last_update;     
-      //this.var_x = this.dataInvoiceGraph.map(data => data.net_amount)
       this.oAmount = this.dataInvoiceGraph.amount;
       this.var_y = this.dataInvoiceGraph.map(data => data.last_update)
-      //var this_date =this.datepipe.transform(this.date_time, 'dd/MM/yyyy');
       var this_date = this.datepipe.transform(this.oStartDate, 'dd/MM/yyyy');
-      //var this_date2 = this.datepipe.transform(this.oEndDate, 'dd/MM/yyyy');
+    
         
      
 
@@ -139,20 +137,7 @@ export class SaleMenuPage{
          
       
       //console.log(this.sum);
-/*
-      let sum5=[];
-      for (this.car of this.dataInvoiceGraph) {
-        
-        this.format = this.datepipe.transform(this.car.invoice_date, 'HH:mm:ss');
-        sum5 = this.format;
-        this.sum2 = sum5;
-       
-        this.test2.push(this.sum2);
 
-      }
-      
-console.log(this.test2);*/
-      
 
       this.lineChart  = new Chart(this.lineCanvas.nativeElement, {
         type: "line",
