@@ -66,7 +66,7 @@ console.log(this.data_item);
     this.oPhone = "-";
     else
     this.oPhone = this.data_item.phone;
-
+ 
   }
   dismiss() {
     this.viewCtrl.dismiss();

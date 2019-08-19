@@ -28,11 +28,14 @@ export class RptSaleOrderDetailsPage {
   oCustomer:string = "";
   oCustomer_name:string = "";
   oAddress:string = "";
-  oDiscountRate:string = "";
+  oDiscountRate:any;
   oDiscountType:string = "";
   oDueDate:string = "";
-  oAmount:string = "";
+  oAmount:any;
   oNetAmount:any;
+  a1:any;
+  a2:any;
+  sum_vat:any;
   oVat:any;
   oReference_no:string="";
   data_item:any;
@@ -61,12 +64,23 @@ export class RptSaleOrderDetailsPage {
     var str = this.data_item.reference_no;
     var rate = this.data_item.discount_rate;
     var amount = this.data_item.amount;
-    this.oAmount = parseFloat(amount).toFixed(2);
+
+    if(this.data_item.amount == undefined){
+      this.oAmount = "0.00";
+      amount = "0.00"
+    }
+    else{
+      
+      this.oAmount = this.data_item.amount;
+      var amount = this.oAmount;
+      this.oAmount = parseFloat(amount).toFixed(2);
+    }
+    
     this.oDiscountRate = parseFloat(rate).toFixed(2);
     //var sum = amount - rate;
     //console.log(sum);
     var rate = this.data_item.discount_rate;
-    var amount = this.data_item.amount;
+    //var amount = this.data_item.amount;
     var sum;
       if(this.data_item.discount_type == "percent"){
       var sum_discount = amount * rate / 100
@@ -92,22 +106,25 @@ export class RptSaleOrderDetailsPage {
       this.oReference_no =  "SO0"+this.data_item.reference_no
       else
       this.oReference_no = this.data_item.reference_no;*/
-      
-    if(this.data_item.amount == undefined)
-      this.oAmount = "0.00";
-    else
-      this.oAmount = this.data_item.amount;
-
-    if(this.data_item.net_amount == undefined)  
-      this.oNetAmount = "0.00";
-    else
-      this.oNetAmount = sum.toFixed(2);
 
     if(this.data_item.vat_rate == undefined || this.data_item.vat_rate == "")
       this.oVat = "0.00";
     else
       var vat = this.data_item.vat_rate;
       this.oVat = parseFloat(vat).toFixed(0);
+
+      if(this.data_item.net_amount == undefined) { 
+      this.oNetAmount = "0.00";}
+    else{
+      var sum_amount = sum.toFixed(2);
+      this.sum_vat = sum_amount * this.oVat / 100;
+      this.a1 = parseFloat(sum_amount)
+      this.a2 = parseFloat(this.sum_vat)
+      var sum2 = this.a1 + this.a2;
+      
+      this.oNetAmount = sum2.toFixed(2);
+      console.log(this.a1,this.a2);
+    }
 
     if(this.data_item.remarks == "")
       this.oRemarks = "-";

@@ -52,6 +52,8 @@ export class SaleMenuPage{
   public format: any = [];
   public sum_price: any = [];
   public sum_price2: any = [];
+  public sum_vat: any = [];
+  public sum_amount: any = [];
   latest_date:any;
   var_z:any;
   var_a:any;
@@ -114,11 +116,15 @@ export class SaleMenuPage{
           
           var sum_discount = this.dataInvoiceGraph[i].amount * this.dataInvoiceGraph[i].discount_rate / 100
           this.sum_price = this.dataInvoiceGraph[i].amount - sum_discount
-          this.sum_price2.push(this.sum_price);
+          this.sum_vat = this.sum_price * this.dataInvoiceGraph[i].vat_rate / 100
+          this.sum_amount =  this.sum_price + this.sum_vat
+          this.sum_price2.push(this.sum_amount);
         }else{
         this.oDiscount = parseInt(this.dataInvoiceGraph[i].discount_rate);
         this.sum_price = this.dataInvoiceGraph[i].amount -  this.oDiscount;
-        this.sum_price2.push(this.sum_price);
+        this.sum_vat = this.sum_price * this.dataInvoiceGraph[i].vat_rate / 100
+        this.sum_amount =  this.sum_price + this.sum_vat
+        this.sum_price2.push(this.sum_amount);
         }
       } 
       console.log(this.sum_price2);
@@ -132,12 +138,9 @@ export class SaleMenuPage{
     
         index += parseInt(array);
         this.sum = index.toFixed(2);       
-        }
-        
-         
-      
+        } 
+     
       //console.log(this.sum);
-
 
       this.lineChart  = new Chart(this.lineCanvas.nativeElement, {
         type: "line",
