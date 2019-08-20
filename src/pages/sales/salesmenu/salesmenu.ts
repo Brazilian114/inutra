@@ -47,6 +47,9 @@ export class SaleMenuPage{
   sum:any;
   data_getsaleorder_bydate:any;
   data_saleorderdetail:any;
+  sum_discount1:any;
+  sum_discount2:any;
+  sum_discount3:any;
   sum2:any;
   car:any;
   public format: any = [];
@@ -94,9 +97,6 @@ export class SaleMenuPage{
       this.oAmount = this.dataInvoiceGraph.amount;
       this.var_y = this.dataInvoiceGraph.map(data => data.last_update)
       var this_date = this.datepipe.transform(this.oStartDate, 'dd/MM/yyyy');
-    
-        
-     
 
       for(let i=0;i<this.var_y.length;i++){
         if(this.dataInvoiceGraph[i].net_amount == undefined){
@@ -109,24 +109,42 @@ export class SaleMenuPage{
    // console.log(this.format2);
 
       for(let i=0;i<this.dataInvoiceGraph.length;i++){
+        if(this.dataInvoiceGraph[i].discount_type == "percent"){
+          var rate1 = this.dataInvoiceGraph[i].amount * this.dataInvoiceGraph[i].discount_rate / 100
+          this.sum_discount1 = this.dataInvoiceGraph[i].amount -  rate1;
+          } else{
+            this.sum_discount1 =  parseFloat(this.dataInvoiceGraph[i].amount) - parseFloat(this.dataInvoiceGraph[i].discount_rate)
+          }
+          
+          if(this.dataInvoiceGraph[i].discount_type_2 == "percent"){
+            var rate2 = this.sum_discount1 * this.dataInvoiceGraph[i].discount_rate_2 / 100
+            this.sum_discount2 = this.sum_discount1 -  rate2;
+          }else{
+            this.sum_discount2 =  parseFloat(this.sum_discount1) - parseFloat(this.dataInvoiceGraph[i].discount_rate_2)
+          }
+          
+          if(this.dataInvoiceGraph[i].discount_type_3 == "percent"){
+            var rate2 = this.dataInvoiceGraph[i].amount * this.dataInvoiceGraph[i].discount_rate_3 / 100
+            this.sum_discount3 = this.sum_discount2 -  rate2;
+          }else{
+            this.sum_discount3 =  parseFloat(this.sum_discount2) - parseFloat(this.dataInvoiceGraph[i].discount_rate_3)
+          }
+          
+          //var sum_rate = this.sum_discount1 + this.sum_discount2 + this.sum_discount3
+          //onsole.log(sum_rate);
+
         if(this.dataInvoiceGraph[i].net_amount == undefined){
           this.sum_price = this.dataInvoiceGraph[i].amount      
         
-        }else if(this.dataInvoiceGraph[i].discount_type == "percent"){
-          
-          var sum_discount = this.dataInvoiceGraph[i].amount * this.dataInvoiceGraph[i].discount_rate / 100
-          this.sum_price = this.dataInvoiceGraph[i].amount - sum_discount
-          this.sum_vat = this.sum_price * this.dataInvoiceGraph[i].vat_rate / 100
-          this.sum_amount =  this.sum_price + this.sum_vat
-          this.sum_price2.push(this.sum_amount);
         }else{
-        this.oDiscount = parseInt(this.dataInvoiceGraph[i].discount_rate);
-        this.sum_price = this.dataInvoiceGraph[i].amount -  this.oDiscount;
+        //this.oDiscount = parseInt(this.dataInvoiceGraph[i].discount_rate);
+        this.sum_price = this.sum_discount3;
         this.sum_vat = this.sum_price * this.dataInvoiceGraph[i].vat_rate / 100
-        this.sum_amount =  this.sum_price + this.sum_vat
+        this.sum_amount =  parseFloat(this.sum_price + this.sum_vat).toFixed(2);
         this.sum_price2.push(this.sum_amount);
         }
       } 
+      
       console.log(this.sum_price2);
      
      

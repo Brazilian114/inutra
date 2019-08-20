@@ -315,7 +315,7 @@ export class AddSaleOrderPage {
             var Order_date = oDate.toString();
             var DueDate = oDateSale.toString();
 
-            this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", "", oType, this.oCustomer, oCustomer_name, Order_date, oVat, "", "", ""
+            this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", "", oType, this.oCustomer, oCustomer_name, Order_date, "0.00", "", "", ""
               , "", "", "", "", "", "", "", Order_date, "", oRemark, "", ""
               , "", DueDate, "", "",this.oAddress, this.oBuilding, "", "", ""
               , "", "", DueDate, this.oUsername, oPayTerm, this.oUserId["0"], this.oUserId["0"], "", "", "", "", Order_date

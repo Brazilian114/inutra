@@ -65,7 +65,7 @@ export class CustomerHeaderPage {
 
   onInput(ev: any){
     this.initializeItems();
-     console.log(this.items.length);
+     console.log(this.items);
    let val = ev.target.value;
     if(val && val.trim() != ''){
       this.items = this.items.filter((item)=>{

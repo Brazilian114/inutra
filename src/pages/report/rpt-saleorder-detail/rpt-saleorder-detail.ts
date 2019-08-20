@@ -33,6 +33,9 @@ export class RptSaleOrderDetailsPage {
   oDueDate:string = "";
   oAmount:any;
   oNetAmount:any;
+  sum_discount1:any;
+  sum_discount2:any;
+  sum_discount3:any;
   a1:any;
   a2:any;
   sum_vat:any;
@@ -65,43 +68,56 @@ export class RptSaleOrderDetailsPage {
     var rate = this.data_item.discount_rate;
     var amount = this.data_item.amount;
 
+    
+    //this.oDiscountRate = parseFloat(rate).toFixed(2);
+    //var sum = amount - rate;
+    //console.log(sum);
+
+    //var amount = this.data_item.amount;
+
+    
     if(this.data_item.amount == undefined){
       this.oAmount = "0.00";
-      amount = "0.00"
+      amount = "0.00";
+      this.oDiscountRate = "0.00";
     }
     else{
       
       this.oAmount = this.data_item.amount;
       var amount = this.oAmount;
       this.oAmount = parseFloat(amount).toFixed(2);
-    }
     
-    this.oDiscountRate = parseFloat(rate).toFixed(2);
-    //var sum = amount - rate;
-    //console.log(sum);
-    var rate = this.data_item.discount_rate;
-    //var amount = this.data_item.amount;
     var sum;
-      if(this.data_item.discount_type == "percent"){
-      var sum_discount = amount * rate / 100
-      sum = amount - sum_discount
-      this.oDiscountRate = this.oDiscountRate+" %"
+    
+    if(this.data_item.discount_type == "percent"){
+      var disrate1 = this.data_item.amount * this.data_item.discount_rate / 100
+      this.sum_discount1 = this.data_item.amount -  disrate1;
+      } else{
+        this.sum_discount1 =  parseFloat(this.data_item.amount) - parseFloat(this.data_item.discount_rate)
+      }
+      
+      if(this.data_item.discount_type_2 == "percent"){
+        var dis_rate2 = this.sum_discount1 * this.data_item.discount_rate_2 / 100
+        this.sum_discount2 = this.sum_discount1 -  dis_rate2;
       }else{
-      sum = amount - rate
-      
-      this.oDiscountRate = this.oDiscountRate+" ฿"
+        this.sum_discount2 =  parseFloat(this.sum_discount1) - parseFloat(this.data_item.discount_rate_2)
       }
       
-      if(this.data_item.discount_rate || undefined)
-      this.oDiscountRate == "0.00"
-      else
+      if(this.data_item.discount_type_3 == "percent"){
+        var dis_rate3 = this.data_item.amount * this.data_item.discount_rate_3 / 100
+        this.sum_discount3 = this.sum_discount2 -  dis_rate3;
+      }else{
+        this.sum_discount3 =  parseFloat(this.sum_discount2) - parseFloat(this.data_item.discount_rate_3)
+      }
 
-      if(this.data_item.discount_rate == undefined || this.data_item.discount_rate == "")
-      this.oDiscountRate = "0.00";
-      else{
-        this.oDiscountRate = this.oDiscountRate
-      }
-      
+      var sum_dis = amount -  this.sum_discount3;
+      sum = this.sum_discount3
+      console.log(this.sum_discount1);
+      console.log(this.sum_discount2);
+      console.log(this.sum_discount3);
+      console.log(sum_dis.toFixed(2));
+      this.oDiscountRate = sum_dis.toFixed(2);
+    }
       /*if(str.length <= 9 )
       this.oReference_no =  "SO0"+this.data_item.reference_no
       else
@@ -111,7 +127,7 @@ export class RptSaleOrderDetailsPage {
       this.oVat = "0.00";
     else
       var vat = this.data_item.vat_rate;
-      this.oVat = parseFloat(vat).toFixed(0);
+      this.oVat = parseFloat(vat).toFixed(2);
 
       if(this.data_item.net_amount == undefined) { 
       this.oNetAmount = "0.00";}
