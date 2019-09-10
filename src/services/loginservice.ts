@@ -9,12 +9,12 @@ export class LoginService {
   public hostWebService:string;
   url:string;
   constructor(private http: Http, private storage: Storage){
-    this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx"
+   // this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx"
     this.storage.get('_url').then((res)=>{
       this.url = res;
       console.log(res);
       
-      //this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";
+      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";
     })
   }
 
