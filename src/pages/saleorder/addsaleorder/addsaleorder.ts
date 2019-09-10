@@ -31,8 +31,9 @@ export class AddSaleOrderPage {
   oSale:string = "";
   oDateSale:any = new Date().toISOString();
   oTotalPrice: any = 0.00;
+  oTotalPrice2:any; 
   oStreet:string="";
-
+  public sum_price2: any = [];
   discount:any = 0.0;
   total_price:any = 0.0;
   pricePlusTax:any = 0.0;
@@ -48,7 +49,7 @@ export class AddSaleOrderPage {
   oDiscount2:string = "";
   oCheckDiscount2:any = false;
   oDiscountType2:string = "";
-
+ sum:any;
   oVat3:string = "";
   oDiscount3:string = "";
   oCheckDiscount3:any = false;
@@ -75,8 +76,9 @@ export class AddSaleOrderPage {
   constructor(public navCtrl: NavController, private utility: Utility, public navParams: NavParams, public alertCtrl: AlertController
     , private storage: Storage, private saleorderServ: SaleOrderService, private modalCtrl: ModalController, public viewCtrl: ViewController) {
       this.doGetStorage();
-     
-      
+        this.storage.get('_url').then((res)=>{
+        console.log(res);
+      })
   }
   ionViewWillEnter(){
     this.utility.presentLoading();
@@ -175,18 +177,15 @@ export class AddSaleOrderPage {
         if(data != undefined){
           this.arrayItem = data;
           console.log("addsessionAddsale", this.arrayItem);
-/*
-          for(let i=0; i<this.arrayItem.length; i++){
-            var uom = +this.arrayItem[i]["2"];
-            var price = parseFloat(this.arrayItem[i]["5"]);
-            console.log(price);
-            var total = price * uom;
-            console.log(total);
-            
-            this.oTotalPrice = +this.oTotalPrice + total;
-            console.log(this.oTotalPrice);
-            
-          }*/
+
+          let index = 0;
+          for (let array of this.arrayItem) {
+      
+            index += parseInt(array["5"]);
+            this.sum = index.toFixed(2);       
+            } 
+            console.log("sumAmount",this.sum);
+         
         }else{
 
         }
@@ -204,7 +203,7 @@ export class AddSaleOrderPage {
     });
   }
 
-
+  
   doGetCustomerDelivery(){
     this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{
       this.data_customerdelivery = res;
@@ -270,11 +269,22 @@ export class AddSaleOrderPage {
   }
 
   doAddOrdersDetailsAsync(value) {
+    /*for(let i=0; i<this.arrayItem.length; i++){
+      var uom = +this.arrayItem[i]["2"];
+      var price = parseFloat(this.arrayItem[i]["8"]);
+      console.log(price);
+      var total = price * uom;
+      console.log(total);
+      
+      this.oTotalPrice = +this.oTotalPrice + total;
+      console.log("sum",this.oTotalPrice);
+      
+    }*/
     return new Promise((resolve) => {
       setTimeout(() => {
         this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.data_addsaleorder["0"].order_no, "", 0, this.arrayItem[value]["0"]
-        , "", this.arrayItem[value]["3"], this.arrayItem[value]["2"], "", "", "", this.arrayItem[value]["7"], "", "", "", "", "", "", ""
-        , this.arrayItem[value]["1"], "", this.oCustomer, "", "", this.arrayItem[value]["8"]).then((res)=>{
+        , "", this.arrayItem[value]["3"], this.arrayItem[value]["2"], this.arrayItem[value]["8"], this.arrayItem[value]["5"], this.arrayItem[value]["5"], this.arrayItem[value]["7"], "", "", "", "", "", "", ""
+        , this.arrayItem[value]["1"], "", this.oCustomer, "", "", "").then((res)=>{
           this.data_addsaledetail = res;
           console.log(this.data_addsaledetail);
           if(this.data_addsaledetail["0"].sqlstatus < "0"){
@@ -319,7 +329,7 @@ export class AddSaleOrderPage {
               , "", "", "", "", "", "", "", Order_date, "", oRemark, "", ""
               , "", DueDate, "", "",this.oAddress, this.oBuilding, "", "", ""
               , "", "", DueDate, this.oUsername, oPayTerm, this.oUserId["0"], this.oUserId["0"], "", "", "", "", Order_date
-              , "", DueDate).then((res)=>{
+              , "", DueDate,this.sum,this.sum).then((res)=>{
               this.data_addsaleorder = res;
               console.log(this.data_addsaleorder);
               

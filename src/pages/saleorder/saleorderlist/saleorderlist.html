@@ -6,12 +6,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="backgound">
-  <ion-refresher class="backgound" (ionRefresh)="doRefresh($event)">
+<ion-content class="backgound-image">
+  <!---<ion-refresher class="backgound" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content refreshingSpinner="circles" >
     </ion-refresher-content>
   </ion-refresher>
-  
+-->
     <ion-grid padding>
       <ion-row>
         <ion-col>
@@ -47,13 +47,13 @@
       <ion-row>
         <ion-col>
           <ion-row>
-            <b>ใบสั่งขาย : {{item.order_no}}</b>
+            <b class="font-primary">ใบสั่งขาย : {{item.order_no}}</b>
           </ion-row>
           <ion-row>
-            <p>ลูกค้า : {{item.customer_name}}</p>
+            <p class="font-orange">ลูกค้า : {{item.customer_name}}</p>
           </ion-row> 
           <ion-row>
-            <p>วันที่ : {{item.create_date}}</p>
+            <p class="font-orange">วันที่ : {{item.create_date}}</p>
           </ion-row>     
         </ion-col>
         <ion-col col-5 style="text-align: center;" *ngIf="item.status == 'CANCELLED'">

@@ -9,17 +9,17 @@
 <ion-content padding class="backgound-image">
   <ion-card>
     <ion-card-header>
-        <b>วันนี้</b>
-        <p>ยอดขายสินค้า</p>
+        <b class="orange">วันนี้</b>
+        <p class="orange">ยอดขายสินค้า</p>
 
     </ion-card-header>
     <ion-card-content>
       <ion-row>
         <ion-col>
-          <ion-icon ios="logo-bitcoin" md="logo-bitcoin" style="font-size: 40px;"></ion-icon>             
+          <ion-icon class="primary" ios="logo-bitcoin" md="logo-bitcoin" style="font-size: 40px;"></ion-icon>             
         </ion-col>
         <ion-col>
-          <p style="font-size: 30px;" >{{sum}}+</p>
+          <p class="primary" style="font-size: 30px;" >{{sum}}+</p>
           
         </ion-col>
         
@@ -70,7 +70,9 @@
 
 <ion-card>
   <ion-card-header>
+    <h2 class="orange"> 
     กราฟแสดงยอดขายสินค้า
+  </h2>
   </ion-card-header>
   <div  style="display:block;">
   <ion-card-content>

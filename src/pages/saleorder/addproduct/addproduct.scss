@@ -27,9 +27,10 @@ page-addproduct {
                      
             .searchbar-input {
                 border-radius: 20px;
-                border: 0 !important;
+               // border: 0 !important;
                 width: 100%;
-                //box-shadow: none !important;
+                border: 1.5px solid #3a687a;
+                box-shadow: none !important;
             }
         }
     }

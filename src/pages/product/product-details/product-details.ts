@@ -54,6 +54,8 @@ export class ProductDetailsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, private utility: Utility, private storage: Storage, private productServ: ProductService) {
     this.data_item = navParams.get('item');
     console.log(this.data_item);
+    this.doGetProductUom();
+    this.doGetProductStock();
   }
   
   ionViewWillEnter(){
@@ -85,7 +87,7 @@ export class ProductDetailsPage {
         this.oQty_Avail = "0.00";
         this.oUom = "PCS";
         this.oPrice = "0.00";
-        this.oQty_Free = "0.00";
+        
       }else{
         var qty_avail = +this.data_productstock["0"].qty_avail
         this.oQty_Avail = qty_avail.toFixed(0);
@@ -98,7 +100,9 @@ export class ProductDetailsPage {
       if(this.data_productstock["0"].price_assemble == undefined || this.data_productstock["0"].price_assemble_no == undefined ){
         this.oPrice1 = "-";
         this.oPrice2 = "-";
+    
       }else{
+       
         var price1 = +this.data_productstock["0"].price_assemble_no
         var price2 = +this.data_productstock["0"].price_assemble
         this.oPrice1 = price1.toFixed(2)+" ฿";

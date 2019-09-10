@@ -9,7 +9,7 @@
 <ion-content class="backgound-image">
   <div>
     <!-- <img src="../../../assets/imgs/logo.png" class="img-size"/> -->
-    <img *ngIf="data_item" src="{{'data:image/png;base64,'+data_item.image}}" onerror="this.src='../../../assets/imgs/logo.png'">
+    <img *ngIf="data_item" src="{{'data:image/png;base64,'+data_item.image}}" onerror="this.src='../../../assets/imgs/logo.png'" imageViewer>
   </div>
   <ion-grid padding>
     <ion-row>
@@ -26,7 +26,7 @@
         <ion-col class="col-line">
           
             <ion-row>
-                <b class="font-orange font-medium">{{oPrice1}}</b>
+                <b class="font-orange font-big">{{oPrice1}}</b>
             </ion-row>
               <ion-row>
                   <p>ราคาปกติ</p>
@@ -34,7 +34,7 @@
             </ion-col>
             <ion-col class="col-line">
               <ion-row >
-                  <b class="font-orange font-medium">{{oPrice2}}</b>
+                  <b class="font-orange font-big">{{oPrice2}}</b>
             </ion-row>
               <ion-row>
                   <p>ราคา+ประกอบ</p>
@@ -43,7 +43,7 @@
             </ion-col>
       <ion-col class="col-line">
         <ion-row>
-          <b class="font-orange font-medium">{{oUom}}</b>
+          <b class="font-orange font-big">{{oUom}}</b>
         </ion-row>
         <ion-row>
           <p>หน่วย</p>
@@ -54,7 +54,7 @@
             <b class="font-red font-big" *ngIf="oQty_Free  <0">{{oQty_Free}}</b>
           </ion-row>
           <ion-row>
-            <b class="font-orange font-big" *ngIf="oQty_Free  >0">{{oQty_Free}}</b>
+            <b class="font-orange font-big" *ngIf="oQty_Free  >= 0">{{oQty_Free}}</b>
           </ion-row>
          
           <ion-row>
@@ -67,7 +67,7 @@
  
     <div class="line"></div>
   </ion-grid>
-  <ion-card>
+  <ion-card class="card">
     <ion-card-content>
       <ion-row>
         <ion-col col-1>

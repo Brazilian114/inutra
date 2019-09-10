@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, ModalController, ViewController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ModalController,AlertController, ViewController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { Utility } from '../../../../helper/utility';
@@ -30,7 +30,7 @@ export class EditProductModalPage {
   oZone:any;
   oUnit:any;
   oCheckDiscount:boolean = false;
-
+  oTotalPrice: any = 0.00;
   oAvailable:any;
   oFree:any;
   oUomQty:string = "";
@@ -40,8 +40,30 @@ export class EditProductModalPage {
   oPrice:string = "";
   oDiscount:string = "";
   oRemark:string = "";
+  oSalman:string = "";
+  oLineNo:string = "";
+  oCustomer_name:string = "";
+  oAddress:string = "";
+  oDiscountRate:any;
+  oDiscountType:string = "";
+  oDueDate:string = "";
+  oAmount:string = "";
+  oNetAmount:string = "";
+  oDlvr_code:string = "";
+  oVat:any;
+  oType:string = "ADHOC";
+  oDate:any = new Date().toISOString();
+  oPayTerm:string = "";
+  oSale:string = "";
+  oDateSale:any = new Date().toISOString();
+  oBuilding:any;
 
+  date_time:any;
+  amount:any;
+  amount5:any;
+  amount2:any;
   item: any;
+  item2:any;
   data_customerparam:any;
   data_productuom:any;
   data_productdefault:any;
@@ -51,12 +73,17 @@ export class EditProductModalPage {
   data_zone:any;
   data_productstock:any;
   data_price:any;
-
+  data_item:any;
+  data_saleorderdetail:any;
   data_addsaledetail:any;
   data_return:any = [];
   arrayItem:any = [];
-  constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams
+  data_customerdelivery:any;
+  data_addsaleorder:any;
+  constructor(public alertCtrl :AlertController,public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams
     , private storage: Storage, private saleorderServ: SaleOrderService) {
+
+
       this.storage.get('_userId').then((res) => {
         this.oUsername = res;  
         //console.log(this.oUsername);
@@ -64,6 +91,7 @@ export class EditProductModalPage {
       });
 
       this.item = navParams.get('item');
+      this.item2 = navParams.get('data_order');
       
       this.oCustomer2 = navParams.get('oCustomer');
       if(this.oCustomer = navParams.get('oCustomer') != "7LINE"){
@@ -73,11 +101,36 @@ export class EditProductModalPage {
         }
       
       this.oOrder_no = navParams.get('oOrder_no');
-
-      console.log(this.item);     
+      
+      
+      console.log("product",this.item);  
+      console.log("order",this.item2);
+      this.amount5 = parseInt(this.item2["0"].amount) -  parseInt(this.item.amount);
+      
+      console.log("amount5",this.amount5);
+     
       
       this.oItem_no = this.item.item_no;
-      this.oDescription = this.item.item_description;    
+      console.log(this.oItem_no);
+      
+      this.oDescription = this.item.item_description; 
+      this.amount2 = this.item.amount;
+
+      this.oLineNo = this.item2["0"].oLineNo;
+    this.oOrder_no = this.item2["0"].order_no;
+    //this.oAmount = this.data_item.amount;
+    this.oVat = this.item2["0"].vat_rate;
+    this.oRemark = this.item2["0"].remarks;
+    this.oDueDate = this.item2["0"].due_date;
+    //this.oCustomer2 = this.item2.customer;
+    this.oCustomer_name = this.item2["0"].customer_name;
+    this.oBuilding = this.item2["0"].dlvr_bldg
+    this.oDiscountRate = this.item2["0"].discount_rate;
+    this.oDiscountType = this.item2["0"].discount_type;
+    this.date_time =this.item2["0"].create_date;
+    this.oSalman = this.item2["0"].salesman_code;
+      //this.oQty = this.item.qty;   
+      //this.oRemark = this.item.remarks
       setTimeout(()=>{        
         this.InputQty.setFocus();
       },1000);
@@ -89,11 +142,52 @@ export class EditProductModalPage {
     this.doGetLastSale();
     this.doGetProductParam();
     this.doGetZone();
+    
   }
   ionViewDidEnter(){
     this.doGetProductStock("",this.data_productuom["0"].item_packing);
   }
+
   doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oRemark, oUnit){
+    
+      var uom = parseFloat(oQty);
+      var price = parseFloat(oUnit);
+      console.log(price);
+      var total = price * uom;
+      console.log(total);
+      console.log(this.amount5);
+      
+      /*if(total < this.amount2){
+      this.amount = parseInt(this.item2.amount["0"]) - total;
+      }else if(total > this.amount2){
+      this.amount = parseInt(this.item2.amount["0"]) + total;
+      }*/
+      //if(total < this.amount2 || total > this.amount2){
+        this.amount = this.amount5 + total;
+     /* }else if(total = this.amount2){
+        this.amount = this.amount2;
+      }else{
+
+      }*/
+      console.log("amount",this.amount);
+
+      this.oTotalPrice = +this.oTotalPrice + total;
+      console.log("sum",this.oTotalPrice);
+      
+    if(oUnit != this.oPrice2){
+      oRemark = "ไม่ประกอบ"
+    }else{
+      oRemark = "ประกอบ"
+    }
+    /*
+    if(oUnit = this.oPrice2){
+      oRemark = "ประกอบ"
+    }else{
+
+    }*/
+ 
+
+  
     if(oUnit == undefined || oUnit == "0"){
       this.utility.Alert("Warning","กรุณาเลือกประเภทสินค้าในการจัดส่ง");
     }else if(oQty == undefined || oQty == "" || oQty <= 0){
@@ -101,19 +195,65 @@ export class EditProductModalPage {
     }else if(oQty > this.oAvailable){
       this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต๊อก");
     }else{
+      this.SaveSaleOrder()
       this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.oOrder_no, "", this.item.line_no, oItem_no
-      , "", oUOM, oQty, "", "", "", oRemark, "", "", "", "", "", "", ""
-      , oZone, "", this.oCustomer2, "", "", oUnit).then((res)=>{
+      , "", oUOM, oQty, oUnit, this.oTotalPrice, this.oTotalPrice, oRemark, "", "", "", "", "", "", ""
+      , oZone, "", this.oCustomer2, "", "", "").then((res)=>{  
         this.data_addsaledetail = res;
         console.log(this.data_addsaledetail);
-        if(this.data_addsaledetail["0"].sqlstatus != "0"){
+       /* if(this.data_addsaledetail["0"].sqlstatus != "0"){
           this.utility.Alert(this.data_addsaledetail["0"].sqlmsg, this.data_addsaledetail["0"].sqlmsg2);
         }else{
           this.utility.Alert(this.data_addsaledetail["0"].sqlmsg, this.data_addsaledetail["0"].sqlmsg2);
-        }
+        }*/
       })
       this.viewCtrl.dismiss();
     }
+  }
+  
+  SaveSaleOrder(){
+ 
+        this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{
+          this.data_customerdelivery = res;
+          console.log(this.data_customerdelivery);
+    
+    
+          // if(this.data_customerdelivery.length <= 0){
+          //   this.utility.Alert("Warning", "ไม่พบ Customer Code");
+          // }else{
+            
+            var Order_date = this.oDate.toString();
+            var DueDate = this.oDateSale.toString();
+
+            this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", this.oOrder_no, this.oType, this.oCustomer2, this.oCustomer_name, Order_date, "0.00", "", "", ""
+              , "", "", "", "", "", "", "", Order_date, "", this.oRemark, "", ""
+              , "", DueDate, "", "",this.oAddress, this.oBuilding, "", "", ""
+              , "", "", DueDate, this.oUsername, this.oPayTerm, this.oSalman, this.oSalman, "", "", "", "", Order_date
+              , "", DueDate,this.amount,this.amount).then((res)=>{
+              this.data_addsaleorder = res;
+              console.log(this.data_addsaleorder);
+              
+              if(this.data_addsaleorder["0"].sqlstatus < "0"){
+                this.utility.Alert("Winning", this.data_addsaleorder["0"].sqlmsg);
+              }else{
+              
+                let alert = this.alertCtrl.create({
+                  title: this.data_addsaleorder["0"].order_no,
+                  subTitle: this.data_addsaleorder["0"].sqlmsg,
+                  buttons: [ {
+                      text: 'ตกลง',
+                      handler: data => {
+                        this.dismiss();
+                      }
+                    }]
+                });
+                alert.present();
+              }
+            })
+          // }
+        })
+      
+    
   }
   doGetProductUom(){
     this.saleorderServ.GetProductUom(this.oClient, this.item.item_no).then((res)=>{
@@ -171,7 +311,7 @@ export class EditProductModalPage {
   doGetProductStock(oZone, oItemPacking){
     this.saleorderServ.GetProductStock(this.oClient,this.oCustomer, this.oItem_no, "", "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
       this.data_productstock = res;
-      console.log(this.data_productstock);
+      console.log("price",this.data_productstock);
       if(this.data_productstock.length <= 0){
         this.oAvailable = 0;
         this.oFree = 0;
@@ -192,6 +332,8 @@ export class EditProductModalPage {
         var price2 = +this.data_productstock["0"].price_assemble
         this.oPrice1 = price1.toFixed(2);
         this.oPrice2 = price2.toFixed(2);
+        console.log(this.oPrice1);
+        console.log(this.oPrice2);
         //this.oPrice = this.data_productstock["0"].unit_price["0"];
         // this.oPrice = price.toFixed();      
       }   

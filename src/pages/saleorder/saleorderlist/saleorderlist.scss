@@ -14,7 +14,7 @@ page-saleorderlist {
         border-radius: 6px;
         width: calc(100% - 20px);
         font-size: 1.4rem;
-        background: #ffffff;
+        background: #eef9ff;
         -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     }
@@ -33,9 +33,11 @@ page-saleorderlist {
         border: 1px solid #cecece;
         border-radius: 5px 5px 5px 5px;
     }
-    .backgound{
-        background-color: rgb(236, 236, 236);
-       // background-color:  rgb(220, 255, 241);
+    .font-orange{
+        color: rgb(255, 156, 44);
+    }
+    .font-primary{
+        color: #3a687a;
     }
     ion-searchbar{    
           
@@ -43,9 +45,10 @@ page-saleorderlist {
                      
             .searchbar-input {
                 border-radius: 20px;
-                border: 0 !important;
+               // border: 0 !important;
                 width: 100%;
-                //box-shadow: none !important;
+                border: 1.5px solid #3a687a;
+                box-shadow: none !important;
             }
         }
     }

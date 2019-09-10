@@ -42,6 +42,7 @@ export class RptSaleOrderPage {
     
     //this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
   }
+  
   initializeItems() {
     this.items = this.data_getsaleorder_bydate;
     console.log(this.items);

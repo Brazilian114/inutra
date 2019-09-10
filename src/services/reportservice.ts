@@ -9,20 +9,48 @@ export class ReportService {
   public hostWebService:string;
   url:string;
   constructor(private http: Http, private storage: Storage){
-    this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx";  
+     
+    //this.getUrl() 
+    //this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx" 
+    /*
+   this.storage.get('_url').then((res)=>{
+      this.url = res;
+    console.log(res);
+    
+      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
+    })*/
+    this.ngOnInit();
+  }
+  ngOnInit(){
+    this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx"
     this.storage.get('_url').then((res)=>{
       this.url = res;
-      //this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";
+      console.log(res);
+      
+      // this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";    
+      console.log(this.hostWebService);
+        
     })
-    
   }
-  ngOnInit() {
-  
-     this.storage.get('_url').then((res)=>{
+  /*
+  ionViewWillEnter(){
+    this.storage.get('_url').then((res)=>{
       this.url = res;
-      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";
-     })
-}
+       this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
+    })
+  }
+  ionViewDidEnter(){
+    this.storage.get('_url').then((res)=>{
+      this.url = res;
+       this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
+    })
+  }
+  getUrl(){
+    this.storage.get('_url').then((res)=>{
+      this.url = res;
+       this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
+    })
+  }*/
 
 //GET
 //NEW
@@ -47,6 +75,10 @@ GetSalesOrdersByDateRange(oClient, oUserId, oStartDate, oEndDate, oUserGroup) {
     );
   } 
   Rpt_inventory_movement(oClient, oWarehouse, oZone, oItem_fr, oItem_to, oDescription, oLoc_fr, oLoc_to, oGroup, oGrade, oOrder_by) {
+    this.storage.get('_url').then((res)=>{
+      this.url = res;
+      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";  
+    })
     let parameters='oClient='+oClient+'&oWarehouse='+oWarehouse+'&oZone='+oZone+'&oItem_fr='+oItem_fr+'&oItem_to='+oItem_to
     +'&oDescription='+oDescription+'&oLoc_fr='+oLoc_fr+'&oLoc_to='+oLoc_to+'&oGroup='+oGroup+'&oGrade='+oGrade+'&oOrder_by='+oOrder_by;
     return this.http.get(this.hostWebService +"/Rpt_inventory_movement?"+parameters)

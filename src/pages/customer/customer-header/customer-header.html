@@ -40,16 +40,16 @@
   <ion-grid>
     <ion-card (click)="doDetails(item)" *ngFor="let item of items">
       <ion-card-header>
-          <b>{{item.customer_name}}</b>
+          <b class="font-orange">{{item.customer_name}}</b>
       </ion-card-header>
       <ion-card-content>
         <ion-row>
           
-            <p>รหัสลูกค้า : {{item.customer}}</p>              
+            <p class="font-primary">รหัสลูกค้า : {{item.customer}}</p>              
           
         </ion-row>
         <ion-row>
-          <p>ที่อยู่ : {{item.building}} {{item.street}}</p>
+          <p class="font-primary">ที่อยู่ : {{item.building}} {{item.street}}</p>
         </ion-row>      
       </ion-card-content> 
     </ion-card>    

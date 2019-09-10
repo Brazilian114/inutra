@@ -95,8 +95,13 @@ export class ProductModalPage {
     this.doGetProductStock("", this.data_productuom["0"].item_packing);
   }
   doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oRemark, oUnit){
+console.log("price",this.oPrice1);
 
-    
+if(oUnit != this.oPrice2){
+  oRemark = "ไม่ประกอบ"
+}else{
+  oRemark = "ประกอบ"
+}
 
     if(oUnit == undefined || oUnit == "0"){
       this.utility.Alert("Warning","กรุณาเลือกประเภทสินค้าในการจัดส่ง");
@@ -105,12 +110,13 @@ export class ProductModalPage {
     }else if(oQty > this.oAvailable){
       this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต๊อก");
     }else{
+      var oAmount = parseInt(oQty) * parseInt(oUnit) 
       this.data_return.push(oItem_no["0"]);
       this.data_return.push(oZone);
       this.data_return.push(oQty);
       this.data_return.push(oUOM);
       this.data_return.push(oParamCode);
-      this.data_return.push(oPrice);
+      this.data_return.push(oAmount);
       this.data_return.push(oDiscount);
       this.data_return.push(oRemark);
       this.data_return.push(oUnit);
@@ -176,7 +182,7 @@ export class ProductModalPage {
   doGetProductStock(oZone, oItemPacking){
     this.saleorderServ.GetProductStock(this.oClient,this.oCustomer, this.oItem_no, this.oGrade, "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
       this.data_productstock = res;
-      console.log(this.data_productstock);
+      console.log("product",this.data_productstock);
       this.initializeItems();
       
       if(this.data_productstock["0"].price_assemble == undefined){

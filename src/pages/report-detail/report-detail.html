@@ -10,7 +10,7 @@
   
   <div>
     <!-- <img src="../../../assets/imgs/logo.png" class="img-size"/> -->
-    <img *ngIf="data_item" src="{{'data:image/png;base64,'+data_item.image}}" onerror="this.src='../../../assets/imgs/logo.png'">
+    <img *ngIf="data_item" src="{{'data:image/png;base64,'+data_item.image}}" onerror="this.src='../../../assets/imgs/logo.png'" imageViewer>
   </div>
 
   <ion-grid padding>

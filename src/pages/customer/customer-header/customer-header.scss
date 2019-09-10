@@ -2,6 +2,7 @@ page-customer-header {
     .textcenter{
         text-align: center;
     }
+   
     ion-select{
         max-width: 100% !important;
     }
@@ -9,16 +10,23 @@ page-customer-header {
         border: 2px solid rgb(255, 156, 44);
         border-radius: 5px;
     }
+    .font-primary{
+        color: #3a687a;
+    }
+    .font-orange{
+        color: #ff7b00;  
+    }
     .card-md {
         margin: 10px;
         border-radius: 6px;
         width: calc(100% - 20px);
         margin-bottom: 2px;
         font-size: 1.4rem;
-        background: #ffffff;
+        background: #eef9ff;
         -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     }
+  
     .card-content-md {
         padding: 13px 16px;
         font-size: 1.5rem;
@@ -34,16 +42,17 @@ page-customer-header {
         border: 1px solid #cecece;
         border-radius: 5px 5px 5px 5px;
     }
-
+   
     ion-searchbar{    
           
         .searchbar-input-container{   
                      
             .searchbar-input {
                 border-radius: 20px;
-                border: 0 !important;
+               // border: 0 !important;
                 width: 100%;
-                //box-shadow: none !important;
+                border: 1.5px solid #3a687a;
+                box-shadow: none !important;
             }
         }
     }

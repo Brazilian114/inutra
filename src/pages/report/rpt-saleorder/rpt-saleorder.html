@@ -11,18 +11,18 @@
     <ion-grid >
       <ion-row>
         <ion-col col-6> 
-          <ion-card text-center>
-            <ion-label stacked>วันที่เริ่มต้น</ion-label>
-            <ion-datetime [(ngModel)]="oStartDate" display-format="MM/YYYY" picker-format="MMMM YYYY" (ionChange)="changeDate(oStartDate,oEndDate)"></ion-datetime>
+          <ion-card text-center style="background: #dae2e6">
+            <ion-label stacked class="font-primary">วันที่เริ่มต้น</ion-label>
+            <ion-datetime class="font-primary" [(ngModel)]="oStartDate" display-format="MM/YYYY" picker-format="MMMM YYYY" (ionChange)="changeDate(oStartDate,oEndDate)"></ion-datetime>
           </ion-card>
         </ion-col>
         
          
         
         <ion-col col-6>
-          <ion-card text-center>
-            <ion-label stacked text-center>วันที่สิ้นสุด</ion-label>
-            <ion-datetime [(ngModel)]="oEndDate" display-format="MM/YYYY" picker-format="MMMM YYYY" (ionChange)="changeDate(oStartDate,oEndDate)"></ion-datetime>
+          <ion-card text-center style="background: #dae2e6">
+            <ion-label stacked text-center class="font-primary">วันที่สิ้นสุด</ion-label>
+            <ion-datetime class="font-primary" [(ngModel)]="oEndDate" display-format="MM/YYYY" picker-format="MMMM YYYY" (ionChange)="changeDate(oStartDate,oEndDate)"></ion-datetime>
           </ion-card>
         </ion-col>
         <ion-col col-2 style="border-radius: 6px;">
@@ -37,7 +37,7 @@
         <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
     </ion-row>
     <br>
-    <ion-row>
+    <ion-row class="font-primary">
       วันที่ : {{oDateView}} 
     </ion-row >
   </ion-grid>
@@ -47,13 +47,13 @@
         <ion-row>
           <ion-col>
             <ion-row>
-              <b>ใบสั่งขาย : {{item.order_no}}</b>
+              <b class="font-primary">ใบสั่งขาย : {{item.order_no}}</b>
             </ion-row>
             <ion-row>
-              <p>ลูกค้า : {{item.customer_name}}</p>
+              <p class="font-orange">ลูกค้า : {{item.customer_name}}</p>
             </ion-row> 
             <ion-row>
-              <p>วันที่ : {{item.create_date}}</p>
+              <p class="font-orange">วันที่ : {{item.create_date}}</p>
             </ion-row>     
           </ion-col>
           <ion-col col-5 style="text-align: center;" *ngIf="item.status == 'CANCEL'">

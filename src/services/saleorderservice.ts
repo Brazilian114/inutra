@@ -11,13 +11,48 @@ export class SaleOrderService {
   url:string;
   
   constructor(private toastCtrl: ToastController,private http: Http, private storage: Storage){
-    this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx";  
+     //this. getUrl();
+     //this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx"
+    /*
     this.storage.get('_url').then((res)=>{
       this.url = res;
-      //this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
+      console.log(res);
+      
+      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
+    })
+    */
+   this. ngOnInit();
+  }
+  ngOnInit(){
+    this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx"
+    this.storage.get('_url').then((res)=>{
+      this.url = res;
+      console.log(res);
+      
+       //this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";    
+      console.log(this.hostWebService);
+        
     })
   }
-  
+  /*
+  ionViewWillEnter(){
+    this.storage.get('_url').then((res)=>{
+      this.url = res;
+       this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
+    })
+  }
+  ionViewDidEnter(){
+    this.storage.get('_url').then((res)=>{
+      this.url = res;
+       this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
+    })
+  }
+  getUrl(){
+    this.storage.get('_url').then((res)=>{
+      this.url = res;
+       this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
+    })
+  }*/
 
   GetSalesOrders(oClient, oUserId, oKeyword, oUserGroup) {
     let parameters='oClient='+oClient+'&oUserId='+oUserId+'&oKeyword='+oKeyword+'&oUserGroup='+oUserGroup;
@@ -171,7 +206,7 @@ export class SaleOrderService {
     , oDiscountRate2, oDiscountType3, oDiscountRate3, oTotalPrice, oDiscountedPrice, oNetPrice, oPoNo, oEtd, oIncludeVat, oRemarks, oTelephone, oFax
     , oContact, oDeliveryDate, oDeliveryCode, oDeliveryTo, oDeliveryStreet, oDeliveryBuilding, oDeliveryStreets3, oDeliveryTown, oDeliveryState
     , oDeliveryCountry, oDeliveryPostCode, oDueDate, oMaker, oPaymentTerm, oSalesCode, oSalesName, oBackorder, oReference, oOnpallet, oDO, oStandCost
-    , oDepartment, oLoadDate) {
+    , oDepartment, oLoadDate, oAmount , oNetAmount) {
       
       let parameters='oClient='+oClient+'&oBook='+oBook+'&oBranch='+oBranch+'&oOrderNo='+oOrderNo
     +'&oOrderType='+oOrderType+'&oCustomer='+oCustomer+'&oCustomerName='+oCustomerName+'&oOrderDate='+oOrderDate
@@ -182,7 +217,7 @@ export class SaleOrderService {
     +'&oDeliveryTo='+oDeliveryTo+'&oDeliveryStreet='+oDeliveryStreet+'&oDeliveryBuilding='+oDeliveryBuilding+'&oDeliveryStreets3='+oDeliveryStreets3
     +'&oDeliveryTown='+oDeliveryTown+'&oDeliveryState='+oDeliveryState+'&oDeliveryCountry='+oDeliveryCountry+'&oDeliveryPostCode='+oDeliveryPostCode
     +'&oDueDate='+oDueDate+'&oMaker='+oMaker+'&oPaymentTerm='+oPaymentTerm+'&oSalesCode='+oSalesCode+'&oSalesName='+oSalesName+'&oBackorder='+oBackorder
-    +'&oReference='+oReference+'&oOnpallet='+oOnpallet+'&oDO='+oDO+'&oStandCost='+oStandCost+'&oDepartment='+oDepartment+'&oLoadDate='+oLoadDate;
+    +'&oReference='+oReference+'&oOnpallet='+oOnpallet+'&oDO='+oDO+'&oStandCost='+oStandCost+'&oDepartment='+oDepartment+'&oLoadDate='+oLoadDate+'&oAmount='+oAmount+'&oNetAmount='+oNetAmount;
     return this.http.get(this.hostWebService +"/Add_SO_master?"+parameters)
       .toPromise()
       .then(response =>

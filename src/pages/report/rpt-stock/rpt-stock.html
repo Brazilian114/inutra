@@ -47,22 +47,22 @@
         <!-- <ion-item style="border-bottom: 0.5px solid;"> -->
           <ion-row>
                       
-            <ion-col>
+            <ion-col class="font-primary">
                 {{i+1}}. รหัสสินค้า : {{item.item_no}}
             </ion-col>          
           </ion-row>
           <ion-row>
-            <ion-col>
+            <ion-col class="font-orange">
               ชื่อสินค้า : {{item.description}}
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col>
+            <ion-col class="font-orange">
               จำนวน : {{item.qty_avail}} {{item.uom}}
             </ion-col>
           </ion-row>
           <ion-row>
-            <ion-col>
+            <ion-col class="font-orange">
               ราคา : {{item.unit_cost}} บาท
             </ion-col>
           </ion-row>
@@ -79,5 +79,8 @@
     <ion-infinite-scroll-content *ngIf="pagingEnabled"></ion-infinite-scroll-content>
   </ion-infinite-scroll>
 -->
+<ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+  <ion-infinite-scroll-content></ion-infinite-scroll-content>
+</ion-infinite-scroll>
   
 </ion-content>

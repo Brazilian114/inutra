@@ -30,12 +30,16 @@ export class SaleOrderListPage {
   items: any;
   constructor(public datepipe: DatePipe,private http: Http,public navCtrl: NavController, private utility: Utility, private storage: Storage, private saleorderServ: SaleOrderService) {
    
-    this.doGetStorage();
-    
-  }  
+//this.ngOnInit()
+ }  
   ionViewWillEnter(){
     this.doGetSalesOrders(this.oSearch);
+    this.doGetStorage();
   }
+  /*ngOnInit(){
+    this.doGetSalesOrders(this.oSearch);
+    this.doGetStorage();
+  }*/
   initializeItems() {
     this.items = this.data_saleorder;   
     
@@ -57,7 +61,7 @@ export class SaleOrderListPage {
     this.navCtrl.push("AddSaleOrderPage");
   }
   doGetSalesOrders(oSearch){
-    this.utility.presentLoading();
+   // this.utility.presentLoading();
     this.saleorderServ.GetSalesOrders(this.oClient, this.oUserId, oSearch, this.oUserGroup).then((res)=>{
       this.data_saleorder = res;
       

@@ -12,7 +12,7 @@
       <ion-row>
         <ion-col>
           <!---<ion-input type="text" [(ngModel)]="oSearch" placeholder="ค้นหา" (keyup.enter)="getProductByKeyword(oSearch)"></ion-input>-->
-          <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
+          <ion-searchbar class="search" type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
         </ion-col>    
         
       </ion-row>
@@ -20,16 +20,19 @@
   
   
   <ion-card (click)="doDetails(item)" *ngFor="let item of items">
-    <ion-card-header>
-       <b>{{item.item_no}}</b>
+    <ion-card-header color="primary">
+       <b class="font-orange">{{item.item_no}}</b>
     </ion-card-header>
     <ion-card-content>
       <ion-row>
         <ion-col>
-          <p>{{item.description}}</p>              
+          <p class="font-primary">{{item.description}}</p>              
         </ion-col>
     
       </ion-row>      
     </ion-card-content> 
-  </ion-card>         
+  </ion-card>   
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

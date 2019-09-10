@@ -31,19 +31,22 @@ export class RptStockPage {
   data_rpt_inventory:any;
   data_saleorderdetail:any;
   item2 = [];
-  items: any;
+  items= [];
   constructor(public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private storage: Storage) {
+   
+  } 
+  ionViewWillEnter(){
     this.doGetStorage();
     this.doGetRptInventoryMovement(this.oClient, "", "", "", "", "", "", "", "",this.oGrade, "ITEM NO");
-  } 
+  }
   initializeItems() {
-    this.items = this.data_rpt_inventory;
-    console.log(this.items);
+    //this.items = this.data_rpt_inventory;
+    //console.log(this.items);
     
-    /*
+    
     for(let i = 0; i < 30; i++){
-      this.item2.push(this.data_rpt_inventory[this.item2.length]);
-      }  */
+      this.items.push(this.data_rpt_inventory[this.items.length]);
+      }  
   }
 
   /*doInfinite(ionInfinite) {
@@ -122,4 +125,16 @@ doInfinite(e): Promise<any> {
   }, 500);
   });
   }*/
+
+
+  doInfinite(ionInfinite) {
+    console.log("Start Scroll");
+      setTimeout(() => {      
+       for(let i = 0; i < 30; i++){
+         this.items.push(this.data_rpt_inventory[this.items.length]);
+         } 
+       console.log('End Scroll');      
+       ionInfinite.complete();
+         }, 500);  
+   }
 }

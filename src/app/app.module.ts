@@ -7,7 +7,7 @@ import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { DatePipe } from '@angular/common'
 import { GreenTimberlandZenStock } from './app.component';
-
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import { Utility } from '../helper/utility';
 import { HttpClientModule } from '@angular/common/http'
 import { SaleOrderService } from '../services/saleorderservice';
@@ -16,13 +16,13 @@ import { LoginService } from '../services/loginservice';
 import { CustomerService } from '../services/customerservice';
 import { SaleService } from '../services/salseservice';
 import { ReportService } from '../services/reportservice';
-
+import { IonicImageViewerModule } from 'ionic-img-viewer';
 @NgModule({
   declarations: [
     GreenTimberlandZenStock
   ],
   imports: [
-    BrowserModule,
+    BrowserModule,IonicImageViewerModule,
     IonicModule.forRoot(GreenTimberlandZenStock,
       {
         platforms : {
@@ -50,6 +50,7 @@ import { ReportService } from '../services/reportservice';
     StatusBar,
     SplashScreen,
     Utility,
+    PhotoViewer,
     // {provide: ErrorHandler, useClass: IonicErrorHandler},
     SaleOrderService,
     ProductService,

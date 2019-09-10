@@ -104,14 +104,15 @@ export class RptSaleOrderDetailsPage {
       }
       
       if(this.data_item.discount_type_3 == "percent"){
-        var dis_rate3 = this.data_item.amount * this.data_item.discount_rate_3 / 100
+        var dis_rate3 = this.sum_discount2 * this.data_item.discount_rate_3 / 100
         this.sum_discount3 = this.sum_discount2 -  dis_rate3;
       }else{
         this.sum_discount3 =  parseFloat(this.sum_discount2) - parseFloat(this.data_item.discount_rate_3)
+        
       }
 
       var sum_dis = amount -  this.sum_discount3;
-      sum = this.sum_discount3
+      sum = this.sum_discount3;
       console.log(this.sum_discount1);
       console.log(this.sum_discount2);
       console.log(this.sum_discount3);

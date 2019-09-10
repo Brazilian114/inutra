@@ -27,7 +27,7 @@ page-product-details {
       p{
         margin-left: auto;
         margin-right: auto;
-        color: rgb(97, 97, 97);
+        color: #3a687a;
         font-size: 15px;
       }
     .font-red{
@@ -41,6 +41,7 @@ page-product-details {
     }
     .font-medium{
         font-size: 18px;
+        color: #3a687a;
     }
     .card-content-md {
         padding: 13px 16px;
@@ -55,7 +56,7 @@ page-product-details {
     .margin{
         margin-top: 3%;
     }
-    .card-md {
+    .card {
         margin: 10px;
         border-radius: 2px;
         width: calc(100% - 20px);

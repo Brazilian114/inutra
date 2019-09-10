@@ -15,11 +15,15 @@ import { Storage } from '@ionic/storage';
 export class SettingPage {
   oURL:string;
   constructor(public navCtrl: NavController, public storage: Storage) {
+    this.ngOnInit();
+  }
+  ngOnInit(){
     this.storage.get('_url').then((res)=>{
       console.log(res);
       this.oURL = res;
     })
-  }
+   // this.doURL(this.oURL)
+    }
   doURL(oURL){
     this.storage.set('_url', oURL);
     this.storage.get('_url').then((res)=>{

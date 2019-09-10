@@ -25,6 +25,8 @@ export class AddProductPage {
   oClient:string = "7LINE";
   oCustomer:string = "";
   isChecked:any = [];
+  oTotalPrice: any = 0.00;
+  public sum_price2: any = [];
   oSearch:string = "";
   arrayItem:any = [];
   item2 = [];
@@ -37,13 +39,11 @@ export class AddProductPage {
       console.log(this.oCustomer);
       this.arrayItem = navParams.get('arrayItem');
       console.log("array",this.arrayItem);
-    
-     
-      
+ 
   }
   ionViewWillEnter(){
-    this.doGetProduct();
-    this.getProductByKeyword(this.oSearch)
+    this.getProductTop30(this.oSearch);
+    //this.getProductByKeyword(this.oSearch)
   }
   initializeItems() {
     this.items = this.data_product;   
@@ -52,7 +52,9 @@ export class AddProductPage {
     console.log(this.isChecked);
     
   }
-  doGetProduct(){
+  /*
+  doGetProduct(oSearch){
+    
     this.utility.presentLoading();
     this.saleorderServ.GetProduct(this.oClient).then((res)=>{
       this.data_product = res;
@@ -60,7 +62,14 @@ export class AddProductPage {
       console.log(this.data_product);
       this.utility.finishLoding();
     })
-  }
+    this.utility.presentLoading();
+    this.productServ.GetProductTop30(this.oClient, oSearch).then((res)=>{
+      this.data_product = res;
+      console.log(this.data_product);
+      this.initializeItems();
+      this.utility.finishLoding();     
+    })
+}*/
 
   onInput(ev: any){
     this.initializeItems();
@@ -72,7 +81,28 @@ export class AddProductPage {
       })
     }
   }
-
+  doProductModal(item){
+    this.utility.presentLoading();
+    let modal = this.modalCtrl.create("ProductModalPage",{ item: item, oCustomer: this.oCustomer, arrayItem: this.arrayItem })
+    modal.present();
+    modal.onDidDismiss(data =>{
+      if(data != undefined){
+        this.arrayItem.push(data);
+        console.log("addsession", this.arrayItem);
+        let index = 0;
+        for (let array of this.arrayItem) {
+    
+          index += parseInt(array["5"]);
+          var total = index.toFixed(2);       
+          } 
+          console.log("sumAmount",total);
+      
+      }else{
+        
+      }
+    });
+    this.utility.finishLoding();
+}
   doInfinite(ionInfinite) {
     console.log("Start Scroll");
       setTimeout(() => {      
@@ -84,7 +114,7 @@ export class AddProductPage {
        ionInfinite.complete();
          }, 500);  
    }
-
+/*
   doProductModal(item){
       this.utility.presentLoading();
       let modal = this.modalCtrl.create("ProductModalPage",{ item: item, oCustomer: this.oCustomer, arrayItem: this.arrayItem })
@@ -103,14 +133,14 @@ export class AddProductPage {
       this.utility.finishLoding();
    
       
-  }
-  getProductByKeyword(oSearch){
-    //this.utility.presentLoading();
-    this.productServ.GetProductByKeyword(this.oClient, oSearch).then((res)=>{
+  }*/
+  getProductTop30(oSearch){
+    this.utility.presentLoading();
+    this.productServ.GetProductTop30(this.oClient, oSearch).then((res)=>{
       this.data_product = res;
+      console.log(this.data_product);
       this.initializeItems();
-      console.log(this.data_product); 
-      //this.utility.finishLoding();    
+      this.utility.finishLoding();     
     })
   }
   SaveSaleOrder(){

@@ -18,17 +18,49 @@ export class ProductHeaderPage {
   hideMe:any = true;
   data_product:any;
   oClient:string = "7LINE";
-  items: any;
+  items = [];
   oSearch:string = "";
+  flagSearch: boolean = false;
   constructor(public navCtrl: NavController, private utility: Utility, private storage: Storage, private productServ: ProductService) {
     
   }
   ionViewWillEnter(){
-    this.getProductTop30(this.oSearch);
+    //this.getProductByKeyword(this.oSearch);
+    this.getProductTop30(this.oSearch)
+
+
   }
   initializeItems() {
-    this.items = this.data_product;   
-   
+   // this.items = this.data_product; 
+    for(let i = 0; i < 30; i++){
+      this.items.push(this.data_product[this.items.length]);
+      } 
+  }
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+    if(this.items.length >= this.data_product.length){
+      //infiniteScroll.enable(false);
+      var sum
+      sum = this.items.length  - this.data_product.length;
+      console.log(sum);
+      
+      for (let i = 0; i < sum; i++) {
+        this.items.push( this.data_product[this.items.length] );
+      }
+    }else{
+    setTimeout(() => {
+      for (let i = 0; i < 31; i++) {
+        this.items.push( this.data_product[this.items.length] );
+      }
+        console.log(this.items.length);
+
+    
+      console.log('Async operation has ended');
+      infiniteScroll.complete();
+    
+ 
+    }, 500);
+  }
   }
   /*doShowHide(){
     if(this.hideMe == false){
@@ -48,12 +80,12 @@ export class ProductHeaderPage {
     }
   }
   doDetails(item){
-    this.utility.presentLoading();
+    //this.utility.presentLoading();
     this.navCtrl.push("ProductDetailsPage",{ item: item })
     this.utility.finishLoding();
   }
   getProductTop30(oSearch){
-    this.utility.presentLoading();
+    //this.utility.presentLoading();
     this.productServ.GetProductTop30(this.oClient, oSearch).then((res)=>{
       this.data_product = res;
       console.log(this.data_product);
@@ -61,8 +93,9 @@ export class ProductHeaderPage {
       this.utility.finishLoding();     
     })
   }
+  
   getProductByKeyword(oKeyword){
-    this.utility.presentLoading();
+    //this.utility.presentLoading();
     this.productServ.GetProductByKeyword(this.oClient, oKeyword).then((res)=>{
       this.data_product = res;
       console.log(this.data_product); 

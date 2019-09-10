@@ -29,8 +29,8 @@ export class SaleMenuPage{
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
-  //oStartDate: String = "2019/08/14";
-  //oEndDate:   String =  "2019/08/14";
+  //oStartDate: String = "2019/08/20";
+  //oEndDate:   String =  "2019/08/20";
   oStartDate: String = new Date().toISOString().substring(0, 10);
   oEndDate: String = new Date().toISOString().substring(0, 10);
   //oStartDate: String="";
@@ -65,10 +65,13 @@ export class SaleMenuPage{
   
   
   constructor( private reportServ: ReportService,public datepipe: DatePipe,public navCtrl: NavController, private utility: Utility, private saleServ: SaleService, private storage: Storage) {
-    this.doGetStorage();
     
+    this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oUserId, this.oStartDate, this.oEndDate, this.oUserGroup);
+  }
+  ionViewWillEnter(){
+    this.doGetStorage();
+    this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oUserId, this.oStartDate, this.oEndDate, this.oUserGroup);
     this.doGetInvoiceGraph(this.oStartDate, this.oEndDate);
-    //this.ngOnInit(this.oStartDate, this.oEndDate);
   }
   initializeItems() {
     this.items = this.dataInvoiceGraph;
@@ -124,7 +127,7 @@ export class SaleMenuPage{
           }
           
           if(this.dataInvoiceGraph[i].discount_type_3 == "percent"){
-            var rate2 = this.dataInvoiceGraph[i].amount * this.dataInvoiceGraph[i].discount_rate_3 / 100
+            var rate2 = this.sum_discount2 * this.dataInvoiceGraph[i].discount_rate_3 / 100
             this.sum_discount3 = this.sum_discount2 -  rate2;
           }else{
             this.sum_discount3 =  parseFloat(this.sum_discount2) - parseFloat(this.dataInvoiceGraph[i].discount_rate_3)

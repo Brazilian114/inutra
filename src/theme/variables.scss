@@ -40,7 +40,14 @@ $colors: (
   light:      #f4f4f4,
   dark:       #222
 );
+$searchbar-md-input-clear-icon-color: #3a687a;
+$searchbar-md-input-search-icon-color: #3a687a;
 
+//$searchbar-md-input-search-text-color: #3a687a;
+//@debug$searchbar-md-input-text-color: rgb(158, 0, 0);
+$searchbar-md-input-text-color: #3a687a;
+$searchbar-md-input-placeholder-color: #3a687a;
+$searchbar-md-border-color:rgba(0, 0, 0, .05) !default;
 .backgound-image {
   // background-image: url('../../assets/imgs/background-2.jpg');
   background-color: rgb(220, 255, 241);

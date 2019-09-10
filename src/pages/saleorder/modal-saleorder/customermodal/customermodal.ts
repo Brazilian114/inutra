@@ -39,7 +39,7 @@ export class CustomerModalPage {
  
 
   doGetCustomerParam(){
-    this.utility.presentLoading();
+    //this.utility.presentLoading();
     this.saleorderServ.GetCustomerParam(this.oClient).then((res)=>{
       this.data_customerparam = res;
       console.log(this.data_customerparam);
