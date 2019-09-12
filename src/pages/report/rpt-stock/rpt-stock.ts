@@ -40,13 +40,13 @@ export class RptStockPage {
     this.doGetRptInventoryMovement(this.oClient, "", "", "", "", "", "", "", "",this.oGrade, "ITEM NO");
   }
   initializeItems() {
-    //this.items = this.data_rpt_inventory;
+    this.items = this.data_rpt_inventory;
     //console.log(this.items);
     
-    
+    /*
     for(let i = 0; i < 30; i++){
       this.items.push(this.data_rpt_inventory[this.items.length]);
-      }  
+      }  */
   }
 
   /*doInfinite(ionInfinite) {

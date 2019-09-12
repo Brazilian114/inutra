@@ -113,7 +113,7 @@ export class AddsaleorderdetailPage {
       this.oPayTerm = this.data_item["0"].payment_term;
       this.oOrder_no = this.data_item["0"].order_no;
       this.oAmount = parseInt(this.data_item["0"].amount);
-      this.oStreet = this.data_item["0"].dlvr_street
+     
   }
 
 
@@ -122,6 +122,7 @@ export class AddsaleorderdetailPage {
   }
   ionViewWillEnter(){
     this.getProductTop30(this.oSearch)
+    this.doGetStorage();
     //this.doGetProduct();
     //this.getProductByKeyword(this.oSearch)
    
@@ -220,7 +221,7 @@ doGetStorage(){
   })  
   this.storage.get('_userId').then((res)=>{
     this.oUserId = res;
-    //console.log(this.oUserId["0"]);
+    console.log("userid",this.oUserId["0"]);
   })  
   this.storage.get('_userGroup').then((res)=>{
     this.oUserGroup = res;
@@ -231,7 +232,7 @@ doAddOrdersDetailsAsync(value) {
     setTimeout(() => {
       this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.oOrder_no, "", 0, this.arrayItem[value]["0"]
       , "", this.arrayItem[value]["3"], this.arrayItem[value]["2"],  this.arrayItem[value]["8"], this.arrayItem[value]["5"], this.arrayItem[value]["5"], this.arrayItem[value]["7"], "", "", "", "", "", "", ""
-      , this.arrayItem[value]["1"], "", this.oCustomer, "", "", "").then((res)=>{
+      , this.arrayItem[value]["1"], "", this.oCustomer, "", "", this.arrayItem[value]["10"]).then((res)=>{
         this.data_addsaledetail = res;
         console.log(this.data_addsaledetail);
         if(this.data_addsaledetail["0"].sqlstatus != "0"){

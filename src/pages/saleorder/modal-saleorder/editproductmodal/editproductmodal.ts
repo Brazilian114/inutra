@@ -57,7 +57,7 @@ export class EditProductModalPage {
   oSale:string = "";
   oDateSale:any = new Date().toISOString();
   oBuilding:any;
-
+  oUserdefined:any;
   date_time:any;
   amount:any;
   amount5:any;
@@ -125,10 +125,13 @@ export class EditProductModalPage {
     //this.oCustomer2 = this.item2.customer;
     this.oCustomer_name = this.item2["0"].customer_name;
     this.oBuilding = this.item2["0"].dlvr_bldg
+    this.oAddress = this.item2["0"].dlvr_street
     this.oDiscountRate = this.item2["0"].discount_rate;
     this.oDiscountType = this.item2["0"].discount_type;
     this.date_time =this.item2["0"].create_date;
     this.oSalman = this.item2["0"].salesman_code;
+    console.log("osale",this.oSalman);
+    
       //this.oQty = this.item.qty;   
       //this.oRemark = this.item.remarks
       setTimeout(()=>{        
@@ -175,9 +178,9 @@ export class EditProductModalPage {
       console.log("sum",this.oTotalPrice);
       
     if(oUnit != this.oPrice2){
-      oRemark = "ไม่ประกอบ"
+      this.oUserdefined = "ไม่ประกอบสินค้า"
     }else{
-      oRemark = "ประกอบ"
+      this.oUserdefined = "ประกอบสินค้า"
     }
     /*
     if(oUnit = this.oPrice2){
@@ -198,7 +201,7 @@ export class EditProductModalPage {
       this.SaveSaleOrder()
       this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.oOrder_no, "", this.item.line_no, oItem_no
       , "", oUOM, oQty, oUnit, this.oTotalPrice, this.oTotalPrice, oRemark, "", "", "", "", "", "", ""
-      , oZone, "", this.oCustomer2, "", "", "").then((res)=>{  
+      , oZone, "", this.oCustomer2, "", "", this.oUserdefined).then((res)=>{  
         this.data_addsaledetail = res;
         console.log(this.data_addsaledetail);
        /* if(this.data_addsaledetail["0"].sqlstatus != "0"){

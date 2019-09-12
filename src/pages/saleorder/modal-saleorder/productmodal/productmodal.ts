@@ -28,7 +28,8 @@ export class ProductModalPage {
   oZone:any;
   oUnit:any;
   oCheckDiscount:boolean = false;
-  
+
+  oUserefined:any;
   oAvailable:any;
   oFree:any;
   oUomQty:string = "";
@@ -98,9 +99,9 @@ export class ProductModalPage {
 console.log("price",this.oPrice1);
 
 if(oUnit != this.oPrice2){
-  oRemark = "ไม่ประกอบ"
+  this.oUserefined = "ไม่ประกอบสินค้า"
 }else{
-  oRemark = "ประกอบ"
+  this.oUserefined = "ประกอบสินค้า"
 }
 
     if(oUnit == undefined || oUnit == "0"){
@@ -121,6 +122,7 @@ if(oUnit != this.oPrice2){
       this.data_return.push(oRemark);
       this.data_return.push(oUnit);
       this.data_return.push(this.oDescription.toString());
+      this.data_return.push(this.oUserefined);
 
       console.log("return",this.data_return);
       this.viewCtrl.dismiss(this.data_return);

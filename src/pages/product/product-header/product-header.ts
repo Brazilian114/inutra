@@ -31,11 +31,12 @@ export class ProductHeaderPage {
 
   }
   initializeItems() {
-   // this.items = this.data_product; 
-    for(let i = 0; i < 30; i++){
+   this.items = this.data_product; 
+    /*for(let i = 0; i < 30; i++){
       this.items.push(this.data_product[this.items.length]);
-      } 
+      } */
   }
+  /*
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
     if(this.items.length >= this.data_product.length){
@@ -57,11 +58,10 @@ export class ProductHeaderPage {
     
       console.log('Async operation has ended');
       infiniteScroll.complete();
-    
- 
+
     }, 500);
   }
-  }
+  }*/
   /*doShowHide(){
     if(this.hideMe == false){
       this.hideMe = true;

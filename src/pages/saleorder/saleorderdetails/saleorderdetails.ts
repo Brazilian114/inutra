@@ -43,6 +43,7 @@ export class SaleOrderDetailsPage {
   oCustomer:string = "";
   oCustomer_name:string = "";
   oAddress:string = "";
+  oStreet:string="";
   oDiscountRate:any;
   oDiscountType:string = "";
   oDueDate:string = "";
@@ -94,8 +95,10 @@ else
  this.oAmount = this.data_item.amount;
 
     
-*/
+*/    this.oStreet = this.data_item.dlvr_street;
       this.oSalman = this.data_item.salesman_code;
+     
+      
 
     if(this.data_item.net_amount == undefined)  
       this.oNetAmount = "0.00";
@@ -119,6 +122,7 @@ else
     else
       this. oAddress = this.data_item.dlvr_street + " " + this.oDlvr_code;
 
+      
   }
 
   ionViewWillLeave() {
@@ -300,6 +304,7 @@ else
           text: 'ยกเลิก',
           handler: () => {
             this.navCtrl.push(SaleOrderDetailsPage);
+            
             console.log('Disagree clicked');
           }
         },
@@ -354,7 +359,7 @@ else
   
           this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", this.oOrder_no, this.oType, this.oCustomer, this.oCustomer_name, Order_date, "0.00", "", "", ""
             , "", "", "", "", "", "", "", Order_date, "", this.oRemark, "", ""
-            , "", DueDate, "", "",this.oAddress, this.oDlvr_code, "", "", ""
+            , "", DueDate, "", "",this.oStreet, this.oDlvr_code, "", "", ""
             , "", "", DueDate, this.oUsername, this.oPayTerm, this.oSalman, this.oSalman, "", "", "", "", Order_date
             , "", DueDate,this.amount,this.amount).then((res)=>{
             this.data_addsaleorder = res;

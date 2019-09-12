@@ -79,6 +79,9 @@ export class AddSaleOrderPage {
         this.storage.get('_url').then((res)=>{
         console.log(res);
       })
+      if(this.arrayItem.length <= 0){
+        this.sum = "0.00";
+      }
   }
   ionViewWillEnter(){
     this.utility.presentLoading();
@@ -195,12 +198,33 @@ export class AddSaleOrderPage {
   }
   
   removeItems(item){
+    this.utility.presentLoading();
+    if(this.arrayItem.length <= 0){
+      this.sum = "0";
+    }else{
     this.arrayItem.forEach((element, idex) => {
+      
       if (element == item){
         this.arrayItem.splice(idex, 1);
+        console.log(this.arrayItem);
+        let index = 0;
+             if(this.arrayItem.length > 0){
+          for (let array of this.arrayItem) {
+      
+            index += parseInt(array["5"]);
+            
+            this.sum = index.toFixed(2);       
+            } 
+            console.log("sumAmount",this.sum);
+          }else{
+            this.sum = "0.00";
+          }
       }
+    
+      this.utility.finishLoding();
       
     });
+  }
   }
 
   
@@ -284,7 +308,7 @@ export class AddSaleOrderPage {
       setTimeout(() => {
         this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.data_addsaleorder["0"].order_no, "", 0, this.arrayItem[value]["0"]
         , "", this.arrayItem[value]["3"], this.arrayItem[value]["2"], this.arrayItem[value]["8"], this.arrayItem[value]["5"], this.arrayItem[value]["5"], this.arrayItem[value]["7"], "", "", "", "", "", "", ""
-        , this.arrayItem[value]["1"], "", this.oCustomer, "", "", "").then((res)=>{
+        , this.arrayItem[value]["1"], "", this.oCustomer, "", "", this.arrayItem[value]["10"]).then((res)=>{
           this.data_addsaledetail = res;
           console.log(this.data_addsaledetail);
           if(this.data_addsaledetail["0"].sqlstatus < "0"){
