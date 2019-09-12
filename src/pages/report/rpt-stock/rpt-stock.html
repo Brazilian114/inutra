@@ -63,10 +63,15 @@
           </ion-row>
           <ion-row>
             <ion-col class="font-orange">
-              ราคา : {{item.unit_cost}} บาท
+              ราคาไม่รวมประกอบ : {{item.price}} บาท
             </ion-col>
           </ion-row>
-        <!-- </ion-item>        -->
+          <ion-row>
+            <ion-col class="font-orange">
+              ราคารวมประกอบ : {{item.price_2}} บาท
+            </ion-col>
+          </ion-row>
+        <!-- </ion-item>-->
       </ion-card>
     </ion-list>
   </ion-grid>

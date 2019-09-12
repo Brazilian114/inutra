@@ -57,15 +57,15 @@ export class ProductModalPage {
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams
     , private storage: Storage, private saleorderServ: SaleOrderService) {
       
-      this.oCustomer2 = navParams.get('oCustomer');
+      //this.oCustomer2 = navParams.get('oCustomer');
+      //this.oCustomer = navParams.get('oCustomer');
+      this.oCustomer = "ALL"
 
-
-
-      if(this.oCustomer2 != "7LINE"){
+      /*if(this.oCustomer2 != "7LINE"){
         this.oCustomer = "ALL"
         }else{
         this.oCustomer = this.oCustomer2;
-        }
+        }*/
 
       this.storage.get('_userId').then((res) => {
         this.oUsername = res;   

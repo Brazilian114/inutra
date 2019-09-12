@@ -287,6 +287,7 @@ export class SaleOrderService {
         }
       );
   } 
+  
   GetProductUom(oClient, oItemNo) {
     let parameters='oClient='+oClient+'&oItemNo='+oItemNo;
     return this.http.get(this.hostWebService +"/Get_Product_Uom?"+parameters)

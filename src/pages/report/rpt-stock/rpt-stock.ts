@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, Content } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-
+import { ProductService } from '../../../services/productservice';
 import { Utility } from '../../../helper/utility';
 import { ReportService } from '../../../services/reportservice';
 
@@ -32,15 +32,19 @@ export class RptStockPage {
   data_saleorderdetail:any;
   item2 = [];
   items= [];
-  constructor(public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private storage: Storage) {
+  
+  data_product:any;
+  oSearch:string="";
+  constructor(public productServ:ProductService,public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private storage: Storage) {
    
   } 
   ionViewWillEnter(){
     this.doGetStorage();
-    this.doGetRptInventoryMovement(this.oClient, "", "", "", "", "", "", "", "",this.oGrade, "ITEM NO");
+    this.getProductTop30(this.oSearch);
+    //this.doGetRptInventoryMovement(this.oClient, "", "", "", "", "", "", "", "",this.oGrade, "ITEM NO");
   }
   initializeItems() {
-    this.items = this.data_rpt_inventory;
+    this.items = this.data_product;
     //console.log(this.items);
     
     /*
@@ -60,7 +64,15 @@ export class RptStockPage {
          }, 500);   
    }
 */
-
+getProductTop30(oSearch){
+  //this.utility.presentLoading();
+  this.productServ.GetProductTop30(this.oClient, oSearch).then((res)=>{
+    this.data_product = res;
+    console.log(this.data_product);
+    this.initializeItems();
+    this.utility.finishLoding();     
+  })
+}
   
   onInput(ev: any){
     this.initializeItems();
@@ -126,7 +138,7 @@ doInfinite(e): Promise<any> {
   });
   }*/
 
-
+/*
   doInfinite(ionInfinite) {
     console.log("Start Scroll");
       setTimeout(() => {      
@@ -136,5 +148,5 @@ doInfinite(e): Promise<any> {
        console.log('End Scroll');      
        ionInfinite.complete();
          }, 500);  
-   }
+   }*/
 }

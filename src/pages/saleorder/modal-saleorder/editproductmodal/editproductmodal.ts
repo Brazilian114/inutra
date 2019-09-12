@@ -93,13 +93,13 @@ export class EditProductModalPage {
       this.item = navParams.get('item');
       this.item2 = navParams.get('data_order');
       
-      this.oCustomer2 = navParams.get('oCustomer');
-      if(this.oCustomer = navParams.get('oCustomer') != "7LINE"){
+      //this.oCustomer2 = navParams.get('oCustomer');
+      /*if(this.oCustomer = navParams.get('oCustomer') != "7LINE"){
         this.oCustomer = "ALL"
         }else{
         this.oCustomer = navParams.get('oCustomer');
-        }
-      
+        }*/
+        this.oCustomer = "ALL";
       this.oOrder_no = navParams.get('oOrder_no');
       
       
@@ -201,7 +201,7 @@ export class EditProductModalPage {
       this.SaveSaleOrder()
       this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.oOrder_no, "", this.item.line_no, oItem_no
       , "", oUOM, oQty, oUnit, this.oTotalPrice, this.oTotalPrice, oRemark, "", "", "", "", "", "", ""
-      , oZone, "", this.oCustomer2, "", "", this.oUserdefined).then((res)=>{  
+      , oZone, "", this.oCustomer, "", "", this.oUserdefined).then((res)=>{  
         this.data_addsaledetail = res;
         console.log(this.data_addsaledetail);
        /* if(this.data_addsaledetail["0"].sqlstatus != "0"){
@@ -228,7 +228,7 @@ export class EditProductModalPage {
             var Order_date = this.oDate.toString();
             var DueDate = this.oDateSale.toString();
 
-            this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", this.oOrder_no, this.oType, this.oCustomer2, this.oCustomer_name, Order_date, "0.00", "", "", ""
+            this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", this.oOrder_no, this.oType, this.oCustomer, this.oCustomer_name, Order_date, "0.00", "", "", ""
               , "", "", "", "", "", "", "", Order_date, "", this.oRemark, "", ""
               , "", DueDate, "", "",this.oAddress, this.oBuilding, "", "", ""
               , "", "", DueDate, this.oUsername, this.oPayTerm, this.oSalman, this.oSalman, "", "", "", "", Order_date
