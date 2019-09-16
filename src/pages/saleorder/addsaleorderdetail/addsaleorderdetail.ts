@@ -272,7 +272,7 @@ SaveSaleOrder(){
             console.log(this.data_addsaleorder);
             
             if(this.data_addsaleorder["0"].sqlstatus < "0"){
-              this.utility.Alert("Winning", this.data_addsaleorder["0"].sqlmsg);
+              this.utility.Alert("Warning", this.data_addsaleorder["0"].sqlmsg);
             }else{
               for(let i=0; i < this.arrayItem.length; i++){
                 this.doAddOrdersDetailsAsync(i) 

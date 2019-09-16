@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { Component ,ViewChild} from '@angular/core';
+import { IonicPage, NavController,Content } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Utility } from '../../../helper/utility';
 
@@ -15,6 +15,10 @@ import { ProductService } from '../../../services/productservice';
   providers: [ProductService]
 })
 export class ProductHeaderPage {
+  @ViewChild(Content) pageTop: Content;
+  public pageScroller(){
+    this.pageTop.scrollToTop();
+  }
   hideMe:any = true;
   data_product:any;
   oClient:string = "7LINE";

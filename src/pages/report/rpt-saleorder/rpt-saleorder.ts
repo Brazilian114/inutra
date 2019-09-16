@@ -74,6 +74,8 @@ export class RptSaleOrderPage {
       this.data_getsaleorder_bydate = this.data_getsaleorder_bydate.filter((item)=>{
         return (item.status["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 || item.order_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1  || item.customer["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 ||  item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
+    }else{
+      this.doGetSalesOrdersByDateRange(this.oStartDate,this.oEndDate);
     }
   }
 

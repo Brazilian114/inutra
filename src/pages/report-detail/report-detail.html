@@ -51,12 +51,16 @@
           <p>หน่วย</p>
         </ion-row>
       </ion-col>
-      <ion-col  class="col-line">
+      <ion-col >
         <ion-row>
-          <b class="font-orange font-big">{{oQty_Free}}</b>
+          <b class="font-red font-big" *ngIf="oQty_Free  <0">{{oQty_Free}}</b>
         </ion-row>
         <ion-row>
-          <p>จำนวน</p>
+          <b class="font-orange font-big" *ngIf="oQty_Free  >= 0">{{oQty_Free}}</b>
+        </ion-row>
+       
+        <ion-row>
+          <p >จำนวน</p>
         </ion-row>
       </ion-col>
     </ion-row>

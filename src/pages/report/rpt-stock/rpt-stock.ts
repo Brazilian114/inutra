@@ -30,6 +30,7 @@ export class RptStockPage {
   hasMoreData:any="true";
   data_rpt_inventory:any;
   data_saleorderdetail:any;
+  Rpt_inventory_movement:any;
   item2 = [];
   items= [];
   
@@ -41,10 +42,11 @@ export class RptStockPage {
   ionViewWillEnter(){
     this.doGetStorage();
     this.getProductTop30(this.oSearch);
-    //this.doGetRptInventoryMovement(this.oClient, "", "", "", "", "", "", "", "",this.oGrade, "ITEM NO");
+    this.doGetRptInventoryMovement(this.oClient, "", "", "", "", "", "", "", "",this.oGrade, "ITEM NO");
   }
   initializeItems() {
-    this.items = this.data_product;
+    this.items = this.data_rpt_inventory;
+    //this.items = this.GetProductTop30;
     //console.log(this.items);
     
     /*

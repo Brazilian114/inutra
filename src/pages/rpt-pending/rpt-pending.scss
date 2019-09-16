@@ -1,4 +1,4 @@
-page-rpt-saleman {
+page-rpt-pending {
     ion-searchbar{    
           
         .searchbar-input-container{   
@@ -14,5 +14,18 @@ page-rpt-saleman {
     }
     .font-primary{
         color: #3a687a;  
+    }
+    ion-searchbar{    
+          
+        .searchbar-input-container{   
+                     
+            .searchbar-input {
+                border-radius: 20px;
+               // border: 0 !important;
+                width: 100%;
+                border: 1.5px solid #3a687a;
+                box-shadow: none !important;
+            }
+        }
     }
 }

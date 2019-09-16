@@ -27,6 +27,6 @@ export class ReportMenuPage {
     this.navCtrl.push("RptStockPage");
   }
   goReportSaleMan(){
-    this.navCtrl.push("RptSalemanPage");
+    this.navCtrl.push("RptPendingPage");
   }
 }

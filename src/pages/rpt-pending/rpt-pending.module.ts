@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { RptSalemanPage } from './rpt-saleman';
+import { RptPendingPage } from './rpt-pending';
 
 @NgModule({
   declarations: [
-    RptSalemanPage,
+    RptPendingPage,
   ],
   imports: [
-    IonicPageModule.forChild(RptSalemanPage),
+    IonicPageModule.forChild(RptPendingPage),
   ],
 })
 export class RptSalemanPageModule {}
