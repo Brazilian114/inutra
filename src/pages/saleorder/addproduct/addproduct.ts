@@ -88,10 +88,10 @@ export class AddProductPage {
     modal.onDidDismiss(data =>{
       if(data != undefined){
         this.arrayItem.push(data);
-        console.log("addsession", this.arrayItem);
+       
         let index = 0;
         for (let array of this.arrayItem) {
-    
+          console.log("addsession", array);
           index += parseInt(array["5"]);
           var total = index.toFixed(2);       
           } 

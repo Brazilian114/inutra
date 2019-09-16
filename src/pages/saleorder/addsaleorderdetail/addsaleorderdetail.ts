@@ -228,6 +228,30 @@ doGetStorage(){
   })  
 }
 doAddOrdersDetailsAsync(value) {
+  console.log(value);
+  
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.oOrder_no, "", 0, this.arrayItem[value]["0"]
+      , "", this.arrayItem[value]["3"], this.arrayItem[value]["2"],  this.arrayItem[value]["8"], this.arrayItem[value]["5"], this.arrayItem[value]["5"], this.arrayItem[value]["7"], "", "", "", "", "", "", ""
+      , this.arrayItem[value]["1"], "", this.oCustomer, "", "", this.arrayItem[value]["10"]).then((res)=>{
+        this.data_addsaledetail = res;
+        console.log(this.data_addsaledetail);
+        if(this.data_addsaledetail["0"].sqlstatus != "0"){
+          this.utility.Alert(this.data_addsaledetail["0"].sqlmsg, this.data_addsaledetail["0"].sqlmsg2);
+        }else{
+
+        }
+      })
+      resolve(value);
+    }, Math.floor(Math.random() * 3000));
+  });
+ 
+}
+/*
+doAddOrdersDetailsAsync(value) {
+  console.log(value);
+  
   return new Promise((resolve) => {
     setTimeout(() => {
       this.saleorderServ.AddOrdersDetails(this.oClient, this.oUsername, this.oOrder_no, "", 0, this.arrayItem[value]["0"]
@@ -246,6 +270,20 @@ doAddOrdersDetailsAsync(value) {
   });
  
 }
+*/
+/*
+uploadDataArray(localDataArray: Array<any>): Promise<any> {
+  let promiseChain: Promise<any> = Promise.resolve();
+  localDataArray = localDataArray || [];
+ 
+  localDataArray.forEach(localDataObject => {
+   promiseChain = promiseChain.then(
+    () => this.uploadDataObject(localDataObject)
+   );
+  });
+ 
+  return promiseChain;
+ }*/
 SaveSaleOrder(){
   
     if(this.arrayItem.length <= 0){
@@ -276,6 +314,8 @@ SaveSaleOrder(){
             }else{
               for(let i=0; i < this.arrayItem.length; i++){
                 this.doAddOrdersDetailsAsync(i) 
+                //console.log(i);
+                
               }
               let alert = this.alertCtrl.create({
                 title: this.data_addsaleorder["0"].order_no,
@@ -295,6 +335,7 @@ SaveSaleOrder(){
     }
   
 }
+
 /*
   SaveSaleOrder(){
   

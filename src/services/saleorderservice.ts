@@ -208,8 +208,8 @@ export class SaleOrderService {
     , oDeliveryCountry, oDeliveryPostCode, oDueDate, oMaker, oPaymentTerm, oSalesCode, oSalesName, oBackorder, oReference, oOnpallet, oDO, oStandCost
     , oDepartment, oLoadDate, oAmount , oNetAmount) {
       
-      let parameters='oClient='+oClient+'&oBook='+oBook+'&oBranch='+oBranch+'&oOrderNo='+oOrderNo
-    +'&oOrderType='+oOrderType+'&oCustomer='+oCustomer+'&oCustomerName='+oCustomerName+'&oOrderDate='+oOrderDate
+      let parameters='oClient='+'7LINE'+'&oBook='+oBook+'&oBranch='+oBranch+'&oOrderNo='+oOrderNo
+    +'&oOrderType='+oOrderType+'&oCustomer='+'7LINE'+'&oCustomerName='+oCustomerName+'&oOrderDate='+oOrderDate
     +'&oVat='+oVat+'&oDiscountType='+oDiscountType+'&oDiscountRate='+oDiscountRate+'&oDiscountType2='+oDiscountType2
     +'&oDiscountRate2='+oDiscountRate2+'&oDiscountType3='+oDiscountType3+'&oDiscountRate3='+oDiscountRate3+'&oTotalPrice='+oTotalPrice
     +'&oDiscountedPrice='+oDiscountedPrice+'&oNetPrice='+oNetPrice+'&oPoNo='+oPoNo+'&oEtd='+oEtd+'&oIncludeVat='+oIncludeVat
@@ -241,12 +241,12 @@ export class SaleOrderService {
   AddOrdersDetails(oClient, oMaker, oOrderNo, oOrderDate, oLineNo, oItemNo, oItemDescription, oUom, oQty, oUnitPrice, oAmount, oNetAmount, oRemarks
     , oDiscountType, oDiscountByLine, oDiscountUnit, oRealDiscount, oItemColor, oServicePrice, oStatus, oZone, oRate, oCustomer, oDiscount, oGrade, oUser_Defined) {
     
-      let parameters='oClient='+oClient+'&oMaker='+oMaker+'&oOrderNo='+oOrderNo+'&oOrderDate='+oOrderDate
+      let parameters='oClient='+'7LINE'+'&oMaker='+oMaker+'&oOrderNo='+oOrderNo+'&oOrderDate='+oOrderDate
     +'&oLineNo='+oLineNo+'&oItemNo='+oItemNo+'&oItemDescription='+oItemDescription+'&oUom='+oUom
     +'&oQty='+oQty+'&oUnitPrice='+oUnitPrice+'&oAmount='+oAmount+'&oNetAmount='+oNetAmount
     +'&oRemarks='+oRemarks+'&oDiscountType='+oDiscountType+'&oDiscountByLine='+oDiscountByLine+'&oDiscountUnit='+oDiscountUnit
     +'&oRealDiscount='+oRealDiscount+'&oItemColor='+oItemColor+'&oServicePrice='+oServicePrice
-    +'&oStatus='+oStatus+'&oZone='+oZone+'&oRate='+oRate+'&oCustomer='+oCustomer+'&oDiscount='+oDiscount+'&oGrade='+oGrade+'&oUser_Defined='+oUser_Defined;
+    +'&oStatus='+oStatus+'&oZone='+oZone+'&oRate='+oRate+'&oCustomer='+'7LINE'+'&oDiscount='+oDiscount+'&oGrade='+oGrade+'&oUser_Defined='+oUser_Defined;
     
     return this.http.get(this.hostWebService +"/Add_SO_Details?"+parameters)
       .toPromise()

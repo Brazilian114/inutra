@@ -99,7 +99,9 @@ export class EditProductModalPage {
         }else{
         this.oCustomer = navParams.get('oCustomer');
         }*/
-        this.oCustomer = "ALL";
+        //this.oCustomer = "ALL";
+      this.oCustomer2 = "ALL";
+      this.oCustomer = navParams.get('oCustomer');
       this.oOrder_no = navParams.get('oOrder_no');
       
       
@@ -255,8 +257,7 @@ export class EditProductModalPage {
             })
           // }
         })
-      
-    
+  
   }
   doGetProductUom(){
     this.saleorderServ.GetProductUom(this.oClient, this.item.item_no).then((res)=>{
@@ -312,7 +313,7 @@ export class EditProductModalPage {
     })
   }
   doGetProductStock(oZone, oItemPacking){
-    this.saleorderServ.GetProductStock(this.oClient,this.oCustomer, this.oItem_no, "", "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
+    this.saleorderServ.GetProductStock(this.oClient,this.oCustomer2, this.oItem_no, "", "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
       this.data_productstock = res;
       console.log("price",this.data_productstock);
       if(this.data_productstock.length <= 0){
