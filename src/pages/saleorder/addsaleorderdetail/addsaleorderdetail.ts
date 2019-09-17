@@ -92,7 +92,7 @@ export class AddsaleorderdetailPage {
     , private utility: Utility, private saleorderServ: SaleOrderService, private productServ: ProductService, public navParams: NavParams) {
    
       this.data_item = navParams.get('item');
-      console.log(this.data_item);
+      console.log("item",this.data_item);
       
       this.oOrder_no = this.data_item["0"].order_no;
       this.oSaleManCode = this.data_item["0"].salesman_code;
@@ -244,10 +244,11 @@ doAddOrdersDetailsAsync(value) {
         }
       })
       resolve(value);
-    }, Math.floor(Math.random() * 3000));
+    }, Math.floor(Math.random() * 1000));
   });
  
 }
+
 /*
 doAddOrdersDetailsAsync(value) {
   console.log(value);

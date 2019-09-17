@@ -241,12 +241,12 @@ export class SaleOrderService {
   AddOrdersDetails(oClient, oMaker, oOrderNo, oOrderDate, oLineNo, oItemNo, oItemDescription, oUom, oQty, oUnitPrice, oAmount, oNetAmount, oRemarks
     , oDiscountType, oDiscountByLine, oDiscountUnit, oRealDiscount, oItemColor, oServicePrice, oStatus, oZone, oRate, oCustomer, oDiscount, oGrade, oUser_Defined) {
     
-      let parameters='oClient='+'7LINE'+'&oMaker='+oMaker+'&oOrderNo='+oOrderNo+'&oOrderDate='+oOrderDate
+      let parameters='oClient='+oClient+'&oMaker='+oMaker+'&oOrderNo='+oOrderNo+'&oOrderDate='+oOrderDate
     +'&oLineNo='+oLineNo+'&oItemNo='+oItemNo+'&oItemDescription='+oItemDescription+'&oUom='+oUom
     +'&oQty='+oQty+'&oUnitPrice='+oUnitPrice+'&oAmount='+oAmount+'&oNetAmount='+oNetAmount
     +'&oRemarks='+oRemarks+'&oDiscountType='+oDiscountType+'&oDiscountByLine='+oDiscountByLine+'&oDiscountUnit='+oDiscountUnit
     +'&oRealDiscount='+oRealDiscount+'&oItemColor='+oItemColor+'&oServicePrice='+oServicePrice
-    +'&oStatus='+oStatus+'&oZone='+oZone+'&oRate='+oRate+'&oCustomer='+'7LINE'+'&oDiscount='+oDiscount+'&oGrade='+oGrade+'&oUser_Defined='+oUser_Defined;
+    +'&oStatus='+oStatus+'&oZone='+oZone+'&oRate='+oRate+'&oCustomer='+oCustomer+'&oDiscount='+oDiscount+'&oGrade='+oGrade+'&oUser_Defined='+oUser_Defined;
     
     return this.http.get(this.hostWebService +"/Add_SO_Details?"+parameters)
       .toPromise()

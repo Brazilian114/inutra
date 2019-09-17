@@ -100,6 +100,8 @@ export class AddSaleOrderPage {
       
       if(data != undefined){
        this.oCustomer = data.customer;
+       console.log(this.oCustomer);
+       
        this.oCustomer_name = data.customer_name;
        this.oPayTerm = data.payment_term;
        this.oVat = data.vat;
