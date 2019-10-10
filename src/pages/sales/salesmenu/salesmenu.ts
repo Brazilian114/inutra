@@ -25,6 +25,7 @@ export class SaleMenuPage{
   private lineChart: Chart;
   oClient:string = "7LINE";
   select:any;
+  sumAmount:number;
   //test:string ="";
   oUsername:string = "";
   oUserGroup:string = "";
@@ -91,7 +92,7 @@ export class SaleMenuPage{
       this.dataInvoiceGraph = res;
 
       if(this.dataInvoiceGraph.length <= 0 ){
-            this.sum = "0.00"
+            this.sumAmount = 0.00;
             
       }else{
       console.log(this.dataInvoiceGraph);   
@@ -160,7 +161,7 @@ export class SaleMenuPage{
         index += parseInt(array);
         this.sum = index.toFixed(2);       
         } 
-     
+     this.sumAmount = this.sum;
       //console.log(this.sum);
 
       this.lineChart  = new Chart(this.lineCanvas.nativeElement, {

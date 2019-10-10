@@ -208,8 +208,8 @@ export class SaleOrderService {
     , oDeliveryCountry, oDeliveryPostCode, oDueDate, oMaker, oPaymentTerm, oSalesCode, oSalesName, oBackorder, oReference, oOnpallet, oDO, oStandCost
     , oDepartment, oLoadDate, oAmount , oNetAmount) {
       
-      let parameters='oClient='+'7LINE'+'&oBook='+oBook+'&oBranch='+oBranch+'&oOrderNo='+oOrderNo
-    +'&oOrderType='+oOrderType+'&oCustomer='+'7LINE'+'&oCustomerName='+oCustomerName+'&oOrderDate='+oOrderDate
+      let parameters='oClient='+oClient+'&oBook='+oBook+'&oBranch='+oBranch+'&oOrderNo='+oOrderNo
+    +'&oOrderType='+oOrderType+'&oCustomer='+oCustomer+'&oCustomerName='+oCustomerName+'&oOrderDate='+oOrderDate
     +'&oVat='+oVat+'&oDiscountType='+oDiscountType+'&oDiscountRate='+oDiscountRate+'&oDiscountType2='+oDiscountType2
     +'&oDiscountRate2='+oDiscountRate2+'&oDiscountType3='+oDiscountType3+'&oDiscountRate3='+oDiscountRate3+'&oTotalPrice='+oTotalPrice
     +'&oDiscountedPrice='+oDiscountedPrice+'&oNetPrice='+oNetPrice+'&oPoNo='+oPoNo+'&oEtd='+oEtd+'&oIncludeVat='+oIncludeVat
