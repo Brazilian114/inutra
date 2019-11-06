@@ -10,26 +10,26 @@ export class SaleService {
   url:string;
   constructor(private http: Http, private storage: Storage){
     //this.getUrl();
-    //this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx"
-   /* this.storage.get('_url').then((res)=>{
+    this.hostWebService = "http://192.168.1.252/RF-Service_Inutra_zenstock/RFService.asmx"
+    this.storage.get('_url').then((res)=>{
       this.url = res;
       console.log(res);
       
-      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";
-    })*/
-    this.ngOnInit();
+      //this.hostWebService = "http://"+this.url+"/RF-Service_Inutra_zenstock/RFService.asmx";
+    })
+    //this.ngOnInit();
   }
-  ngOnInit(){
+ /* ngOnInit(){
    // this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx"
     this.storage.get('_url').then((res)=>{
       this.url = res;
       console.log(res);
       
-       this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";    
+       this.hostWebService = "http://"+this.url+"/RF-Service_Inutra_zenstock/RFService.asmx";    
       console.log(this.hostWebService);
         
     })
-  }
+  }*/
   /*
   ionViewWillEnter(){
     this.storage.get('_url').then((res)=>{

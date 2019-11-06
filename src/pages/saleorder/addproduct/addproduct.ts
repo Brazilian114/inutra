@@ -136,7 +136,7 @@ export class AddProductPage {
   }*/
   getProductTop30(oSearch){
     this.utility.presentLoading();
-    this.productServ.GetProductTop30(this.oClient, oSearch).then((res)=>{
+    this.productServ.GetProductTop30(this.oClient).then((res)=>{
       this.data_product = res;
       console.log(this.data_product);
       this.initializeItems();

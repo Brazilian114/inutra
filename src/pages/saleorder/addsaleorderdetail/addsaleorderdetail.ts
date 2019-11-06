@@ -84,6 +84,7 @@ export class AddsaleorderdetailPage {
   data_addsaleorder:any;
   data_addsaledetail:any;
   data_item:any;
+  oStatus:any;
   date_time:any;
   items:any;
   arrayItem:any = [];
@@ -112,6 +113,7 @@ export class AddsaleorderdetailPage {
       this.oUsername = this.data_item["0"].created_by;
       this.oPayTerm = this.data_item["0"].payment_term;
       this.oOrder_no = this.data_item["0"].order_no;
+      this.oStatus = this.data_item["0"].status;
       this.oAmount = parseInt(this.data_item["0"].amount);
      
   }
@@ -164,7 +166,7 @@ export class AddsaleorderdetailPage {
   }*/
   getProductTop30(oSearch){
     this.utility.presentLoading();
-    this.productServ.GetProductTop30(this.oClient, oSearch).then((res)=>{
+    this.productServ.GetProductTop30(this.oClient).then((res)=>{
       this.data_product = res;
       console.log(this.data_product);
       this.initializeItems();
@@ -306,7 +308,7 @@ SaveSaleOrder(){
             , "", "", "", "", "", "", "", Order_date, "", this.oRemarks, "", ""
             , "", DueDate, "", "",this.oAddress, this.oBuilding, "", "", ""
             , "", "", DueDate, this.oUsername, this.oPayTerm, this.oUserId["0"], this.oUserId["0"], "", "", "", "", Order_date
-            , "", DueDate,this.amount,this.amount).then((res)=>{
+            , "", DueDate,this.amount,this.amount,this.oStatus).then((res)=>{
             this.data_addsaleorder = res;
             console.log(this.data_addsaleorder);
             

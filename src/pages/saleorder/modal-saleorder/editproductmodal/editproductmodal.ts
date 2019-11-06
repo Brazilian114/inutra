@@ -80,6 +80,7 @@ export class EditProductModalPage {
   arrayItem:any = [];
   data_customerdelivery:any;
   data_addsaleorder:any;
+  oStatus:any;
   constructor(public alertCtrl :AlertController,public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, private utility: Utility, public navParams: NavParams
     , private storage: Storage, private saleorderServ: SaleOrderService) {
 
@@ -117,7 +118,7 @@ export class EditProductModalPage {
       
       this.oDescription = this.item.item_description; 
       this.amount2 = this.item.amount;
-
+      this.oStatus = this.item2["0"].status;
       this.oLineNo = this.item2["0"].oLineNo;
     this.oOrder_no = this.item2["0"].order_no;
     //this.oAmount = this.data_item.amount;
@@ -234,7 +235,7 @@ export class EditProductModalPage {
               , "", "", "", "", "", "", "", Order_date, "", this.oRemark, "", ""
               , "", DueDate, "", "",this.oAddress, this.oBuilding, "", "", ""
               , "", "", DueDate, this.oUsername, this.oPayTerm, this.oSalman, this.oSalman, "", "", "", "", Order_date
-              , "", DueDate,this.amount,this.amount).then((res)=>{
+              , "", DueDate,this.amount,this.amount,this.oStatus).then((res)=>{
               this.data_addsaleorder = res;
               console.log(this.data_addsaleorder);
               
@@ -332,8 +333,8 @@ export class EditProductModalPage {
         //console.log(this.oAvailable);
         
         this.oFree = free.toFixed();
-        var price1 = +this.data_productstock["0"].price_assemble_no
-        var price2 = +this.data_productstock["0"].price_assemble
+        var price1 = +this.data_productstock["0"].price["0"]
+        var price2 = +this.data_productstock["0"].price_2["0"]
         this.oPrice1 = price1.toFixed(2);
         this.oPrice2 = price2.toFixed(2);
         console.log(this.oPrice1);

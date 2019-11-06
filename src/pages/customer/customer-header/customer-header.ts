@@ -18,7 +18,7 @@ export class CustomerHeaderPage {
   public pageScroller(){
     this.pageTop.scrollToTop();
   }
-  oClient:string = "7LINE";
+  oClient:string = "INT";
   oSearch:string = "";
   oPrice1:string = "";
   oPrice2:string = "";
@@ -31,7 +31,7 @@ export class CustomerHeaderPage {
 
   } 
   ionViewWillEnter(){
-    this.doGetCustomerDetails(this.oSearch);
+    this.doGetCustomerDetails();
   }
   initializeItems() {
     this.items = this.data_customer;   
@@ -81,8 +81,8 @@ export class CustomerHeaderPage {
       this.hideMe = false;
     }
   }*/
-  doGetCustomerDetails(oSearch){
-    this.customerServ.GetCustomerDetails(this.oClient, oSearch).then((res)=>{
+  doGetCustomerDetails(){
+    this.customerServ.GetCustomerDetails(this.oClient).then((res)=>{
       this.data_customer = res;
       console.log(this.data_customer);    
       this.initializeItems();

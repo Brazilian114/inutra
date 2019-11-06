@@ -355,7 +355,7 @@ export class AddSaleOrderPage {
               , "", "", "", "", "", "", "", Order_date, "", oRemark, "", ""
               , "", DueDate, "", "",this.oAddress, this.oBuilding, "", "", ""
               , "", "", DueDate, this.oUsername, oPayTerm, this.oUserId["0"], this.oUserId["0"], "", "", "", "", Order_date
-              , "", DueDate,this.sum,this.sum).then((res)=>{
+              , "", DueDate,this.sum,this.sum,"").then((res)=>{
               this.data_addsaleorder = res;
               console.log(this.data_addsaleorder);
               

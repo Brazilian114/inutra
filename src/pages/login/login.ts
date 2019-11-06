@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { IonicPage, NavController,ModalController,LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Utility } from '../../helper/utility';
 
@@ -20,10 +20,10 @@ export class LoginPage {
   data_logins:any;
   //oUsername:string = 'SIMILAN';
   //oPassword:string = 'ROGER3000';
-  oUsername:string = '';
-  oPassword:string = ''; 
-
-  constructor(public navCtrl: NavController, private utility: Utility, private storage: Storage, private loginServ: LoginService) {
+  oUsername:string = 'ADMIN';
+  oPassword:string = '1150'; 
+  loader:any;
+  constructor(public loadingCtrl:LoadingController,public modalCtrl:ModalController,public navCtrl: NavController, private utility: Utility, private storage: Storage, private loginServ: LoginService) {
 
   }
   doLogin(oUsername, oPassword){
@@ -65,6 +65,17 @@ export class LoginPage {
       })
   }
   doSetting(){
-    this.navCtrl.push("SettingPage");
+   // this.navCtrl.push("SettingPage");
+    let modal = this.modalCtrl.create("SettingPage")
+    modal.present();
+    modal.onDidDismiss(data =>{
+      this.loader = this.loadingCtrl.create({
+        content:"Loading...",
+        duration:2500
+      })
+      this.loader.present().then(() =>{
+        window.location.reload();
+      })
+    })
   }
 }

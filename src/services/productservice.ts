@@ -10,27 +10,27 @@ export class ProductService {
   url:string;
   constructor(private http: Http, private storage: Storage){
      //this.getUrl();
-   /*this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx"
+     this.hostWebService = "http://192.168.1.252/RF-Service_Inutra_zenstock/RFService.asmx"
     this.storage.get('_url').then((res)=>{
       this.url = res;
       console.log(res);
       
-      //this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
-    })*/
+      //this.hostWebService = "http://"+this.url+"/RF-Service_Inutra_zenstock/RFService.asmx";     
+    })
     //this.ionViewWillEnter();
-   this.ngOnInit();
+   //this.ngOnInit();
   }
-  ngOnInit(){
+  /*ngOnInit(){
    // this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx"
     this.storage.get('_url').then((res)=>{
       this.url = res;
       console.log(res);
       
-       this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";    
+       this.hostWebService = "http://"+this.url+"/RF-Service_Inutra_zenstock/RFService.asmx";    
       console.log(this.hostWebService);
         
     })
-  }
+  }*/
   /*
   ionViewWillEnter(){
     this.storage.get('_url').then((res)=>{
@@ -45,9 +45,9 @@ export class ProductService {
     })
   }
 */
-  GetProductTop30(oClient,oKeyword) {
-   let parameters='oClient='+oClient+'&oKeyword='+oKeyword;;
-   return this.http.get(this.hostWebService +"/Get_Product_Top_30?"+parameters)
+  GetProductTop30(oClient) {
+   let parameters='oClient='+oClient;
+   return this.http.get(this.hostWebService +"/Get_Product_Stock?"+parameters)
      .toPromise()
      .then(response =>
         {

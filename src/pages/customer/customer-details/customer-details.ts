@@ -22,6 +22,7 @@ export class CustomerDetailsPage {
   oCredit:string = "";
   oClient:string = "";
   oPhone:string = "";
+  oPostCose:string="";
 
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, public viewCtrl: ViewController, public navParams: NavParams) {
     this.data_item = navParams.get('item');
@@ -31,6 +32,8 @@ console.log(this.data_item);
     this.oCustomer = "-";
     else
     this.oCustomer = this.data_item.customer;
+
+    this.oPostCose = this.data_item.post_code;
 
     if(this.data_item.customer == undefined)
     this.oCustomer_name = "-";

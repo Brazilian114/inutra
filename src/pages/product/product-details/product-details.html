@@ -8,65 +8,51 @@
 
 <ion-content class="backgound-image">
   <div>
-    <!-- <img src="../../../assets/imgs/logo.png" class="img-size"/> -->
-    <img *ngIf="data_item" src="{{'data:image/png;base64,'+data_item.image}}" onerror="this.src='../../../assets/imgs/logo.png'" imageViewer>
+    
+         
+         <img src="./assets/imgs/logo.png"  class="img-size">
+         
+  <!---  <img *ngIf="data_item" src="{{'data:image/png;base64,'+data_item.image}}" onerror="this.src='../../../assets/product/Picture6.png'" class="img-size" imageViewer /> -->
   </div>
   <ion-grid padding>
     <ion-row>
-      <b style="margin-left: 0%" class="font-medium">รหัสสินค้า: {{data_item.item_no}}</b>
+      <b style="margin-left: 0%" class="font-header">รหัสสินค้า: {{data_item.item_no}}</b>
     </ion-row>
     <br>
     <ion-row>
-      <b style="margin-left: 0%" class="font-medium">ชื่อสินค้า: {{data_item.description}}</b>
+      <b style="margin-left: 0%" class="font-header">ชื่อสินค้า: {{data_item.description}}</b>
     </ion-row>
     <br>
     <div class="line"></div>
    <br>
+
     <ion-row>
         <ion-col class="col-line">
-          
-            <ion-row>
-                <b class="font-orange font-big">{{oPrice1}}</b>
-            </ion-row>
-              <ion-row>
-                  <p>ราคาปกติ</p>
-              </ion-row>
-            </ion-col>
-            <ion-col class="col-line">
-              <ion-row >
-                  <b class="font-orange font-big">{{oPrice2}}</b>
-            </ion-row>
-              <ion-row>
-                  <p>ราคา+ประกอบ</p>
-              </ion-row>
-            
-            </ion-col>
-      <ion-col class="col-line">
+          <ion-row>
+            <b class="font-orange font-medium">{{data_item.qty_avail}}</b>
+      </ion-row>
         <ion-row>
-          <b class="font-orange font-big">{{oUom}}</b>
+            <p>จำนวนสต๊อก</p>
         </ion-row>
-        <ion-row>
-          <p>หน่วย</p>
-        </ion-row>
-      </ion-col>
-      <ion-col >
-          <ion-row>
-            <b class="font-red font-big" *ngIf="oQty_Free  <0">{{oQty_Free}}</b>
-          </ion-row>
-          <ion-row>
-            <b class="font-orange font-big" *ngIf="oQty_Free  >= 0">{{oQty_Free}}</b>
-          </ion-row>
-         
-          <ion-row>
-            <p >จำนวน</p>
-          </ion-row>
-        </ion-col>
+          </ion-col>
+     <ion-col class="col-line">
+      
+    <ion-row>
+      <b class="font-orange font-medium">{{data_item.uom}}</b>
     </ion-row>
-    <br>
+    <ion-row>
+      <p>หน่วย</p>
+    </ion-row>
+  </ion-col>
+ 
+    </ion-row>
     
+   
+    <br>
  
     <div class="line"></div>
   </ion-grid>
+  <!----
   <ion-card class="card">
     <ion-card-content>
       <ion-row>
@@ -79,4 +65,5 @@
       </ion-row>
     </ion-card-content>
   </ion-card>
+-->
 </ion-content>

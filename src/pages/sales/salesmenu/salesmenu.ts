@@ -67,11 +67,11 @@ export class SaleMenuPage{
   
   constructor( private reportServ: ReportService,public datepipe: DatePipe,public navCtrl: NavController, private utility: Utility, private saleServ: SaleService, private storage: Storage) {
     
-    this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oUserId, this.oStartDate, this.oEndDate, this.oUserGroup);
+    this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oStartDate, this.oEndDate);
   }
   ionViewWillEnter(){
     this.doGetStorage();
-    this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oUserId, this.oStartDate, this.oEndDate, this.oUserGroup);
+    this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oStartDate, this.oEndDate);
     this.doGetInvoiceGraph(this.oStartDate, this.oEndDate);
   }
   initializeItems() {
@@ -88,7 +88,7 @@ export class SaleMenuPage{
 
 
   doGetInvoiceGraph(oStartDate, oEndDate) {
-    this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oUserId, oStartDate, oEndDate, this.oUserGroup).then((res)=>{
+    this.reportServ.GetSalesOrdersByDateRange(this.oClient, oStartDate, oEndDate).then((res)=>{
       this.dataInvoiceGraph = res;
 
       if(this.dataInvoiceGraph.length <= 0 ){

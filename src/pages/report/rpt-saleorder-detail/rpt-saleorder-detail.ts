@@ -173,7 +173,7 @@ export class RptSaleOrderDetailsPage {
     }
   }*/
   doGetOrdersDetails(){
-    this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup,this.oOrder_no).then((res)=>{
+    this.saleorderServ.GetOrdersDetails(this.oClient,this.oOrder_no).then((res)=>{
       this.data_saleorderdetail = res;  
       console.log(this.data_saleorderdetail);
         

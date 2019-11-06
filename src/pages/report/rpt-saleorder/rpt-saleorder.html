@@ -56,8 +56,11 @@
               <p class="font-orange">วันที่ : {{item.create_date}}</p>
             </ion-row>     
           </ion-col>
-          <ion-col col-5 style="text-align: center;" *ngIf="item.status == 'CANCEL'">
-            <button ion-button style="background-color: red">{{item.status}}</button>
+          <ion-col col-5 style="text-align: center;" *ngIf="item.status == 'CANCELLED'">
+            <button ion-button style="background-color: rgb(212, 78, 78)">{{item.status}}</button>
+          </ion-col>
+          <ion-col col-5 style="text-align: center;" *ngIf="item.status == 'SAVED'">
+            <button ion-button style="background-color: rgb(97, 221, 92)">{{item.status}}</button>
           </ion-col>
           <ion-col col-5 style="text-align: center" *ngIf="item.status == 'WAITING'">
             <button ion-button style="background-color: rgb(192, 192, 19)">{{item.status}}</button>
@@ -67,6 +70,12 @@
           </ion-col>
           <ion-col col-5 style="text-align: center" *ngIf="item.status == 'PICKED'">
             <button ion-button style="background-color: rgb(48, 180, 99)">{{item.status}}</button>
+          </ion-col>
+          <ion-col col-5 style="text-align: center" *ngIf="item.status == 'DESPATCHED'">
+            <button ion-button style="background-color: rgb(85, 150, 110)">{{item.status}}</button>
+          </ion-col>
+          <ion-col col-5 style="text-align: center" *ngIf="item.status == 'CLOSED'">
+            <button ion-button style="background-color: rgb(212, 78, 78)">{{item.status}}</button>
           </ion-col>
           <ion-col col-5 style="text-align: center" *ngIf="item.status == 'DATA ENTRY'">
             <button ion-button >{{item.status}}</button>

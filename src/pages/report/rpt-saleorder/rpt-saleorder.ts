@@ -23,7 +23,7 @@ export class RptSaleOrderPage {
   format2: any = [];
   var_y:any;
   oCreate_date:string = "";
-  oClient:string = "7LINE";
+  oClient:string = "INT";
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
@@ -80,7 +80,7 @@ export class RptSaleOrderPage {
   }
 
   doGetSalesOrdersByDateRange(oStartDate, oEndDate){
-    this.reportServ.GetSalesOrdersByDateRange(this.oClient, this.oUserId, oStartDate, oEndDate, this.oUserGroup).then((res)=>{
+    this.reportServ.GetSalesOrdersByDateRange(this.oClient, oStartDate, oEndDate).then((res)=>{
       this.data_getsaleorder_bydate = res;
   
       console.log(this.data_getsaleorder_bydate);

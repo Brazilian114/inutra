@@ -30,14 +30,14 @@ export class ProductModalPage {
   oCheckDiscount:boolean = false;
 
   oUserefined:any;
-  oAvailable:any;
-  oFree:any;
+  oAvailable:number;
+  oFree:number;
   oUomQty:string = "";
   oPerCount:any;
   oUomSale:string = "";
   oQty:string = "";
-  oPrice1:any;
-  oPrice2:any;
+  oPrice1:number;
+  oPrice2:number;
   oDiscount:string = "";
   oRemark:string = "";
   oGrade:string="001";
@@ -85,15 +85,20 @@ export class ProductModalPage {
     
   }
   ionViewWillEnter(){
+    
     this.doGetProductUom();
     this.doGetProductDefault();
     this.doGetProductColor();
     this.doGetLastSale();
     this.doGetProductParam();
     this.doGetZone();
+   
   }
   ionViewDidEnter(){
     this.doGetProductStock("", this.data_productuom["0"].item_packing);
+  }
+  loadData(){
+    
   }
   doConfirm(oItem_no, oZone, oQty, oUOM, oParamCode, oPrice, oDiscount, oRemark, oUnit){
 console.log("price",this.oPrice1);
@@ -110,6 +115,8 @@ if(oUnit != this.oPrice2){
       this.utility.Alert("Warning","กรุณาเพิ่มจำนวนสินค้าในการจัดส่ง");
     }else if(oQty > this.oAvailable){
       this.utility.Alert("Warning","จำนวนสินค้าเกินจำนวนในสต๊อก");
+    }else if(oZone == undefined || oZone == ""){
+      this.utility.Alert("Warning","กรุณาเลือกโซน");
     }else{
       var oAmount = parseInt(oQty) * parseInt(oUnit) 
       this.data_return.push(oItem_no["0"]);
@@ -174,28 +181,36 @@ if(oUnit != this.oPrice2){
     })
   }
   doGetZone(){
+   
     this.saleorderServ.GetZone(this.oUsername, "").then((res)=>{
+      
       this.data_zone = res;
       console.log("zone",this.data_zone);
       this.oZone = this.data_zone["0"].Zone["0"];
       
     })
+    
   }
   doGetProductStock(oZone, oItemPacking){
+    this.utility.presentLoading()
     this.saleorderServ.GetProductStock(this.oClient,this.oCustomer, this.oItem_no, this.oGrade, "", "", "", "", "", "", oZone, oItemPacking, "", "", "", "", "").then((res)=>{
       this.data_productstock = res;
       console.log("product",this.data_productstock);
       this.initializeItems();
-      
-      if(this.data_productstock["0"].price_assemble == undefined){
+      /*
+      if(this.data_productstock["0"].price_2 == undefined || this.data_productstock["0"].price_2 == 0.000 || this.data_productstock["0"].price == "0.000"){
         this.oPrice1 =0;
         this.oPrice2 =0;
       }else{
-        var price1 = +this.data_productstock["0"].price_assemble_no
-        var price2 = +this.data_productstock["0"].price_assemble
-        this.oPrice1 = price1.toFixed(2);
-        this.oPrice2 = price2.toFixed(2);
-      }
+        var price1 = +this.data_productstock["0"].price["0"]
+        var price2 = +this.data_productstock["0"].price_2["0"]
+        this.oPrice1 = price1
+        this.oPrice2 = price2
+      }*/
+      var price1 = +this.data_productstock["0"].price["0"]
+      var price2 = +this.data_productstock["0"].price_2["0"]
+      this.oPrice1 = price1
+      this.oPrice2 = price2
       
       if(this.data_productstock.length <= 0){
         this.oAvailable = 0;
@@ -208,24 +223,24 @@ if(oUnit != this.oPrice2){
         this.oUomQty = this.data_productstock["0"].uom;
 
         //var available = +this.data_productstock["0"].qty_avail;
-        var free = +this.data_productstock["0"].qty_free;        
+        var free = +this.data_productstock["0"].qty_free["0"];        
         //var price = +this.data_productstock["0"].unit_price;
         
         this.oAvailable = parseInt(this.data_productstock["0"].qty_avail);
-        this.oFree = free.toFixed();
+        this.oFree = free
 
         //this.oPrice = this.data_productstock["0"].unit_price;
       
         // this.oPrice = price.toFixed();      
         
       }     
-      
+      this.utility.finishLoding()
     })
     
   }
   doClear(){
       this.oQty = "";
-      this.oUnit = "";
+      this.oUnit = "0";
       this.oRemark = "";
   }
   dismiss() {

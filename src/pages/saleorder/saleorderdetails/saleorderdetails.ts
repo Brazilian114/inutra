@@ -22,8 +22,8 @@ export class SaleOrderDetailsPage {
   data_item:any;
   data_saleorderdetail:any;
 
-
-  oClient:string = "7LINE";
+  loader:any;
+  oClient:string = "INT";
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
@@ -45,14 +45,15 @@ export class SaleOrderDetailsPage {
   oAddress:string = "";
   oStreet:string="";
   oDiscountRate:any;
-  oDiscountType:string = "";
+  oDiscountType:any;
   oDueDate:string = "";
   oAmount:string = "";
-  oNetAmount:string = "";
+  oNetAmount:any;
   oDlvr_code:string = "";
   oVat:any;
   amount:any;
-  
+  amount2:any;
+  count:any;
   oCreate_date:string = "";
   oRemark:string="";
   //Details
@@ -66,8 +67,19 @@ export class SaleOrderDetailsPage {
   ovat2:any = "123456"
   data_saleorder:any;
   items:any;
-  
-  constructor(public datepipe: DatePipe,private toastCtrl: ToastController,public viewCtrl: ViewController,public alertCtrl: AlertController,public navCtrl: NavController, private utility: Utility, public navParams: NavParams, private storage: Storage
+  oDiscount_rate:any;
+  oDiscount_rate2:any;
+  oDiscount_rate3:any;
+  oDiscount_type:any;
+  oDiscount_type2:any;
+  oDiscount_type3:any;
+  sum_discount1:any;
+  sum_discount2:any;
+  sum_discount3:any;
+  oStatus:any
+  a1:any;
+  a2:any;
+  constructor( public loadingCtrl: LoadingController,public datepipe: DatePipe,private toastCtrl: ToastController,public viewCtrl: ViewController,public alertCtrl: AlertController,public navCtrl: NavController, private utility: Utility, public navParams: NavParams, private storage: Storage
     , private saleorderServ: SaleOrderService, public modalCtrl: ModalController) {
    
     //this.doGetStorage();
@@ -76,7 +88,7 @@ export class SaleOrderDetailsPage {
     
     console.log(this.data_item);
     //this.oCreate_date = this.data_item.create_date[0];
-    this.oLineNo = this.data_item.oLineNo;
+    //this.oLineNo = this.data_item.oLineNo;
     this.oOrder_no = this.data_item.order_no;
     //this.oAmount = this.data_item.amount;
     this.oVat = this.data_item.vat_rate;
@@ -84,9 +96,9 @@ export class SaleOrderDetailsPage {
     this.oDueDate = this.data_item.due_date;
     this.oCustomer = this.data_item.customer;
     this.oCustomer_name = this.data_item.customer_name;
-    
-    this.oDiscountRate = this.data_item.discount_rate;
-    this.oDiscountType = this.data_item.discount_type;
+    this.oStatus = this.data_item.status
+    //this.oDiscountRate = this.data_item.discount_rate;
+    //this.oDiscountType = this.data_item.discount_type;
     this.date_time =this.data_item.create_date;
 /*
  if(this.data_item.amount == undefined)  
@@ -97,7 +109,13 @@ else
     
 */    this.oStreet = this.data_item.dlvr_street;
       this.oSalman = this.data_item.salesman_code;
-     
+      this.oDiscount_rate = this.data_item.discount_rate;   
+      this.oDiscount_type = this.data_item.discount_type;
+      this.oDiscount_rate2 = this.data_item.discount_rate_2;   
+      this.oDiscount_type2 = this.data_item.discount_type_2;
+      this.oDiscount_rate3 = this.data_item.discount_rate_3;   
+      this.oDiscount_type3 = this.data_item.discount_type_3;
+      
       
 
     if(this.data_item.net_amount == undefined)  
@@ -127,31 +145,32 @@ else
 
   ionViewWillLeave() {
     this.storage.remove('_oLine');
-  
   }
   ionViewWillEnter(){
     this.doGetOrdersDetails(this.oOrder_no);
-    this.doGetVat();
+    //this.doGetVat();
     this.doGetSalesOrders();
+    //this.UpdateSaleOrder();
   }
   initializeItems() {
     this.items = this.data_saleorder;   
   }
   doGetSalesOrders(){
-    // this.utility.presentLoading();
-     this.saleorderServ.GetSalesOrders(this.oClient,"", this.oOrder_no, "").then((res)=>{
+    this.utility.presentLoading();
+     this.saleorderServ.GetSalesOrders(this.oClient).then((res)=>{
        this.data_saleorder = res;
        
        console.log("sale_order ",this.data_saleorder);
-       console.log("amount",this.data_saleorder["0"].amount);
+       //console.log("amount",this.data_saleorder["0"].amount);
        this.initializeItems();
+       this.utility.finishLoding()
      })
    }
   doProductModal(){
      // this.doGetSalesOrders();
       //this.utility.presentLoading();
       this.initializeItems();
-      let modal = this.modalCtrl.create("AddSaleOrderDetailPage", { item:this.items })
+      let modal = this.modalCtrl.create("AddSaleOrderDetailPage", { item:this.items ,count:this.count })
       modal.present();
       modal.onDidDismiss(data =>{
         if(data != undefined){
@@ -177,8 +196,6 @@ else
       this.utility.finishLoding();
   }
   
- 
-
  /* doShowHide(){
     if(this.hideMe == false){
       this.hideMe = true;
@@ -187,8 +204,9 @@ else
     }
   }*/
   doGetOrdersDetails(oOrder_no){
-    this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup, oOrder_no).then((res)=>{
+    this.saleorderServ.GetOrdersDetails(this.oClient, oOrder_no).then((res)=>{
       this.data_saleorderdetail = res;  
+      this.count = this.data_saleorderdetail.length;
       console.log("order",this.data_saleorderdetail);
       //console.log("amount",this.data_saleorderdetail.amount);
       
@@ -250,20 +268,39 @@ else
   doEditProduct(item){
     this.utility.presentLoading();
     this.initializeItems();
-      let modal = this.modalCtrl.create("EditProductModalPage",{ item: item, oCustomer: this.oCustomer, oOrder_no: this.oOrder_no, data_order:this.items })
+      let modal = this.modalCtrl.create("EditProductModalPage",{ item: item, oCustomer: this.oCustomer, oOrder_no: this.oOrder_no, data_order:this.items})
       modal.present();
       modal.onDidDismiss(data =>{
+
+        
+          this.loader = this.loadingCtrl.create({
+            content:"Loading...",
+            duration:2500
+  
+        });
+          this.loader.present().then(() => {});
+      
+        setTimeout(()=>{        
+        
         if(data != undefined){
           this.doGetOrdersDetails(this.oOrder_no);
+          console.log("log1",this.oOrder_no);
+          
+          
         }else{        
           this.doGetOrdersDetails(this.oOrder_no);
+          console.log("log2",this.oOrder_no);
         }
-        this.saleorderServ.GetSalesOrders(this.oClient,"", this.oOrder_no, "").then((res)=>{
+        this.doGetOrdersDetails(this.oOrder_no);
+        this.saleorderServ.GetSalesOrders(this.oClient).then((res)=>{
           this.data_saleorder = res;
           
           console.log("sale_order ",this.data_saleorder);
           console.log("amount",this.data_saleorder["0"].amount);
         })
+
+      },2500);
+      
       });
       this.utility.finishLoding();
 
@@ -296,7 +333,17 @@ else
   }
   
   doDelete(item){
-    this.amount = parseInt(this.data_saleorder["0"].amount) - parseInt(item.amount)
+    this.amount2 = parseInt(this.data_saleorder["0"].amount) - parseInt(item.amount)
+    //this.amount2 = parseInt(this.amount2);
+    if(this.amount2 <= 0){
+      this.amount = 0.00
+     
+    }else{
+      this.amount = this.amount2
+     
+    }
+    
+    console.log(this.amount2);
     console.log(this.amount);
     
     const confirm = this.alertCtrl.create({
@@ -307,7 +354,7 @@ else
           text: 'ยกเลิก',
           handler: () => {
             this.navCtrl.push(SaleOrderDetailsPage);
-            
+            //this.viewCtrl.dismiss();
             console.log('Disagree clicked');
           }
         },
@@ -315,8 +362,42 @@ else
           text: 'ตกลง',
           handler: () => {
            
-            this.SaveSaleOrder(this.amount, item)
-
+            if(this.oDiscount_type == "percent"){
+              var disrate1 = parseFloat(this.amount) * this.oDiscount_rate / 100
+              this.sum_discount1 = parseFloat(this.amount) -  disrate1;
+              } else{
+                this.sum_discount1 =  parseFloat(this.amount) - parseFloat(this.oDiscount_rate)
+              }
+              
+              if(this.oDiscount_type2 == "percent"){
+                var dis_rate2 = this.sum_discount1 * this.oDiscount_rate2 / 100
+                this.sum_discount2 = this.sum_discount1 -  dis_rate2;
+              }else{
+                this.sum_discount2 =  parseFloat(this.sum_discount1) - parseFloat(this.oDiscount_rate2)
+              }
+              
+              if(this.oDiscount_type3 == "percent"){
+                var dis_rate3 = this.sum_discount2 * this.oDiscount_rate3 / 100
+                this.sum_discount3 = this.sum_discount2 -  dis_rate3;
+              }else{
+                this.sum_discount3 =  parseFloat(this.sum_discount2) - parseFloat(this.oDiscount_rate3)                
+              } 
+           
+            var sum
+            var sum_dis = this.amount -  this.sum_discount3;
+            sum = this.sum_discount3;
+            console.log("ลด1",this.sum_discount1);
+            console.log("ลด2",this.sum_discount2);
+            console.log("ราคาสุทธิ",this.sum_discount3);
+            console.log("ส่วนลดรวม",sum_dis.toFixed(2));
+            this.oDiscountRate = sum_dis.toFixed(2);
+            console.log(this.oDiscountRate);
+          
+            console.log("amount",this.amount);
+           
+            this.SaveSaleOrder(this.amount, item,this.sum_discount3)
+            this.doGetOrdersDetails(this.oOrder_no);
+       
           }
          
         }
@@ -325,8 +406,8 @@ else
     }); 
     confirm.present();
     }
-    SaveSaleOrder(amount, item){
- 
+    SaveSaleOrder(amount, item,netMaount){
+    
       this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{
         this.data_customerdelivery = res;
         console.log(this.data_customerdelivery);
@@ -338,11 +419,11 @@ else
           var Order_date = this.oDate.toString();
           var DueDate = this.oDateSale.toString();
   
-          this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", this.oOrder_no, this.oType, this.oCustomer, this.oCustomer_name, Order_date, "0.00", "", "", ""
-            , "", "", "", "", "", "", "", Order_date, "", this.oRemark, "", ""
+          this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", this.oOrder_no, this.oType, this.oCustomer, this.oCustomer_name, Order_date, this.oVat, this.oDiscount_type, this.oDiscount_rate, this.oDiscount_type2
+            ,  this.oDiscount_rate2, this.oDiscount_type3, this.oDiscount_rate3, "", "", "", "", Order_date, "", this.oRemark, "", ""
             , "", DueDate, "", "",this.oStreet, this.oDlvr_code, "", "", ""
             , "", "", DueDate, this.oUsername, this.oPayTerm, this.oSalman, this.oSalman, "", "", "", "", Order_date
-            , "", DueDate,amount,amount).then((res)=>{
+            , "", DueDate,amount,netMaount,this.oStatus).then((res)=>{
             this.data_addsaleorder = res;
             console.log(this.data_addsaleorder);
             
@@ -350,42 +431,92 @@ else
             this.saleorderServ.DeleteSoDetail(this.oClient,item.order_no,item.line_no).then((res)=>{
               let data_r_delete = res;
                 //console.log("delete",data_r_delete);
-                this.presentToast("ลบรายการสินค้าแล้ว", false, 'bottom');
+                this.presentToast("ลบรายการสินค้าแล้ว", false, 'middle');
+             
+            this.saleorderServ.GetOrdersDetails(this.oClient,this.oOrder_no).then((res)=>{
+                  this.data_saleorderdetail = res;  
+                  //this.count = this.data_saleorderdetail.length;
+                  console.log("order",this.data_saleorderdetail);                 
+                })
+                this.saleorderServ.GetSalesOrders(this.oClient).then((res)=>{
+                  this.data_saleorder = res;
+                  console.log("amount",this.data_saleorder["0"].amount);
+                 // console.log("sale_order ",this.data_saleorder);
+                                   
+                });              
+                this.doGetSalesOrders();
+              })
+          })
+       
+      })
+
+    }
+
+    UpdateSaleOrder(){
+      this.initializeItems();
+      //console.log("amount2",this.items["0"].net_amount);
+          
+      const confirm = this.alertCtrl.create({
+      title: 'ยืนยันใบสั่งขาย?',
+      message: 'คุณต้องการที่จะยืนยันใบสั่งขาย คุณจะไม่สามรถแก้ไขรายการสินค้าได้อีก?',
+      buttons: [
+        {
+          text: 'ยกเลิก',
+          handler: () => {
+            this.navCtrl.push(SaleOrderDetailsPage);
+            //this.viewCtrl.dismiss();
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'ตกลง',
+          handler: () => {
+      this.saleorderServ.GetCustomerDelivery(this.oClient,this.oCustomer).then((res)=>{
+        this.data_customerdelivery = res;
+        console.log(this.data_customerdelivery);
+  
+        // if(this.data_customerdelivery.length <= 0){
+        //   this.utility.Alert("Warning", "ไม่พบ Customer Code");
+        // }else{
+
+          var Order_date = this.oDate.toString();
+          var DueDate = this.oDateSale.toString();
+  
+          this.saleorderServ.AddSalesOrders(this.oClient, "01", "001", this.oOrder_no, this.oType, this.oCustomer, this.oCustomer_name, Order_date, this.oVat, this.oDiscount_type, this.oDiscount_rate, this.oDiscount_type2
+            ,  this.oDiscount_rate2, this.oDiscount_type3, this.oDiscount_rate3, "", "", "", "", Order_date, "", this.oRemark, "", ""
+            , "", DueDate, "", "",this.oStreet, this.oDlvr_code, "", "", ""
+            , "", "", DueDate, this.oUsername, this.oPayTerm, this.oSalman, this.oSalman, "", "", "", "", Order_date
+            , "", DueDate,this.items["0"].amount,this.items["0"].net_amount,"DATA ENTRY").then((res)=>{
+            this.data_addsaleorder = res;
+            console.log(this.data_addsaleorder);
+            //this.viewCtrl.dismiss();
+            this.presentToast("ยืนยันใบสั่งขายเรียบร้อย", false, 'middle');
+           /* this.saleorderServ.DeleteSoDetail(this.oClient,item.order_no,item.line_no).then((res)=>{
+              let data_r_delete = res;
+                //console.log("delete",data_r_delete);
+                this.presentToast("ลบรายการสินค้าแล้ว", false, 'middle');
              
             this.saleorderServ.GetOrdersDetails(this.oClient, this.oUserId, this.oUserGroup, this.oOrder_no).then((res)=>{
                   this.data_saleorderdetail = res;  
-                  console.log(this.data_saleorderdetail);                 
+                  //this.count = this.data_saleorderdetail.length;
+                  console.log("order",this.data_saleorderdetail);                 
                 })
                 this.saleorderServ.GetSalesOrders(this.oClient,"", this.oOrder_no, "").then((res)=>{
                   this.data_saleorder = res;
                   console.log("amount",this.data_saleorder["0"].amount);
                  // console.log("sale_order ",this.data_saleorder);
                                    
-                });              
-               
+                });             
+                this.doGetSalesOrders();
+              }) */
               })
-          /*  if(this.data_addsaleorder["0"].sqlstatus < "0"){
-              this.utility.Alert("Warning", this.data_addsaleorder["0"].sqlmsg);
-            }else{
             
-              let alert = this.alertCtrl.create({
-                title: this.data_addsaleorder["0"].order_no,
-                subTitle: this.data_addsaleorder["0"].sqlmsg,
-                buttons: [ {
-                    text: 'ตกลง',
-                    handler: data => {
-                      this.dismiss();
-                    }
-                  }]
-              });
-              alert.present();
-            }*/
-          })
-        // }
-      })
-    
-  
+            })
+          }
+        }
+      ]
+    })
+    confirm.present();
   }
-  
 
   }

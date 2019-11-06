@@ -21,7 +21,7 @@ export class SaleOrderListPage {
 
   data_saleorder:any;
 
-  oClient:string = "7LINE";
+  oClient:string = "INT";
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
@@ -33,7 +33,7 @@ export class SaleOrderListPage {
 //this.ngOnInit()
  }  
   ionViewWillEnter(){
-    this.doGetSalesOrders(this.oSearch);
+    this.doGetSalesOrders();
     this.doGetStorage();
   }
   /*ngOnInit(){
@@ -60,9 +60,9 @@ export class SaleOrderListPage {
   AddSaleOrder(){
     this.navCtrl.push("AddSaleOrderPage");
   }
-  doGetSalesOrders(oSearch){
+  doGetSalesOrders(){
    // this.utility.presentLoading();
-    this.saleorderServ.GetSalesOrders(this.oClient, this.oUserId, oSearch, this.oUserGroup).then((res)=>{
+    this.saleorderServ.GetSalesOrders(this.oClient).then((res)=>{
       this.data_saleorder = res;
       
       console.log(this.data_saleorder);
@@ -109,7 +109,7 @@ export class SaleOrderListPage {
     }
   }
   doRefresh(refresher) {
-    this.saleorderServ.GetSalesOrders(this.oClient, this.oUserId, this.oSearch, this.oUserGroup).then((res)=>{
+    this.saleorderServ.GetSalesOrders(this.oClient).then((res)=>{
       this.data_saleorder = res;
       
       console.log(this.data_saleorder);

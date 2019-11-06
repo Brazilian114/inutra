@@ -11,27 +11,27 @@ export class ReportService {
   constructor(private http: Http, private storage: Storage){
      
     //this.getUrl() 
-    //this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx" 
-    /*
+    this.hostWebService = "http://192.168.1.252/RF-Service_Inutra_zenstock/RFService.asmx"
+    
    this.storage.get('_url').then((res)=>{
       this.url = res;
     console.log(res);
     
-      this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";     
-    })*/
-    this.ngOnInit();
+     // this.hostWebService = "http://"+this.url+"/RF-Service_Inutra_zenstock/RFService.asmx";     
+    })
+    //this.ngOnInit();
   }
-  ngOnInit(){
+  /*ngOnInit(){
     //this.hostWebService = "http://192.168.1.252/RF-Service_GreenTimberland_zenstock/RFService.asmx"
     this.storage.get('_url').then((res)=>{
       this.url = res;
       console.log(res);
       
-       this.hostWebService = "http://"+this.url+"/RF-Service_GreenTimberland_zenstock/RFService.asmx";    
+       this.hostWebService = "http://"+this.url+"/RF-Service_Inutra_zenstock/RFService.asmx";    
       console.log(this.hostWebService);
         
     })
-  }
+  }*/
   /*
   ionViewWillEnter(){
     this.storage.get('_url').then((res)=>{
@@ -54,8 +54,8 @@ export class ReportService {
 
 //GET
 //NEW
-GetSalesOrdersByDateRange(oClient, oUserId, oStartDate, oEndDate, oUserGroup) {
-  let parameters='oClient='+oClient+'&oUserId='+oUserId+'&oStartDate='+oStartDate+'&oEndDate='+oEndDate+'&oUserGroup='+oUserGroup;
+GetSalesOrdersByDateRange(oClient, oStartDate, oEndDate) {
+  let parameters='oClient='+oClient+'&oStartDate='+oStartDate+'&oEndDate='+oEndDate;
   return this.http.get(this.hostWebService +"/Get_Sales_Orders_By_Date_Range?"+parameters)
     .toPromise()
     .then(response =>

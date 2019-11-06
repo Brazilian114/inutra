@@ -21,7 +21,7 @@ export class ProductHeaderPage {
   }
   hideMe:any = true;
   data_product:any;
-  oClient:string = "7LINE";
+  oClient:string = "INT";
   items = [];
   oSearch:string = "";
   flagSearch: boolean = false;
@@ -30,7 +30,7 @@ export class ProductHeaderPage {
   }
   ionViewWillEnter(){
     //this.getProductByKeyword(this.oSearch);
-    this.getProductTop30(this.oSearch)
+    this.getProductTop30()
 
 
   }
@@ -88,9 +88,9 @@ export class ProductHeaderPage {
     this.navCtrl.push("ProductDetailsPage",{ item: item })
     this.utility.finishLoding();
   }
-  getProductTop30(oSearch){
+  getProductTop30(){
     //this.utility.presentLoading();
-    this.productServ.GetProductTop30(this.oClient, oSearch).then((res)=>{
+    this.productServ.GetProductTop30(this.oClient).then((res)=>{
       this.data_product = res;
       console.log(this.data_product);
       this.initializeItems();

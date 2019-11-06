@@ -70,29 +70,41 @@
       <ion-col class="font-white"text-center>
         หน่วย
       </ion-col>
-      <ion-col [hidden]='hideMe2' col-1 class="font-white" *ngIf="data_item.status == 'DATA ENTRY'"> 
+      <ion-col [hidden]='hideMe2' col-1 class="font-white" *ngIf="data_item.status == 'SAVED'"> 
       </ion-col>
-      <ion-col [hidden]='hideMe2' col-1 class="font-white" *ngIf="data_item.status == 'DATA ENTRY'">
+      <ion-col [hidden]='hideMe2' col-1 class="font-white" *ngIf="data_item.status == 'SAVED'">
       </ion-col>
     
     </ion-row>
     <ion-row *ngFor="let item of data_saleorderdetail; let i = index" >
-      <ion-col class="font-white" text-center>
-        {{item.line_no}}  
+      <ion-col class="font-white" text-center *ngIf="item.qty.picked > 0.0">
+        {{i+1}}  
       </ion-col>
-      <ion-col class="font-white" text-center col-3>
+      <ion-col class="font-red" text-center *ngIf="item.qty_picked <= 0">
+        {{i+1}}  
+      </ion-col>
+      <ion-col class="font-white" text-center *ngIf="item.qty_picked > 0.000" col-3>
         {{item.item_no}}
       </ion-col>
-      <ion-col class="font-white"text-center>
-        {{item.qty_so}}
+      <ion-col class="font-red" text-center *ngIf="item.qty_picked <= 0" col-3>
+        {{item.item_no}}
       </ion-col>
-      <ion-col class="font-white"text-center>
+      <ion-col class="font-white"text-center *ngIf="item.qty_picked > 0">
+        {{item.qty}}
+      </ion-col>
+      <ion-col class="font-red"text-center *ngIf="item.qty_picked <= 0">
+        {{item.qty}}
+      </ion-col>
+      <ion-col class="font-white"text-center *ngIf="item.qty_picked > 0">
         {{item.uom}}
       </ion-col>
-      <ion-col col-1 class="font-white" (click)="doEditProduct(item)" *ngIf="data_item.status == 'DATA ENTRY'">
+      <ion-col class="font-red"text-center *ngIf="item.qty_picked <= 0">
+        {{item.uom}}
+      </ion-col>
+      <ion-col col-1 class="font-white" (click)="doEditProduct(item)" *ngIf="data_item.status == 'SAVED'">
         <ion-icon name="md-create"></ion-icon>
       </ion-col>
-      <ion-col col-1 class="font-white"(click)="doDelete(item)" *ngIf="data_item.status == 'DATA ENTRY'">
+      <ion-col col-1 class="font-white"(click)="doDelete(item)" *ngIf="data_item.status == 'SAVED'">
         <ion-icon name="md-trash"></ion-icon>
       </ion-col>
     </ion-row>
@@ -107,7 +119,7 @@
     
   </ion-card>
   
-  <ion-row *ngIf="data_item.status == 'DATA ENTRY'">
+  <ion-row *ngIf="data_item.status == 'SAVED'">
       <ion-col col-auto>
         <button ion-button class="button-circle" (click)="doProductModal()">
           <ion-icon name="md-add"></ion-icon>
