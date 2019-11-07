@@ -10,7 +10,7 @@
   <ion-card>
     <ion-card-header>
       <b class="font-orange">{{oOrder_no}}</b>
-      <p>{{oCreate_date}}</p>
+      <p>{{date_time}}</p>
     </ion-card-header>
     <ion-card-content>
       <ion-row>
@@ -18,7 +18,7 @@
           <p>ลูกค้า</p>
         </ion-col>
         <ion-col>
-          <p>({{oCustomer}}) {{oCustomer_name}}</p>
+          <p>{{oCustomer}} {{oCustomer_name}}</p>
         </ion-col>
       </ion-row>
       <!-- <ion-row>
@@ -34,7 +34,7 @@
           <p>ที่อยู่</p>
         </ion-col>
         <ion-col>
-          <p>{{oAddress}}</p>
+          <p>{{oAddress}} {{oDlvr_code}}</p>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -49,38 +49,63 @@
   </ion-card>
   <ion-card class="card-headlist">
     <ion-row>
+     
       <ion-col class="font-white">         
         รายการสินค้า
       </ion-col>
+      
     </ion-row>
   </ion-card>
   <ion-card class="card-list">
     <ion-row>
-      <ion-col class="font-white" text-center>
+      <ion-col class="font-white"text-center>
         ลำดับ
       </ion-col>
-      <ion-col class="font-white" text-center>
+      <ion-col class="font-white"text-center col-3>
         สินค้า
       </ion-col>
-      <ion-col class="font-white" text-center>
+      <ion-col class="font-white"text-center>
         จำนวน
       </ion-col>
-      <ion-col class="font-white" text-center>
+      <ion-col class="font-white"text-center>
         หน่วย
       </ion-col>
-    </ion-row>
-    <ion-row *ngFor="let item of data_saleorderdetail; let i = index">
-      <ion-col class="font-white" text-center>
-        {{item.line_no}}  
+      <ion-col [hidden]='hideMe2' col-1 class="font-white" *ngIf="data_item.status == 'SAVED'"> 
       </ion-col>
-      <ion-col class="font-white" text-center>
+      <ion-col [hidden]='hideMe2' col-1 class="font-white" *ngIf="data_item.status == 'SAVED'">
+      </ion-col>
+    
+    </ion-row>
+    <ion-row *ngFor="let item of data_saleorderdetail; let i = index" >
+      <ion-col class="font-white" text-center *ngIf="item.qty_picked > 0">
+        {{i+1}}  
+      </ion-col>
+      <ion-col class="font-red" text-center *ngIf="item.qty_picked <= 0">
+        {{i+1}}  
+      </ion-col>
+      <ion-col class="font-white" text-center *ngIf="item.qty_picked > 0" col-3>
         {{item.item_no}}
       </ion-col>
-      <ion-col class="font-white" text-center>
-        {{item.qty_so}}
+      <ion-col class="font-red" text-center *ngIf="item.qty_picked <= 0" col-3>
+        {{item.item_no}}
       </ion-col>
-      <ion-col class="font-white" text-center>
+      <ion-col class="font-white"text-center *ngIf="item.qty_picked > 0">
+        {{item.qty}}
+      </ion-col>
+      <ion-col class="font-red"text-center *ngIf="item.qty_picked <= 0">
+        {{item.qty}}
+      </ion-col>
+      <ion-col class="font-white"text-center *ngIf="item.qty_picked > 0">
         {{item.uom}}
+      </ion-col>
+      <ion-col class="font-red"text-center *ngIf="item.qty_picked <= 0">
+        {{item.uom}}
+      </ion-col>
+      <ion-col col-1 class="font-white" (click)="doEditProduct(item)" *ngIf="data_item.status == 'SAVED'">
+        <ion-icon name="md-create"></ion-icon>
+      </ion-col>
+      <ion-col col-1 class="font-white"(click)="doDelete(item)" *ngIf="data_item.status == 'SAVED'">
+        <ion-icon name="md-trash"></ion-icon>
       </ion-col>
     </ion-row>
     <ion-row [hidden]='hideMe'>   
@@ -91,14 +116,27 @@
        ไม่พบรายการสินค้า
       </ion-col>
     </ion-row>
+    
   </ion-card>
-  <!--<ion-card>
+  
+  <ion-row *ngIf="data_item.status == 'SAVED'">
+      <ion-col col-auto>
+        <button ion-button class="button-circle" (click)="doProductModal()">
+          <ion-icon name="md-add"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <ion-label>เพิ่มสินค้า</ion-label>
+      </ion-col>
+    </ion-row>
+  <!---
+  <ion-card>
     <ion-row>
       <ion-col>
         <b>ภาษีมูลค่าเพิ่ม</b>
       </ion-col>
-      <ion-col col-2 text-right>
-        <b>{{oVat}} %</b>
+      <ion-col col-2>
+        <b>{{oVat}}%</b>
       </ion-col>
     </ion-row>
   </ion-card>
@@ -107,8 +145,8 @@
       <ion-col>
         <b>ส่วนลด</b>
       </ion-col>
-      <ion-col col-3 text-right>
-        <b>{{oDiscountRate}} ฿</b>
+      <ion-col col-2>
+        <b>{{oDiscountRate}}</b>
       </ion-col>
     </ion-row>
   </ion-card>
@@ -132,6 +170,8 @@
           ราคาสุทธิ
         </ion-card-content>
       </ion-card>
+    
     </ion-col>
-  </ion-row>-->
+  </ion-row>
+-->
 </ion-content>

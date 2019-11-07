@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common'
 import { Utility } from '../../../helper/utility';
 import { ReportService } from '../../../services/reportservice';
 import { SaleOrderService } from '../../../services/saleorderservice';
+import { CustomerService } from '../../../services/customerservice';
 @IonicPage(
   {name:'RptSaleOrderDetailsPage',
   segment: 'RptSaleOrderDetails'}
@@ -16,12 +17,12 @@ import { SaleOrderService } from '../../../services/saleorderservice';
 })
 export class RptSaleOrderDetailsPage {
   hideMe:any = true;
-  
-  oClient:string = "7LINE";
+  dataCustomer:any;
+  oClient:string = "INT";
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
-  oRemarks:string="";
+  oRemarks:any="";
   oDlvr_code:string="";
   //Header
   oOrder_no:string = "";
@@ -46,8 +47,9 @@ export class RptSaleOrderDetailsPage {
   sum:any;
   date_time:any;
   data_saleorderdetail:any;
+  oKeyword:any;
 
-  constructor(public datepipe: DatePipe,public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private saleorderServ: SaleOrderService
+  constructor(public customerServ: CustomerService,public datepipe: DatePipe,public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private saleorderServ: SaleOrderService
     , private storage: Storage, public navParams: NavParams) {
     this.data_item = navParams.get('item');
     console.log(this.data_item);
@@ -55,9 +57,10 @@ export class RptSaleOrderDetailsPage {
     this.oOrder_no = this.data_item.order_no;
     //this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
     this.oDueDate = this.data_item.due_date;
-    this.oRemarks = this.data_item.remarks;
-    this.oCustomer = this.data_item.customer;
-    this.oCustomer_name = this.data_item.customer_name;
+    //this.oRemarks = this.data_item.remarks;
+    this.oKeyword = this.data_item.customer;
+    //this.oCustomer = this.data_item.customer;
+    //this.oCustomer_name = this.data_item.customer_name;
     this.oAddress = this.data_item.dlvr_street + " " + this.data_item.dlvr_bldg;
     //this.oDiscountRate = this.data_item.discount_rate;
     
@@ -68,6 +71,12 @@ export class RptSaleOrderDetailsPage {
     var rate = this.data_item.discount_rate;
     var amount = this.data_item.amount;
 
+    if(this.data_item.remarks == "" || this.data_item.remarks == undefined){
+    this.oRemarks = "-"
+    }else{
+    this.oRemarks = this.data_item.remarks;
+    }
+    console.log(this.oRemarks);
     
     //this.oDiscountRate = parseFloat(rate).toFixed(2);
     //var sum = amount - rate;
@@ -163,7 +172,7 @@ export class RptSaleOrderDetailsPage {
   }
   ionViewWillEnter(){
     this.doGetOrdersDetails();
-    
+    this.doGetCustomerByKeyword(this.oKeyword)
   }
   /*doShowHide(){
     if(this.hideMe == false){
@@ -172,6 +181,31 @@ export class RptSaleOrderDetailsPage {
       this.hideMe = false;
     }
   }*/
+  doGetCustomerByKeyword(oKeyword){
+    this.customerServ.GetCustomerByKeyword(this.oClient,oKeyword).then((res)=>{
+      this.dataCustomer = res
+      console.log("customer",this.dataCustomer);
+      if(this.dataCustomer.length <= 0){
+        this.oAddress = "-"
+        this.oCustomer = "-"
+       } else{
+      
+      this.oCustomer = "("+this.dataCustomer["0"].customer+")";
+      this.oCustomer_name = this.dataCustomer["0"].customer_name;
+
+      if(this.dataCustomer["0"].bill_postcode == "undefined" || this.dataCustomer["0"].bill_postcode == "")
+      this.oDlvr_code = "";
+    else
+      this.oDlvr_code = this.dataCustomer["0"].bill_postcode;
+
+    if(this.dataCustomer["0"].street == "undefined" || this.dataCustomer["0"].street == "")
+      this.oAddress = "-";
+
+    else
+      this. oAddress = this.dataCustomer["0"].street 
+    }
+    })
+  }
   doGetOrdersDetails(){
     this.saleorderServ.GetOrdersDetails(this.oClient,this.oOrder_no).then((res)=>{
       this.data_saleorderdetail = res;  

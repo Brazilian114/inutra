@@ -11,6 +11,7 @@ export class ProductService {
   constructor(private http: Http, private storage: Storage){
      //this.getUrl();
      this.hostWebService = "http://192.168.1.252/RF-Service_Inutra_zenstock/RFService.asmx"
+     //this.hostWebService = "http://203.154.174.129/RF-Service_Inutra_zenstock/RFService.asmx";  
     this.storage.get('_url').then((res)=>{
       this.url = res;
       console.log(res);
@@ -65,6 +66,29 @@ export class ProductService {
         }
      );
   }  
+
+  GetProductByItem(oClient,oStartItem,oEndItem) {
+    let parameters='oClient='+oClient+'&oStartItem='+oStartItem+'&oEndItem='+oEndItem;
+    return this.http.get(this.hostWebService +"/Get_Product_Stock_Item?"+parameters)
+      .toPromise()
+      .then(response =>
+         {
+            let a;
+            xml2js.parseString(response.text(),{explicitArray:true},function (err,result) {
+            a = result;
+         });
+            try {
+               //return a.DataTable["diffgr:diffgram"].NewDataSet.Table; //explicitArray false
+               return a.DataTable["diffgr:diffgram"]["0"].NewDataSet["0"].Table //explicitArray true
+            }
+            catch (e) {
+              return [];
+            }
+         }
+      );
+   }  
+ 
+
   GetProductByKeyword(oClient, oKeyword) {
     let parameters='oClient='+oClient+'&oKeyword='+oKeyword;
     return this.http.get(this.hostWebService +"/Get_Product_By_Keyword?"+parameters)

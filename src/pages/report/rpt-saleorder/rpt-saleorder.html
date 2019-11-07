@@ -47,7 +47,8 @@
         <ion-row>
           <ion-col>
             <ion-row>
-              <b class="font-primary">ใบสั่งขาย : {{item.order_no}}</b>
+              <b class="font-primary" *ngIf="item.reference_no != ''">ใบสั่งขาย : {{item.order_no}}({{item.reference_no}})</b>
+            <b class="font-primary" *ngIf="item.reference_no == ''">ใบสั่งขาย : {{item.order_no}}</b> 
             </ion-row>
             <ion-row>
               <p class="font-orange">ลูกค้า : {{item.customer_name}}</p>

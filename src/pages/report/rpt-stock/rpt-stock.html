@@ -8,78 +8,93 @@
 
 <ion-content padding class="backgound-image">
  
-    <ion-grid padding>
-      <!-- <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label stacked>วันที่เริ่มต้น</ion-label>
-            <ion-datetime [(ngModel)]="oStartDate" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
-          </ion-item>
-        </ion-col>
-        <ion-col col-auto>
-          <ion-label>ถึง</ion-label>
-        </ion-col>
-        <ion-col>
-          <ion-item>
-            <ion-label stacked>วันที่สิ้นสุด</ion-label>
-            <ion-datetime [(ngModel)]="oEndDate" display-format="MM/YYYY" picker-format="MMMM YYYY"></ion-datetime>
-          </ion-item>
-        </ion-col>
-        <ion-col col-1>
-          <button ion-button block><ion-icon name="md-search" (click)="doGetSalesOrdersByDateRange(oStartDate, oEndDate)"></ion-icon></button>
-        </ion-col>
-      </ion-row> -->
-      
-        <ion-searchbar type="text" [(ngModel)]="myInput" placeholder="ค้นหา" [showCancelButton]="shouldShowCancel" (ionInput)="onInput($event)"clearInput></ion-searchbar>
-     
+    <ion-grid>
+        <ion-row>
+          <ion-col col-7 text-center>       
+              <p>รหัสสินค้าเริ่มต้น</p>        
+          </ion-col>
+            <ion-col col-4>
+            <ion-item no-lines>
+              <ion-select [(ngModel)]="startItem" interface="popover">
+                <ion-option *ngFor = "let item of items" value="{{item.row_id}}">{{item.item_no}}</ion-option>
+              </ion-select>
+            </ion-item>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col col-7 text-center>                
+                    <p>รหัสสินค้าสิ้นสุด</p>
+                </ion-col>
+              <ion-col col-4>
+              <ion-item no-lines>
+                <ion-select [(ngModel)]="endItem" interface="popover">
+                  <ion-option *ngFor = "let item of items" value="{{item.row_id}}">{{item.item_no}}</ion-option>
+                </ion-select>
+              </ion-item>
+              </ion-col>
+            </ion-row>
+          <ion-row>
+            <ion-col>
+                <button ion-button block (click)="GetProductStockByItem(startItem,endItem)">ค้นหา</button>
+            </ion-col>
+          </ion-row>
     </ion-grid>
- 
-  
+
   <!-- <ion-grid>
 
     <ion-row>
       วันที่ : {{oDateView}} 
     </ion-row>
   </ion-grid> -->
-  <ion-grid>
-    <ion-list  (click)="doDetails(item)" *ngFor="let item of items; let i = index">
-      <ion-card ion-item>
-        <!-- <ion-item style="border-bottom: 0.5px solid;"> -->
-          <ion-row>
-                      
-            <ion-col class="font-primary">
-                {{i+1}}. รหัสสินค้า : {{item.item_no}}
-            </ion-col>          
-          </ion-row>
-          <ion-row>
-            <ion-col class="font-orange">
-              ชื่อสินค้า : {{item.description}}
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col class="font-orange">
-              จำนวน : {{item.qty_avail}} {{item.uom}}
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col class="font-orange">
-              ราคาไม่รวมประกอบ : {{item.price}} บาท
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col class="font-orange">
-              ราคารวมประกอบ : {{item.price_2}} บาท
-            </ion-col>
-          </ion-row>
-        <!-- </ion-item>-->
-      </ion-card>
-    </ion-list>
-  </ion-grid>
+  
+  <ion-card class="card-headlist">
+ 
+    </ion-card>
+    <ion-card class="card-list">
+      <ion-row class="header">
+        <ion-col class="font-white"text-center>
+          ลำดับ
+        </ion-col>
+        <ion-col class="font-white"text-center col-3>
+          สินค้า
+        </ion-col>
+        <ion-col class="font-white"text-center>
+          จำนวน
+        </ion-col>
+        <ion-col class="font-white"text-center>
+          หน่วย
+        </ion-col>
+      
+      
+      </ion-row>
+      <br>
+      <ion-row *ngFor="let item of data_product_by_item; let i = index" class="item" >
+        <ion-col class="font-white" text-center>
+          {{i+1}}  
+        </ion-col>
+        <ion-col class="font-white" text-center col-3>
+          {{item.item_no}}
+        </ion-col>
+        <ion-col class="font-white"text-center>
+          {{item.qty_avail}}
+        </ion-col>
+        <ion-col class="font-white"text-center>
+          {{item.uom}}
+        </ion-col>
+      
+     
+      </ion-row>
+      <ion-row [hidden]='hideMe'>   
+          &nbsp;
+      </ion-row>
+    
+      
+    </ion-card>
   <ion-fab right bottom>
       <button ion-fab color="darkroyal" (click)="pageScroller()">
       <ion-icon name="ios-arrow-up"></ion-icon></button>
     </ion-fab>
-    <!---
+    <!----
   <ion-infinite-scroll  (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content *ngIf="pagingEnabled"></ion-infinite-scroll-content>
   </ion-infinite-scroll>

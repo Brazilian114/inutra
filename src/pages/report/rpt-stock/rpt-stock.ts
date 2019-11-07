@@ -21,7 +21,7 @@ export class RptStockPage {
     this.pageTop.scrollToTop();
   }
   public pagingEnabled: boolean = true;
-  oClient:string = "7LINE";
+  oClient:string = "INT";
   oGrade:string = "001";
   oUsername:string = "";
   oUserGroup:string = "";
@@ -35,13 +35,14 @@ export class RptStockPage {
   items= [];
   
   data_product:any;
+  data_product_by_item:any
   oSearch:string="";
   constructor(public productServ:ProductService,public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private storage: Storage) {
    
   } 
   ionViewWillEnter(){
-    this.doGetStorage();
-    this.getProductTop30(this.oSearch);
+   // this.doGetStorage();
+    this.getProductTop30();
     //this.doGetRptInventoryMovement(this.oClient, "", "", "", "", "", "", "", "",this.oGrade, "ITEM NO");
   }
   initializeItems() {
@@ -66,16 +67,7 @@ export class RptStockPage {
          }, 500);   
    }
 */
-getProductTop30(oSearch){
-  //this.utility.presentLoading();
-  this.productServ.GetProductTop30(this.oClient).then((res)=>{
-    this.data_product = res;
-    console.log(this.data_product);
-    this.initializeItems();
-    this.utility.finishLoding();     
-  })
-}
-  
+
   onInput(ev: any){
     this.initializeItems();
    let val = ev.target.value;
@@ -104,6 +96,27 @@ getProductTop30(oSearch){
       this.oUserGroup = res;
     })  
   }
+  getProductTop30(){
+    //this.utility.presentLoading();
+    this.productServ.GetProductTop30(this.oClient).then((res)=>{
+      this.data_product = res;
+      console.log("data",this.data_product);
+      this.initializeItems();
+      this.utility.finishLoding();     
+    })
+  }
+  
+  GetProductStockByItem(startItem,endItem){
+    console.log(startItem,endItem);
+    this.productServ.GetProductByItem(this.oClient,startItem,endItem).then((res)=>{
+      this.data_product_by_item = res;
+      console.log("product by item",this.data_product_by_item);
+      //this.initializeItems();
+      this.utility.finishLoding();     
+    })
+    
+  }
+
    doDetails(item){
     this.utility.presentLoading();
     this.navCtrl.push("ReportDetailPage",{ item: item })

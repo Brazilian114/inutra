@@ -22,7 +22,8 @@ export class ProductHeaderPage {
   hideMe:any = true;
   data_product:any;
   oClient:string = "INT";
-  items = [];
+  items:any;
+  items2 = [];
   oSearch:string = "";
   flagSearch: boolean = false;
   constructor(public navCtrl: NavController, private utility: Utility, private storage: Storage, private productServ: ProductService) {
@@ -35,11 +36,14 @@ export class ProductHeaderPage {
 
   }
   initializeItems() {
-   this.items = this.data_product; 
-    /*for(let i = 0; i < 30; i++){
-      this.items.push(this.data_product[this.items.length]);
+    this.items = this.data_product; 
+   /* this.items2 = this.data_product; 
+    for(let i = 0; i < 30; i++){
+      this.items.push(this.items2[i]);
       } */
-  }
+      console.log(this.items);
+      
+    }
   /*
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
@@ -75,16 +79,18 @@ export class ProductHeaderPage {
   }*/
   onInput(ev: any){
     this.initializeItems();
+    console.log(this.items2);
+  let val = ev.target.value;
+   if(val && val.trim() != ''){
+     this.items = this.items.filter((item)=>{
+       return (item.item_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 ||  item.description["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
+     })
      console.log(this.items);
-   let val = ev.target.value;
-    if(val && val.trim() != ''){
-      this.items = this.items.filter((item)=>{
-        return (item.item_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 ||  item.description["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }
-  }
+     
+   }
+ }
   doDetails(item){
-    //this.utility.presentLoading();
+    this.utility.presentLoading();
     this.navCtrl.push("ProductDetailsPage",{ item: item })
     this.utility.finishLoding();
   }

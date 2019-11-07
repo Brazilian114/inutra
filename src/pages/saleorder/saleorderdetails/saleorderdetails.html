@@ -18,7 +18,7 @@
           <p>ลูกค้า</p>
         </ion-col>
         <ion-col>
-          <p>({{oCustomer}}) {{oCustomer_name}}</p>
+          <p>{{oCustomer}} {{oCustomer_name}}</p>
         </ion-col>
       </ion-row>
       <!-- <ion-row>
@@ -34,7 +34,7 @@
           <p>ที่อยู่</p>
         </ion-col>
         <ion-col>
-          <p>{{oAddress}}</p>
+          <p>{{oAddress}} {{oDlvr_code}}</p>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -77,13 +77,13 @@
     
     </ion-row>
     <ion-row *ngFor="let item of data_saleorderdetail; let i = index" >
-      <ion-col class="font-white" text-center *ngIf="item.qty.picked > 0.0">
+      <ion-col class="font-white" text-center *ngIf="item.qty_picked > 0">
         {{i+1}}  
       </ion-col>
       <ion-col class="font-red" text-center *ngIf="item.qty_picked <= 0">
         {{i+1}}  
       </ion-col>
-      <ion-col class="font-white" text-center *ngIf="item.qty_picked > 0.000" col-3>
+      <ion-col class="font-white" text-center *ngIf="item.qty_picked > 0" col-3>
         {{item.item_no}}
       </ion-col>
       <ion-col class="font-red" text-center *ngIf="item.qty_picked <= 0" col-3>

@@ -15,9 +15,21 @@ page-rpt-stock {
         border: 2px solid rgb(255, 156, 44);
         border-radius: 5px;
     }
+    .header{
+        background-color: #3a687a;
+        color: white
+    }
+    .item{
+        color: #535353
+    }
+    p{
+        color: #535353;
+        font-size: 15px;
+        
+    }
     .card-md {
         margin: 10px;
-        border-radius: 6px;
+        border-radius: 4px;
         width: calc(100% - 20px);
         margin-bottom: -12px;
         font-size: 1.4rem;
@@ -37,5 +49,12 @@ page-rpt-stock {
                 box-shadow: none !important;
             }
         }
+    }
+    ion-input{
+        border-radius: 20px;
+        // border: 0 !important;
+         width: 100%;
+         border: 1.5px solid #3a687a;
+         box-shadow: none !important;
     }
 }

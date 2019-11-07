@@ -25,8 +25,8 @@ export class CustomerHeaderPage {
   data_customer:any;
   hasMoreData:any = true;
   hideMe:any = true;
-  items: any;
-  item2 = [];
+  items= [];
+  items2 = [];
   constructor(public navCtrl: NavController, private modalCtrl: ModalController, private utility: Utility, private customerServ: CustomerService) {
 
   } 
@@ -34,12 +34,14 @@ export class CustomerHeaderPage {
     this.doGetCustomerDetails();
   }
   initializeItems() {
-    this.items = this.data_customer;   
-    /*for(let i = 0; i < 30; i++){
-      this.item2.push(this.data_customer[this.item2.length]);
-      }  */
+    this.items2 = this.data_customer;   
+    for(let i = 0; i < 30; i++){
+      this.items.push(this.items2[i]);
+      }  
+      console.log(this.items);
+      
   }
-
+/*
   doInfinite(ionInfinite) {
     console.log("Start Scroll");
       setTimeout(() => {      
@@ -55,22 +57,26 @@ export class CustomerHeaderPage {
           this.hasMoreData = true;
         }
        
-       
        console.log('End Scroll');      
        ionInfinite.complete();
        
          }, 500);  
       
-   }
+   }*/
 
-  onInput(ev: any){
+   onInput(ev: any){
     this.initializeItems();
      console.log(this.items);
+     
    let val = ev.target.value;
     if(val && val.trim() != ''){
-      this.items = this.items.filter((item)=>{
+      this.items = this.items2.filter((item)=>{
         return (item.customer["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 ||  item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
+    }else{
+      this.items = [];
+      this.initializeItems();
+      
     }
   }
   /*

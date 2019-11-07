@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController } from 'ionic-angular';
+import { Component ,ViewChild} from '@angular/core';
+import { IonicPage, NavController,Content } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { DatePipe } from '@angular/common'
 import {Http, Headers, Response} from '@angular/http';
 import { Utility } from '../../../helper/utility';
 import { SaleOrderService } from '../../../services/saleorderservice';
+import { CustomerService } from '../../../services/customerservice';
+import { THROW_IF_NOT_FOUND } from '@angular/core/src/di/injector';
 
 @IonicPage(
   {name:'SaleOrderListPage',
@@ -17,18 +19,24 @@ import { SaleOrderService } from '../../../services/saleorderservice';
   providers: [SaleOrderService]
 })
 export class SaleOrderListPage {
+  @ViewChild(Content) pageTop: Content;
+  public pageScroller(){
+    this.pageTop.scrollToTop();
+  }
   hideMe:any = true;
-
+  myInput:any;
   data_saleorder:any;
-
+  oKeyword:any;
   oClient:string = "INT";
   oUsername:string = "";
   oUserGroup:string = "";
   oUserId:string = "";
   oSearch:string = "";
+  dataCustomer:any;
   date_time:any;
-  items: any;
-  constructor(public datepipe: DatePipe,private http: Http,public navCtrl: NavController, private utility: Utility, private storage: Storage, private saleorderServ: SaleOrderService) {
+  items = [];
+  items2 = [];
+  constructor(public customServ: CustomerService,public datepipe: DatePipe,private http: Http,public navCtrl: NavController, private utility: Utility, private storage: Storage, private saleorderServ: SaleOrderService) {
    
 //this.ngOnInit()
  }  
@@ -41,8 +49,12 @@ export class SaleOrderListPage {
     this.doGetStorage();
   }*/
   initializeItems() {
-    this.items = this.data_saleorder;   
-    
+    this.items2 = this.data_saleorder;   
+    for(let i = 0; i < 30; i++){
+      this.items.push(this.items2[i]);
+      }  
+      console.log(this.items);
+      
   }
   /*
   doShowHide(){
@@ -55,7 +67,14 @@ export class SaleOrderListPage {
 */
 
   gotoDetail(item){
-    this.navCtrl.push("SaleOrderDetailsPage", { item: item });
+   // this.navCtrl.push("SaleOrderDetailsPage", { item: item });
+    this.navCtrl.push("SaleOrderDetailsPage",{item : item}).then(()=>{
+      this.navCtrl.getActive().onDidDismiss(data =>{
+        this.myInput = "";
+        this.items = [];
+        this.initializeItems(); 
+      })
+    })
   }
   AddSaleOrder(){
     this.navCtrl.push("AddSaleOrderPage");
@@ -65,7 +84,7 @@ export class SaleOrderListPage {
     this.saleorderServ.GetSalesOrders(this.oClient).then((res)=>{
       this.data_saleorder = res;
       
-      console.log(this.data_saleorder);
+      console.log("dataOrder",this.data_saleorder);
       this.initializeItems();
       this.utility.finishLoding();
     })
@@ -94,18 +113,21 @@ export class SaleOrderListPage {
     })  
   }
   onInput(ev: any){
-    this.initializeItems();
+    //this.initializeItems();
     
       
    let val = ev.target.value;
     if(val && val.trim() != ''){
-      this.items = this.items.filter((item)=>{
+      this.items = this.items2.filter((item)=>{
         //console.log(item.dlvr_to["0"]);
         //console.log(item.status["0"]);
         return (item.status["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 || item.order_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1  || item.customer["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 ||  item.customer_name["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
          
       })
       
+    }else{
+      this.items = [];
+      this.initializeItems();
     }
   }
   doRefresh(refresher) {

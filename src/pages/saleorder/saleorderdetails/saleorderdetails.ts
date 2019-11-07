@@ -4,6 +4,7 @@ import { Storage } from '@ionic/storage';
 import { AlertController } from 'ionic-angular';
 import { Utility } from '../../../helper/utility';
 import { SaleOrderService } from '../../../services/saleorderservice';
+import { CustomerService } from '../../../services/customerservice';
 import { DatePipe } from '@angular/common'
 @IonicPage(
   {name:'SaleOrderDetailsPage',
@@ -21,7 +22,8 @@ export class SaleOrderDetailsPage {
   hideMe2:any = false;
   data_item:any;
   data_saleorderdetail:any;
-
+  oKeyword:any;
+  dataCustomer:any;
   loader:any;
   oClient:string = "INT";
   oUsername:string = "";
@@ -79,7 +81,7 @@ export class SaleOrderDetailsPage {
   oStatus:any
   a1:any;
   a2:any;
-  constructor( public loadingCtrl: LoadingController,public datepipe: DatePipe,private toastCtrl: ToastController,public viewCtrl: ViewController,public alertCtrl: AlertController,public navCtrl: NavController, private utility: Utility, public navParams: NavParams, private storage: Storage
+  constructor(public customerServ: CustomerService ,public loadingCtrl: LoadingController,public datepipe: DatePipe,private toastCtrl: ToastController,public viewCtrl: ViewController,public alertCtrl: AlertController,public navCtrl: NavController, private utility: Utility, public navParams: NavParams, private storage: Storage
     , private saleorderServ: SaleOrderService, public modalCtrl: ModalController) {
    
     //this.doGetStorage();
@@ -94,8 +96,7 @@ export class SaleOrderDetailsPage {
     this.oVat = this.data_item.vat_rate;
     this.oRemark = this.data_item.remarks;
     this.oDueDate = this.data_item.due_date;
-    this.oCustomer = this.data_item.customer;
-    this.oCustomer_name = this.data_item.customer_name;
+    
     this.oStatus = this.data_item.status
     //this.oDiscountRate = this.data_item.discount_rate;
     //this.oDiscountType = this.data_item.discount_type;
@@ -115,7 +116,7 @@ else
       this.oDiscount_type2 = this.data_item.discount_type_2;
       this.oDiscount_rate3 = this.data_item.discount_rate_3;   
       this.oDiscount_type3 = this.data_item.discount_type_3;
-      
+      this.oKeyword = this.data_item.customer;
       
 
     if(this.data_item.net_amount == undefined)  
@@ -129,17 +130,7 @@ else
     else 
       this.oRemark = this.data_item.remarks;
 
-    if(this.data_item.dlvr_bldg == "undefined" || this.data_item.dlvr_bldg == "")
-      this.oDlvr_code = "";
-    else
-      this.oDlvr_code = this.data_item.dlvr_bldg;
-
-    if(this.data_item.dlvr_street == "undefined" || this.data_item.dlvr_street == ""  )
-      this.oAddress = "-";
-
-    else
-      this. oAddress = this.data_item.dlvr_street + " " + this.oDlvr_code;
-
+   
       
   }
 
@@ -149,21 +140,22 @@ else
   ionViewWillEnter(){
     this.doGetOrdersDetails(this.oOrder_no);
     //this.doGetVat();
-    this.doGetSalesOrders();
+    //this.doGetSalesOrders();
+    this.doGetCustomerByKeyword(this.oKeyword);
     //this.UpdateSaleOrder();
   }
   initializeItems() {
     this.items = this.data_saleorder;   
   }
   doGetSalesOrders(){
-    this.utility.presentLoading();
+   // this.utility.presentLoading();
      this.saleorderServ.GetSalesOrders(this.oClient).then((res)=>{
        this.data_saleorder = res;
        
        console.log("sale_order ",this.data_saleorder);
        //console.log("amount",this.data_saleorder["0"].amount);
        this.initializeItems();
-       this.utility.finishLoding()
+      // this.utility.finishLoding()
      })
    }
   doProductModal(){
@@ -203,7 +195,35 @@ else
       this.hideMe = false;
     }
   }*/
+  
+  doGetCustomerByKeyword(oKeyword){
+    this.customerServ.GetCustomerByKeyword(this.oClient,oKeyword).then((res)=>{
+      this.dataCustomer = res
+      console.log("customer",this.dataCustomer);
+      if(this.dataCustomer.length <= 0){
+        this.oAddress = "-"
+        this.oCustomer = "-"
+       } else{
+      
+      this.oCustomer = "("+this.dataCustomer["0"].customer+")";
+      this.oCustomer_name = this.dataCustomer["0"].customer_name;
+
+      if(this.dataCustomer["0"].bill_postcode == "undefined" || this.dataCustomer["0"].bill_postcode == "")
+      this.oDlvr_code = "-";
+    else
+      this.oDlvr_code = this.dataCustomer["0"].bill_postcode;
+
+    if(this.dataCustomer["0"].street == "undefined" || this.dataCustomer["0"].street == "")
+      this.oAddress = "-";
+
+    else
+      this. oAddress = this.dataCustomer["0"].street 
+    }
+    })
+  }
+
   doGetOrdersDetails(oOrder_no){
+    this.utility.presentLoading();
     this.saleorderServ.GetOrdersDetails(this.oClient, oOrder_no).then((res)=>{
       this.data_saleorderdetail = res;  
       this.count = this.data_saleorderdetail.length;
@@ -245,8 +265,9 @@ else
         
      // console.log(this.oDiscountRate);
       
-   
+   this.utility.finishLoding();
     })
+    
   }
   doGetVat(){
     
