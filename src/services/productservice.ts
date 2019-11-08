@@ -10,8 +10,8 @@ export class ProductService {
   url:string;
   constructor(private http: Http, private storage: Storage){
      //this.getUrl();
-     this.hostWebService = "http://192.168.1.252/RF-Service_Inutra_zenstock/RFService.asmx"
-     //this.hostWebService = "http://203.154.174.129/RF-Service_Inutra_zenstock/RFService.asmx";  
+     //this.hostWebService = "http://192.168.1.252/RF-Service_Inutra_zenstock/RFService.asmx"
+     this.hostWebService = "http://203.154.174.129/RF-Service_Inutra_zenstock/RFService.asmx";  
     this.storage.get('_url').then((res)=>{
       this.url = res;
       console.log(res);

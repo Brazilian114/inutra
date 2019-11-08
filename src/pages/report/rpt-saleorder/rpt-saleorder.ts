@@ -36,9 +36,9 @@ export class RptSaleOrderPage {
   item2 = [];
   items: any;
   constructor(public datepipe: DatePipe,public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private storage: Storage) {
-    this.doGetStorage();
-    this.oDateView = this.oStartDate + ' - ' + this.oEndDate;
-    this.doGetSalesOrdersByDateRange("","");
+    //this.doGetStorage();
+    //this.oDateView = this.oStartDate + ' - ' + this.oEndDate;
+    //this.doGetSalesOrdersByDateRange("","");
     
     //this.date_time =this.datepipe.transform(this.oCreate_date, 'dd/MM/yyyy');
   }
@@ -80,13 +80,14 @@ export class RptSaleOrderPage {
   }
 
   doGetSalesOrdersByDateRange(oStartDate, oEndDate){
+    this.utility.presentLoading();
     this.reportServ.GetSalesOrdersByDateRange(this.oClient, oStartDate, oEndDate).then((res)=>{
       this.data_getsaleorder_bydate = res;
   
       console.log(this.data_getsaleorder_bydate);
       
       this.initializeItems();
-
+      this.utility.finishLoding();
     })
   }
 

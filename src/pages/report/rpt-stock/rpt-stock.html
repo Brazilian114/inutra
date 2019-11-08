@@ -10,33 +10,37 @@
  
     <ion-grid>
         <ion-row>
-          <ion-col col-7 text-center>       
+          <ion-col col-7 text-left>       
               <p>รหัสสินค้าเริ่มต้น</p>        
           </ion-col>
-            <ion-col col-4>
-            <ion-item no-lines>
+            <ion-col col-5 text-center class="item">
+            
               <ion-select [(ngModel)]="startItem" interface="popover">
-                <ion-option *ngFor = "let item of items" value="{{item.row_id}}">{{item.item_no}}</ion-option>
+                <ion-option *ngFor = "let item of items" value="{{item.item_no}}">{{item.item_no}}</ion-option>
               </ion-select>
-            </ion-item>
+           
             </ion-col>
           </ion-row>
           <ion-row>
-              <ion-col col-7 text-center>                
+              <ion-col col-7 text-left>                
                     <p>รหัสสินค้าสิ้นสุด</p>
                 </ion-col>
-              <ion-col col-4>
-              <ion-item no-lines>
+              <ion-col col-5 text-center class="item">
+             
                 <ion-select [(ngModel)]="endItem" interface="popover">
-                  <ion-option *ngFor = "let item of items" value="{{item.row_id}}">{{item.item_no}}</ion-option>
+                  <ion-option *ngFor = "let item of items" value="{{item.item_no}}">{{item.item_no}}</ion-option>
                 </ion-select>
-              </ion-item>
+             
               </ion-col>
             </ion-row>
           <ion-row>
+              <ion-col>
+                  <button ion-button block (click)="clear()">เคลียร์</button>
+              </ion-col>
             <ion-col>
                 <button ion-button block (click)="GetProductStockByItem(startItem,endItem)">ค้นหา</button>
             </ion-col>
+       
           </ion-row>
     </ion-grid>
 
@@ -90,11 +94,11 @@
     
       
     </ion-card>
-  <ion-fab right bottom>
+<!----  <ion-fab right bottom>
       <button ion-fab color="darkroyal" (click)="pageScroller()">
       <ion-icon name="ios-arrow-up"></ion-icon></button>
     </ion-fab>
-    <!----
+    
   <ion-infinite-scroll  (ionInfinite)="doInfinite($event)">
     <ion-infinite-scroll-content *ngIf="pagingEnabled"></ion-infinite-scroll-content>
   </ion-infinite-scroll>

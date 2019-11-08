@@ -129,9 +129,6 @@ else
       this.oRemark = "-";
     else 
       this.oRemark = this.data_item.remarks;
-
-   
-      
   }
 
   ionViewWillLeave() {

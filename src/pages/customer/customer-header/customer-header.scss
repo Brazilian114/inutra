@@ -16,7 +16,7 @@ page-customer-header {
     .font-orange{
         color: #ff7b00;  
     }
-    .card-md {
+    .card {
         margin: 10px;
         border-radius: 6px;
         width: calc(100% - 20px);
@@ -27,12 +27,12 @@ page-customer-header {
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     }
   
-    .card-content-md {
+    .card-content {
         padding: 13px 16px;
         font-size: 1.5rem;
         line-height: 1.5;
     }
-    .card-header-md {
+    .card-header {
         font-size: 1.8rem;
         color: #222;
         padding: 16px;
@@ -44,17 +44,32 @@ page-customer-header {
     }
    
     ion-searchbar{    
-          
+        
         .searchbar-input-container{   
-                     
+    
             .searchbar-input {
                 border-radius: 20px;
                // border: 0 !important;
                 width: 100%;
+                height: 40px;
                 border: 1.5px solid #3a687a;
                 box-shadow: none !important;
+                
             }
         }
+    }
+    .searchbar-ios{
+        background-color:transparent;
+        border-bottom: none
+    }
+    .ion-navbar.toolbar{
+        background-color: #555
+    }
+    .toolbar .searchbar-ios .searchbar-input {
+        background: rgb(243, 243, 243);
+    }
+    .searchbar-ios .searchbar-search-icon {
+        top: 13px;
     }
       
 }

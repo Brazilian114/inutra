@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { ProductService } from '../../../services/productservice';
 import { Utility } from '../../../helper/utility';
 import { ReportService } from '../../../services/reportservice';
-
+import { AlertController } from 'ionic-angular';
 @IonicPage(
   {name:'RptStockPage',
   segment: 'RptStock'}
@@ -27,6 +27,8 @@ export class RptStockPage {
   oUserGroup:string = "";
   oUserId:string = "";
   newpost:any;
+  startItem:any;
+  endItem:any;
   hasMoreData:any="true";
   data_rpt_inventory:any;
   data_saleorderdetail:any;
@@ -37,7 +39,7 @@ export class RptStockPage {
   data_product:any;
   data_product_by_item:any
   oSearch:string="";
-  constructor(public productServ:ProductService,public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private storage: Storage) {
+  constructor(public presentToast:AlertController ,public productServ:ProductService,public navCtrl: NavController, private utility: Utility, private reportServ: ReportService, private storage: Storage) {
    
   } 
   ionViewWillEnter(){
@@ -97,7 +99,7 @@ export class RptStockPage {
     })  
   }
   getProductTop30(){
-    //this.utility.presentLoading();
+    this.utility.presentLoading();
     this.productServ.GetProductTop30(this.oClient).then((res)=>{
       this.data_product = res;
       console.log("data",this.data_product);
@@ -107,14 +109,26 @@ export class RptStockPage {
   }
   
   GetProductStockByItem(startItem,endItem){
+    
+    if(startItem == undefined || startItem == "" || endItem == undefined || endItem == ""){
+      this.utility.presentToast("กรุณาเลือก Item ให้ครบ", false, 'buttom');
+    }else{
+      this.utility.presentLoading();
     console.log(startItem,endItem);
     this.productServ.GetProductByItem(this.oClient,startItem,endItem).then((res)=>{
       this.data_product_by_item = res;
       console.log("product by item",this.data_product_by_item);
       //this.initializeItems();
-      this.utility.finishLoding();     
+      this.utility.finishLoding();  
+       
     })
-    
+  }
+   
+  }
+  clear(){
+      this.startItem = ""
+      this.endItem = ""
+      this.data_product_by_item = [];
   }
 
    doDetails(item){
