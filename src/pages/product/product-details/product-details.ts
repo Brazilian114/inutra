@@ -26,7 +26,7 @@ export class ProductDetailsPage {
   data_productuom:any;
   data_productstock:any;
 
-  oQty_Avail:number;
+  oQty_Avail:any;
   oUom:string = "";
   oPrice:string = "";
 
@@ -58,7 +58,15 @@ export class ProductDetailsPage {
   constructor(public customerServ: CustomerService,public navCtrl: NavController, public navParams: NavParams, private utility: Utility, private storage: Storage, private productServ: ProductService) {
     this.data_item = navParams.get('item');
     console.log(this.data_item);
-   
+    if(this.data_item.qty_avail == undefined || this.data_item.qty_avail == "")
+    this.oQty_Avail = "-";
+    else
+    this.oQty_Avail = this.data_item.qty_avail;  
+
+    if(this.data_item.uom == undefined || this.data_item.uom == "")
+    this.oUom = "-";
+    else
+    this.oUom = this.data_item.uom
   }
   
   ionViewWillEnter(){
@@ -67,21 +75,22 @@ export class ProductDetailsPage {
     //this.doGetProductStock();
    
   }
-  doGetProductUom(){
+/*  doGetProductUom(){
     
     this.productServ.GetProductUom(this.oClient, this.data_item.item_no).then((res)=>{
       this.data_productuom = res;
       console.log(this.data_productuom);  
-       /*if(this.data_productuom.length <= 0){
+       if(this.data_productuom.length <= 0){
          this.oItem_Qty = "0.00";
          this.oItem_Uom = "PCS";
       }else{
         this.oItem_Qty = this.data_productuom["0"].item_qty;
         this.oItem_Uom = this.data_productuom["0"].item_uom;
         
-      }*/ 
+      
     })
-  }
+  }}*/ 
+  /*
   doGetProductStock(){
    this.utility.presentLoading();
     this.productServ.GetProductStock(this.oClient,"ALL", this.data_item.item_no,"001", this.oLotNo, this.oBatchNo, this.oItemSize
@@ -124,5 +133,5 @@ export class ProductDetailsPage {
       
     })
     
-    }
+    }*/
 }

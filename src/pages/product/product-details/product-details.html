@@ -8,8 +8,7 @@
 
 <ion-content class="backgound-image">
   <div>
-    
-         
+  
          <img src="./assets/imgs/logo.png"  class="img-size">
          
   <!---  <img *ngIf="data_item" src="{{'data:image/png;base64,'+data_item.image}}" onerror="this.src='../../../assets/product/Picture6.png'" class="img-size" imageViewer /> -->
@@ -29,16 +28,16 @@
     <ion-row>
         <ion-col class="col-line">
           <ion-row>
-            <b class="font-orange font-medium">{{data_item.qty_avail}}</b>
+            <b class="font-orange font-medium" >{{oQty_Avail}}</b>
       </ion-row>
         <ion-row>
             <p>จำนวนสต๊อก</p>
         </ion-row>
           </ion-col>
-     <ion-col class="col-line">
+     <ion-col >
       
     <ion-row>
-      <b class="font-orange font-medium">{{data_item.uom}}</b>
+      <b class="font-orange font-medium">{{oUom}}</b>
     </ion-row>
     <ion-row>
       <p>หน่วย</p>
@@ -47,7 +46,6 @@
  
     </ion-row>
     
-   
     <br>
  
     <div class="line"></div>

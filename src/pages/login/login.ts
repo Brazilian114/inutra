@@ -18,10 +18,10 @@ export class LoginPage {
 
   url:string = '';
   data_logins:any;
-  //oUsername:string = 'SIMILAN';
-  //oPassword:string = 'ROGER3000';
-  oUsername:string = 'ADMIN';
-  oPassword:string = '1150'; 
+  //oUsername:string = 'ADMIN';
+  //oPassword:string = '1150';
+  oUsername:string = '';
+  oPassword:string = ''; 
   loader:any;
   constructor(public loadingCtrl:LoadingController,public modalCtrl:ModalController,public navCtrl: NavController, private utility: Utility, private storage: Storage, private loginServ: LoginService) {
 

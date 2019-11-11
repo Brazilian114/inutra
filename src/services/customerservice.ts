@@ -18,7 +18,7 @@ export class CustomerService {
     this.url = res;
     console.log(res);
     
-     //this.hostWebService = "http://"+this.url+"/RF-Service_Inutra_zenstock/RFService.asmx";    
+   //  this.hostWebService = "http://"+this.url+"/RF-Service_Inutra_zenstock/RFService.asmx";    
     console.log(this.hostWebService);
       
   })

@@ -19,10 +19,11 @@ export class ProductHeaderPage {
   public pageScroller(){
     this.pageTop.scrollToTop();
   }
+  myInput:any;
   hideMe:any = true;
   data_product:any;
   oClient:string = "INT";
-  items:any;
+  items = [];
   items2 = [];
   oSearch:string = "";
   flagSearch: boolean = false;
@@ -36,14 +37,13 @@ export class ProductHeaderPage {
 
   }
   initializeItems() {
-    this.items = this.data_product; 
-   /* this.items2 = this.data_product; 
+    this.items2 = this.data_product;   
     for(let i = 0; i < 30; i++){
       this.items.push(this.items2[i]);
-      } */
+      }  
       console.log(this.items);
       
-    }
+  }
   /*
   doInfinite(infiniteScroll) {
     console.log('Begin async operation');
@@ -82,16 +82,26 @@ export class ProductHeaderPage {
     console.log(this.items2);
   let val = ev.target.value;
    if(val && val.trim() != ''){
-     this.items = this.items.filter((item)=>{
+     this.items = this.items2.filter((item)=>{
        return (item.item_no["0"].toLowerCase().indexOf(val.toLowerCase()) > -1 ||  item.description["0"].toLowerCase().indexOf(val.toLowerCase()) > -1);
      })
      console.log(this.items);
      
+   }else{
+
+    this.items = [];
+    this.initializeItems();
    }
  }
   doDetails(item){
     this.utility.presentLoading();
-    this.navCtrl.push("ProductDetailsPage",{ item: item })
+    this.navCtrl.push("ProductDetailsPage",{ item: item }).then(()=>{
+      this.navCtrl.getActive().onDidDismiss(()=>{
+        this.myInput = "";
+        this.items = [];
+        this.initializeItems();
+      })
+    })
     this.utility.finishLoding();
   }
   getProductTop30(){
